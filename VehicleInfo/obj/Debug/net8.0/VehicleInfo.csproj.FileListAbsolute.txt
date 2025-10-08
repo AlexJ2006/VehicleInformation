@@ -1,0 +1,14 @@
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/bin/Debug/net8.0/VehicleInfo
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/bin/Debug/net8.0/VehicleInfo.deps.json
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/bin/Debug/net8.0/VehicleInfo.runtimeconfig.json
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/bin/Debug/net8.0/VehicleInfo.dll
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/bin/Debug/net8.0/VehicleInfo.pdb
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.AssemblyInfoInputs.cache
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.AssemblyInfo.cs
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.csproj.CoreCompileInputs.cache
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.dll
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/refint/VehicleInfo.dll
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.pdb
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.genruntimeconfig.cache
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/ref/VehicleInfo.dll

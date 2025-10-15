@@ -12,3 +12,4 @@
 /Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.pdb
 /Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.genruntimeconfig.cache
 /Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/ref/VehicleInfo.dll
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.sourcelink.json

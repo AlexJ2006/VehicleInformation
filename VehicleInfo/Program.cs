@@ -126,7 +126,7 @@ void addCar()
         insertBreak();
         Console.WriteLine("CAR ADDED");
     }
-
+}
 
     //Welcoming the user
     //Getting their log-in selection
@@ -374,7 +374,7 @@ void addCar()
         invalidInput();
 
     }
-}
+
 //Potential Developments
 
 //We have the potential to add in a new dataset containing supercars/luxury vehicles for rental.

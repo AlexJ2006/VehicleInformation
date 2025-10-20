@@ -2,8 +2,8 @@
 
 //Log in area. Choose whether you would like to log in as a USER or as a STAFF MEMBER.
 
-//If USER, you will be asked:
-//Which CATEGORY of car you would like (SMALL, MEDIUM or LARGE)
+======== //If USER, you will be asked:
+========//Which CATEGORY of car you would like (SMALL, MEDIUM or LARGE)
 //How long you would like to rent the car for (Then the price of the car/day will be multiplied by the days)
 //Which Store you would like to collect the car from and which store you would like to drop the car off to.
 //You will then get a message relaying your choice back to you
@@ -22,9 +22,8 @@ else
 //The staff members can also add or remove stores to/from the list if new stores open
 
 //If CREATE NEW ACCOUNT
-//User is asked to sign in, needs to create an ID which should be checked against the "databse" to ensure that it isn't duplicated.
+//User is asked to sign in, needs to create an ID which should be checked against the "database" to ensure that it isn't duplicated.
 //Then, the user can return to the sign in area (restaring the program)
-
 
 
 //IMPORTANT ASSESSMENT NOTES

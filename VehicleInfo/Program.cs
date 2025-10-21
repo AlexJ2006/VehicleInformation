@@ -19,7 +19,10 @@ var motorbikeDict = MotorbikeData.motorbikeDict;
 var vanDict = VanData.vanDict;
 //Setting the filepath for the car data.
 string carDataFilePath = "carData.json";
+string motorbikeDataFilePath = "motorbikeData.json";
 string vanDataFilePath = "vanData.json";
+
+
 
 
 //Loading the car data for use within the file.
@@ -29,12 +32,13 @@ LoadMotorbikes();
 //Loading the van data
 LoadVans();
 
-
+//Setting up my insertBreak function to allow me to insert breaks easily. 
+//Allowing for a smoother UX.
 void insertBreak()
 {
     Console.WriteLine("");
 }
-
+//Saving the Van details to the JSON file.
 void VansToJson()
 {
     var json = JsonSerializer.Serialize(carDict, new JsonSerializerOptions { WriteIndented = true });
@@ -46,6 +50,12 @@ void CarsToJson()
     var json = JsonSerializer.Serialize(carDict, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(carDataFilePath, json);
 }
+//Saving the Motorbike details to the JSON file.
+void MotorbikesToJson()
+{
+    var json = JsonSerializer.Serialize(vanDict, new JsonSerializerOptions { WriteIndented = true });
+    File.WriteAllText(vanDataFilePath, json);
+}
 
 //Loading the current cars within the dictionary from the JSON file.
 void LoadCars()
@@ -56,7 +66,14 @@ void LoadCars()
         carDict = JsonSerializer.Deserialize<Dictionary<string, Car>>(json);
     }
 }
-
+void LoadMotorbikes()
+{
+    if(File.Exists(motorbikeDataFilePath))
+    {
+        string json = File.ReadAllText(motorbikeDataFilePath);
+        motorbikeDict = JsonSerializer.Deserialize<Dictionary<string, Motorbike>>(json);
+    }
+}
 //Loading the current vans into the program from the JSON file.
 void LoadVans()
 {
@@ -89,7 +106,7 @@ void storeListDisplay()
 void addCar()
 {
     insertBreak();
-    Console.WriteLine("Please complete the following fields for the vehicle you wish to add");
+    Console.WriteLine("Please complete the following fields for the CAR you wish to add");
     Console.Write("MAKE: ");
     string carMake = Console.ReadLine()!;
     insertBreak();
@@ -149,6 +166,129 @@ void addCar()
         Console.WriteLine("CAR ADDED");
     }
 }
+
+
+void addVan()
+{ 
+    insertBreak();
+    Console.WriteLine("Please complete the following fields for the VAN you wish to add");
+    Console.Write("MAKE: ");
+    string vanMake = Console.ReadLine()!;
+    insertBreak();
+    Console.Write("MODEL: ");
+    string vanModel = Console.ReadLine()!;
+    insertBreak();
+    Console.Write("YEAR OF MANUFACTURE: ");
+    string stringVanYearOfManufacture = Console.ReadLine()!;
+    int intVanYearOfManufacture = Convert.ToInt32(stringVanYearOfManufacture);
+    insertBreak();
+    Console.Write("MILEAGE: ");
+    string stringVanMileage = Console.ReadLine()!;
+    int intVanMileage = Convert.ToInt32(stringVanMileage);
+    insertBreak();
+    Console.Write("CATEGORY: ");
+    string vanCategory = Console.ReadLine()!;
+    insertBreak();
+    Console.Write("PRICE PER DAY: ");
+    string stringPricePerDay = Console.ReadLine()!;
+    int intPricePerDay = Convert.ToInt32(stringPricePerDay);
+    insertBreak();
+    Console.Write("PLATE: ");
+    string vanPlate = Console.ReadLine()!;
+
+    //Using this opportunity to showcase another way of working around potential errors
+    //For example here, the logic would get unneccessarily long and complex if I used the same method as usual
+    //Whereas, here cutting that out I can account for a change in case (uppercase or lowercase, the system ignores it)
+    if (!(vanCategory.Equals("Small", StringComparison.OrdinalIgnoreCase)
+       || vanCategory.Equals("Medium", StringComparison.OrdinalIgnoreCase)
+        || vanCategory.Equals("Large", StringComparison.OrdinalIgnoreCase)))
+    {
+        invalidInput();
+        Console.WriteLine("Please EXIT and RETRY.");
+        return;
+    }
+
+    else
+    {
+        //Getting the details of the van from the user.
+        Van newVan = new Van
+        {
+            make = vanMake,
+            model = vanModel,
+            yearOfManufacture = intVanYearOfManufacture,
+            mileage = intVanMileage,
+            category = vanCategory,
+            pricePerDay = intPricePerDay,
+            numberPlate = vanPlate
+        };
+        //Adding the van to the dictionary.
+        VanInfo.VanData.vanDict.Add(newVan.numberPlate, newVan);
+
+        //Saving the Van to the JSON file.
+        VanData.SaveToJson();
+
+        insertBreak();
+        Console.WriteLine("VAN ADDED");
+    }
+}
+
+
+void addMotorbike()
+{ 
+    insertBreak();
+    Console.WriteLine("Please complete the following fields for the MOTORBIKE you wish to add");
+    Console.Write("MAKE: ");
+    string motorbikeMake = Console.ReadLine()!;
+    insertBreak();
+    Console.Write("MODEL: ");
+    string motorbikeModel = Console.ReadLine()!;
+    insertBreak();
+    Console.Write("YEAR OF MANUFACTURE: ");
+    string stringMotorbikeYearOfManufacture = Console.ReadLine()!;
+    int intVanYearOfManufacture = Convert.ToInt32(stringMotorbikeYearOfManufacture);
+    insertBreak();
+    Console.Write("MILEAGE: ");
+    string stringMotorbikeMileage = Console.ReadLine()!;
+    int intMotorbikeMileage = Convert.ToInt32(stringMotorbikeMileage);
+    insertBreak();
+    Console.Write("CATEGORY: ");
+    string motorbikeCategory = Console.ReadLine()!;
+    insertBreak();
+    Console.Write("PRICE PER DAY: ");
+    string stringPricePerDay = Console.ReadLine()!;
+    int intPricePerDay = Convert.ToInt32(stringPricePerDay);
+    insertBreak();
+    Console.Write("PLATE: ");
+    string motorbikePlate = Console.ReadLine()!;
+
+    //The motorbike does not have a category that it fits into.
+    //Therefore, the category check logic is rendered useless here.
+    //Which is why it has been taken out.
+    
+        //Getting the details of the van from the user.
+        Motorbike newMotorbike = new Motorbike
+        {
+            make = motorbikeMake,
+            model = motorbikeModel,
+            yearOfManufacture = intVanYearOfManufacture,
+            mileage = intMotorbikeMileage,
+            category = motorbikeCategory,
+            pricePerDay = intPricePerDay,
+            numberPlate = motorbikePlate
+        };
+        //Adding the van to the dictionary.
+        MotorbikeInfo.MotorbikeData.motorbikeDict.Add(newMotorbike.numberPlate, newMotorbike);
+
+        //Saving the Van to the JSON file.
+        MotorbikeData.SaveToJson();
+
+        insertBreak();
+        Console.WriteLine("MOTORBIKE ADDED");
+}
+
+
+
+//======================================================== MAIN PROGRAM BEGINS ==========================================================================
 
     //Welcoming the user
     //Getting their log-in selection
@@ -328,8 +468,6 @@ void addCar()
                 }
             }
 
-
-
         }
         else if (staffMenuChoice == "R" || staffMenuChoice == "r")
         {
@@ -397,6 +535,8 @@ void addCar()
 
     }
 
+
+// ============================================================================== MAIN PROGRAM ENDS ===================================================
 //Potential Developments
 
 //We have the potential to add in a new dataset containing supercars/luxury vehicles for rental.

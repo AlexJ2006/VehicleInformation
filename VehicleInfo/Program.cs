@@ -19,15 +19,27 @@ var motorbikeDict = MotorbikeData.motorbikeDict;
 var vanDict = VanData.vanDict;
 //Setting the filepath for the car data.
 string carDataFilePath = "carData.json";
+string vanDataFilePath = "vanData.json";
+
 
 //Loading the car data for use within the file.
 LoadCars();
+//Loading the motorbike data
+LoadMotorbikes();
+//Loading the van data
+LoadVans();
+
 
 void insertBreak()
 {
     Console.WriteLine("");
 }
 
+void VansToJson()
+{
+    var json = JsonSerializer.Serialize(carDict, new JsonSerializerOptions { WriteIndented = true });
+    File.WriteAllText(vanDataFilePath, json);
+}
 //Saving the car details to the JSON file.
 void CarsToJson()
 {
@@ -42,6 +54,16 @@ void LoadCars()
     {
         string json = File.ReadAllText(carDataFilePath);
         carDict = JsonSerializer.Deserialize<Dictionary<string, Car>>(json);
+    }
+}
+
+//Loading the current vans into the program from the JSON file.
+void LoadVans()
+{
+    if(File.Exists(vanDataFilePath))
+    {
+        string json = File.ReadAllText(vanDataFilePath);
+        vanDict = JsonSerializer.Deserialize<Dictionary<string, Van>>(json);
     }
 }
 void invalidInput()

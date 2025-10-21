@@ -22,9 +22,6 @@ string carDataFilePath = "carData.json";
 string motorbikeDataFilePath = "motorbikeData.json";
 string vanDataFilePath = "vanData.json";
 
-
-
-
 //Loading the car data for use within the file.
 LoadCars();
 //Loading the motorbike data
@@ -37,6 +34,10 @@ LoadVans();
 void insertBreak()
 {
     Console.WriteLine("");
+}
+void invalidInputDuringRental()
+{
+    Console.WriteLine("Sorry, this vehicle could not be found.");
 }
 //Saving the Van details to the JSON file.
 void VansToJson()
@@ -57,7 +58,7 @@ void MotorbikesToJson()
     File.WriteAllText(vanDataFilePath, json);
 }
 
-//Loading the current cars within the dictionary from the JSON file.
+//Loading the CARS into the program.
 void LoadCars()
 {
     if(File.Exists(carDataFilePath))
@@ -66,6 +67,7 @@ void LoadCars()
         carDict = JsonSerializer.Deserialize<Dictionary<string, Car>>(json);
     }
 }
+//Loading the MOTORBIKES into the program.
 void LoadMotorbikes()
 {
     if(File.Exists(motorbikeDataFilePath))
@@ -74,7 +76,7 @@ void LoadMotorbikes()
         motorbikeDict = JsonSerializer.Deserialize<Dictionary<string, Motorbike>>(json);
     }
 }
-//Loading the current vans into the program from the JSON file.
+//Loading the VANS into the program
 void LoadVans()
 {
     if(File.Exists(vanDataFilePath))
@@ -83,18 +85,20 @@ void LoadVans()
         vanDict = JsonSerializer.Deserialize<Dictionary<string, Van>>(json);
     }
 }
+//If the user input does not meet the logic that has been set out.
 void invalidInput()
 {
     Console.WriteLine("Input INVALID. Please retry.");
 }
 
+//Adding a store to the storeList
 void storeAdd()
 {
     Console.Write("Please enter the name of the store you wish to add: ");
     string addStoreName = Console.ReadLine()!;
     stores.Add(addStoreName);
 }
-
+//Displaying the stores within the list
 void storeListDisplay()
 {
     foreach (string store in stores)
@@ -102,6 +106,7 @@ void storeListDisplay()
         Console.WriteLine(store);
     }
 }
+
 
 void addCar()
 {
@@ -167,7 +172,6 @@ void addCar()
     }
 }
 
-
 void addVan()
 { 
     insertBreak();
@@ -232,7 +236,6 @@ void addVan()
     }
 }
 
-
 void addMotorbike()
 { 
     insertBreak();
@@ -285,8 +288,32 @@ void addMotorbike()
         insertBreak();
         Console.WriteLine("MOTORBIKE ADDED");
 }
+//REMOVAL FUNCTIONS BEGIN
+void removeCar(string userCarMakeSelection, string userCarModelSelection)
+{
+    if(carDict.ContainsKey(userCarMakeSelection || userCarModelSelection))
+    {
+        carDict.Remove(userCarMakeSelection || userCarModelSelection)
+    }
+    else 
+    {
+        var rentedCar = carDict.FirstOrDefault(c =>
+        c.Value.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+        c.Value.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
 
-
+        if(!string.IsNullOrEmpty(rentedCar.Key))
+        {
+            carDict.Remove(rentedCar.Key)
+        }
+        else
+        {
+            Console.WriteLine("Could not find the car wihtin the list");
+        }
+    }
+    
+    var json = JsonSerializer.Serialize(carDict, new JsonSerializerOptions {WriteIndented = true});
+    File.WriteAllText(carDataFilePath, json);
+}
 
 //======================================================== MAIN PROGRAM BEGINS ==========================================================================
 
@@ -364,20 +391,47 @@ void addMotorbike()
                 insertBreak();
             }
 
-            // Console.Write("Please select one of the above options or press T to terminate the program");
-            // string carSelection = Console.ReadLine();
+            Console.WriteLine("Please fill out the following fields for the CAR you wish to RENT");
+            Console.Write("MAKE: ");
+            string userCarMakeSelection = Console.ReadLine();
+            insertBreak();
+            Console.Write("MODEL: ");
+            string userCarModelSelection = Console.ReadLine();
+            insertBreak();
+            Console.Write("How many days would you like to rent the CAR for?: ");
+            string stringNumberOfDaysRental = Console.ReadLine();
+            int numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
 
-            // if(carSelection == //a certain item
-            // //Need to move the bracket that is currently below, up to the top once the note has been removed
-            // )
+            Console.WriteLine($"You would like to rent the {userCarMakeSelection} {userCarModelSelection}");
+            Console.WriteLine($"For {numberOfDaysRental} days");
+            Console.Write("Press Y to CONTINUE: ");
+            string continueWithRental = Console.ReadLine();
 
-            // {
+            if(continueWithRental == "Y" || continueWithRental == "y")
+            {
+                var userCarSelection = carDict.Values.FirstOrDefault(Car =>
+                car.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                car.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase))
+                
+                totalPrice = Car.pricePerDay * numberOfDaysRental;
 
-            // }
-            // else if(carSelection == "T" || carSelection == "t")
-            // {
-            //     return;
-            // }
+                Console.WriteLine($"Your total will be {totalPrice}");
+
+            }
+            else if (continueWithRental == "N" || continueWithRental == "n")
+            {
+                Console.WriteLine("Thank you.")
+                Console.WriteLine("The program will now TERMINATE.")
+                return;
+            }
+            else 
+            {
+                invalidInputDuringRental();
+            }
+
+            // CAR REMOVAL FUNCTION
+
+
         }
         //Motorbikes
         else if (vehicleType == "M" || vehicleType == "m")
@@ -534,7 +588,6 @@ void addMotorbike()
         invalidInput();
 
     }
-
 
 // ============================================================================== MAIN PROGRAM ENDS ===================================================
 //Potential Developments

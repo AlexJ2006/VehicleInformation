@@ -22,8 +22,6 @@ namespace storeList
             stores.Add("Bradford");
             stores.Add("Cardiff");
         }
-
-
     }
 }
 

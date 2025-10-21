@@ -19,7 +19,7 @@ namespace MotorbikeInfo
             }
             else
             {
-                AddInitialVars();
+                AddInitialMotorbikes();
                 SaveToJson();
             }
         }
@@ -36,12 +36,12 @@ namespace MotorbikeInfo
             if (File.Exists(filepath))
             {
                 string json = File.ReadAllText(filepath);
-                carDict = JsonSerializer.Deserialize<Dictionary<string, Motorbike>>(json)
+                motorbikeDict = JsonSerializer.Deserialize<Dictionary<string, Motorbike>>(json)
                 ?? new Dictionary<string, Motorbike>();
             }
             else
             {
-                vanDict = new Dictionary<string, Motorbike>();
+                motorbikeDict = new Dictionary<string, Motorbike>();
             }
         }
             private static void AddInitialMotorbikes()
@@ -55,7 +55,7 @@ namespace MotorbikeInfo
                 b1.pricePerDay = 200;
                 b1.numberPlate = "HD23LOW";
                 motorbikeDict.Add(b1.numberPlate, b1);
-                Second Bike
+                // Second Bike
                 Motorbike b2 = new Motorbike();
                 b2.make = "BMW";
                 b2.model = "F900 GS";
@@ -64,7 +64,7 @@ namespace MotorbikeInfo
                 b2.pricePerDay = 180;
                 b2.numberPlate = "BM25SPD";
                 motorbikeDict.Add(b2.numberPlate, b2);
-                Third Bike
+                // Third Bike
                 Motorbike b3 = new Motorbike();
                 b3.make = "BMW";
                 b3.model = "R1300 GS Adventure";

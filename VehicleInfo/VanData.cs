@@ -19,7 +19,7 @@ namespace VanInfo
             }
             else
             {
-                AddInitialVars();
+                AddInitialVans();
                 SaveToJson();
             }
         }
@@ -27,7 +27,7 @@ namespace VanInfo
         public static void SaveToJson()
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string json = JsonSerializer.Serialize(carDict, options);
+            string json = JsonSerializer.Serialize(vanDict, options);
             File.WriteAllText(filepath, json);
         }
 
@@ -36,7 +36,7 @@ namespace VanInfo
             if (File.Exists(filepath))
             {
                 string json = File.ReadAllText(filepath);
-                carDict = JsonSerializer.Deserialize<Dictionary<string, Van>>(json)
+                vanDict = JsonSerializer.Deserialize<Dictionary<string, Van>>(json)
                 ?? new Dictionary<string, Van>();
             }
             else
@@ -86,8 +86,6 @@ namespace VanInfo
                 v4.pricePerDay = 185;
                 v4.numberPlate = "JD82DSK";
                 vanDict.Add(v4.numberPlate, v4);
-                ADD MORE VANS HERE
-
                 //MORE VANS WILL NOW BE ADDED BY THE USER TO THE JSON FILE DIRECTLY.
             }
 

@@ -275,7 +275,6 @@ void addMotorbike()
             model = motorbikeModel,
             yearOfManufacture = intVanYearOfManufacture,
             mileage = intMotorbikeMileage,
-            category = motorbikeCategory,
             pricePerDay = intPricePerDay,
             numberPlate = motorbikePlate
         };
@@ -291,19 +290,19 @@ void addMotorbike()
 //REMOVAL FUNCTIONS BEGIN
 void removeCar(string userCarMakeSelection, string userCarModelSelection)
 {
-    if(carDict.ContainsKey(userCarMakeSelection || userCarModelSelection))
+    if(carDict.ContainsKey(userCarMakeSelection))
     {
-        carDict.Remove(userCarMakeSelection || userCarModelSelection)
+        carDict.Remove(userCarMakeSelection);
     }
     else 
     {
-        var rentedCar = carDict.FirstOrDefault(c =>
-        c.Value.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-        c.Value.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
+        var rentedCar = carDict.FirstOrDefault(Car =>
+        Car.Value.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+        Car.Value.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
 
         if(!string.IsNullOrEmpty(rentedCar.Key))
         {
-            carDict.Remove(rentedCar.Key)
+            carDict.Remove(rentedCar.Key);
         }
         else
         {
@@ -333,177 +332,196 @@ void removeCar(string userCarMakeSelection, string userCarModelSelection)
     Console.Write("ENTER YOUR CHOICE: ");
     string userSelection = Console.ReadLine()!;
 
-    //If the user is a NEW USER (ACCOUNT CREATION IN THE FUTURE)
-    if (userSelection == "C" || userSelection == "c")
+//If the user is a NEW USER (ACCOUNT CREATION IN THE FUTURE)
+if (userSelection == "C" || userSelection == "c")
+{
+    Console.WriteLine("WELCOME NEW USER");
+    //Insert NEW USER functions here
+}
+
+//If the user has chosen to use the system as a GUEST.
+else if (userSelection == "G" || userSelection == "g")
+{
+    //Insert GUEST functions here
+    insertBreak();
+    Console.Write("Please enter your NAME: ");
+    string guestName = Console.ReadLine()!;
+    insertBreak();
+    insertBreak();
+    Console.WriteLine($"Welcome, {guestName}!");
+    insertBreak();
+    Console.WriteLine("Please choose from ONE of the following options:");
+    insertBreak();
+    Console.Write("C for CAR, M for MOTORCYCLE, V for VAN: ");
+    string vehicleType = Console.ReadLine()!;
+
+    //Cars
+    if (vehicleType == "C" || vehicleType == "c")
     {
-        Console.WriteLine("WELCOME NEW USER");
-        //Insert NEW USER functions here
-    }
+        insertBreak();
+        Console.WriteLine("You have chosen CAR");
+        insertBreak();
 
-    //If the user has chosen to use the system as a GUEST.
-    else if (userSelection == "G" || userSelection == "g")
-    {
-        //Insert GUEST functions here
-        insertBreak();
-        Console.Write("Please enter your NAME: ");
-        string guestName = Console.ReadLine()!;
-        insertBreak();
-        insertBreak();
-        Console.WriteLine($"Welcome, {guestName}!");
-        insertBreak();
-        Console.WriteLine("Please choose from ONE of the following options:");
-        insertBreak();
-        Console.Write("C for CAR, M for MOTORCYCLE, V for VAN: ");
-        string vehicleType = Console.ReadLine()!;
+        //MAY NOT USE THIS FUNCTIONALITY UNLESS IT CAN BE INTEGRATED EASILY.
 
-        //Cars
-        if (vehicleType == "C" || vehicleType == "c")
+        Console.WriteLine("Which category of CAR would you like to rent?");
+        Console.Write("The options are SMALL, MEDIUM or LARGE: ");
+        string categoryChoice = Console.ReadLine()!;
+        insertBreak();
+        Console.WriteLine($"You have chosen {categoryChoice}");
+
+        Console.Write("What is your maximum Price Per Day?: ");
+        string maxPriceString = Console.ReadLine()!;
+        int maxPriceInt = Convert.ToInt32(maxPriceString);
+        Console.WriteLine("The options meeting your criteria are: ");
+        // TRYING TO GET THIS TO WORK TO PRESENT THE USER WITH MULTIPLE PIECES OF INFORMATION
+        insertBreak();
+        //I HAVE REMOVED IENUMERABLE, WILL THIS STILL WORK?
+        var carList =
+            carDict
+                .Where(car =>
+                (car.Value.pricePerDay <= maxPriceInt)
+                &&
+                (car.Value.category == categoryChoice))
+                .Select(car => new { car.Value.make, car.Value.model, car.Value.pricePerDay });
+        foreach (var Car in carList)// i = 0, i++)
         {
+            Console.WriteLine($"{Car.make} - {Car.model} - £{Car.pricePerDay}/day");
             insertBreak();
-            Console.WriteLine("You have chosen CAR");
-            insertBreak();
+        }
 
-            //MAY NOT USE THIS FUNCTIONALITY UNLESS IT CAN BE INTEGRATED EASILY.
+        Console.WriteLine("Please fill out the following fields for the CAR you wish to RENT");
+        Console.Write("MAKE: ");
+        string userCarMakeSelection = Console.ReadLine()!;
+        insertBreak();
+        Console.Write("MODEL: ");
+        string userCarModelSelection = Console.ReadLine()!;
+        insertBreak();
+        Console.Write("How many days would you like to rent the CAR for?: ");
+        string stringNumberOfDaysRental = Console.ReadLine()!;
+        int numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
 
-            Console.WriteLine("Which category of CAR would you like to rent?");
-            Console.Write("The options are SMALL, MEDIUM or LARGE: ");
-            string categoryChoice = Console.ReadLine()!;
-            insertBreak();
-            Console.WriteLine($"You have chosen {categoryChoice}");
+        Console.WriteLine($"You would like to rent the {userCarMakeSelection} {userCarModelSelection}");
+        Console.WriteLine($"For {numberOfDaysRental} days");
+        Console.Write("Press Y to CONTINUE: ");
+        string continueWithRental = Console.ReadLine()!;
 
-            Console.Write("What is your maximum Price Per Day?: ");
-            string maxPriceString = Console.ReadLine()!;
-            int maxPriceInt = Convert.ToInt32(maxPriceString);
-            Console.WriteLine("The options meeting your criteria are: ");
-            // TRYING TO GET THIS TO WORK TO PRESENT THE USER WITH MULTIPLE PIECES OF INFORMATION
-            insertBreak();
-            //I HAVE REMOVED IENUMERABLE, WILL THIS STILL WORK?
-            var carList =
-                carDict
-                    .Where(car =>
-                    (car.Value.pricePerDay <= maxPriceInt)
-                    &&
-                    (car.Value.category == categoryChoice))
-                    .Select(car => new { car.Value.make, car.Value.model, car.Value.pricePerDay });
-            foreach (var Car in carList)// i = 0, i++)
+        if (continueWithRental == "Y" || continueWithRental == "y")
+        {
+            var userCarSelection = carDict.Values.FirstOrDefault(Car =>
+            Car.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+            Car.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
+
+            if (userCarSelection != null)
             {
-                Console.WriteLine($"{Car.make} - {Car.model} - £{Car.pricePerDay}/day");
-                insertBreak();
+                int totalPrice = userCarSelection.pricePerDay * numberOfDaysRental;
+                Console.WriteLine($"Your total will be £{totalPrice}");
             }
-
-            Console.WriteLine("Please fill out the following fields for the CAR you wish to RENT");
-            Console.Write("MAKE: ");
-            string userCarMakeSelection = Console.ReadLine();
-            insertBreak();
-            Console.Write("MODEL: ");
-            string userCarModelSelection = Console.ReadLine();
-            insertBreak();
-            Console.Write("How many days would you like to rent the CAR for?: ");
-            string stringNumberOfDaysRental = Console.ReadLine();
-            int numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
-
-            Console.WriteLine($"You would like to rent the {userCarMakeSelection} {userCarModelSelection}");
-            Console.WriteLine($"For {numberOfDaysRental} days");
-            Console.Write("Press Y to CONTINUE: ");
-            string continueWithRental = Console.ReadLine();
-
-            if(continueWithRental == "Y" || continueWithRental == "y")
+            else
             {
-                var userCarSelection = carDict.Values.FirstOrDefault(Car =>
-                car.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-                car.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase))
-                
-                totalPrice = Car.pricePerDay * numberOfDaysRental;
-
-                Console.WriteLine($"Your total will be {totalPrice}");
-
+                Console.WriteLine("CAR NOT FOUND.");
             }
-            else if (continueWithRental == "N" || continueWithRental == "n")
-            {
-                Console.WriteLine("Thank you.")
-                Console.WriteLine("The program will now TERMINATE.")
-                return;
-            }
-            else 
-            {
-                invalidInputDuringRental();
-            }
-
-            // CAR REMOVAL FUNCTION
 
 
         }
-        //Motorbikes
-        else if (vehicleType == "M" || vehicleType == "m")
+        else if (continueWithRental == "N" || continueWithRental == "n")
         {
-            insertBreak();
-            Console.Write("What is your maximum Price Per Day?: ");
-            string maxPriceString = Console.ReadLine()!;
-            int maxPriceInt = Convert.ToInt32(maxPriceString);
-            insertBreak();
-            Console.WriteLine("Your Options are: ");
-            insertBreak();
+            Console.WriteLine("Thank you.");
+            Console.WriteLine("The program will now TERMINATE.");
+            return;
 
-            var motorbikeList =
-                motorbikeDict
-                    .Where(motorbike =>
-                    (motorbike.Value.pricePerDay <= maxPriceInt))
-                    .Select(motorbike => new { motorbike.Value.make, motorbike.Value.model, motorbike.Value.pricePerDay });
-            foreach (var bike in motorbikeList)
-            {
-                Console.WriteLine($"{bike.make} - {bike.model} - £{bike.pricePerDay}/day");
-                insertBreak();
-            }
         }
-        //Vans
-        else if (vehicleType == "V" || vehicleType == "v")
-        {
-            Console.WriteLine("Which category of VAN would you like to rent?");
-            Console.Write("The options are SMALL, MEDIUM or LARGE: ");
-            string categoryChoice = Console.ReadLine()!;
-            insertBreak();
-            Console.WriteLine($"You have chosen {categoryChoice}");
-            insertBreak();
-
-            Console.Write("What is your maximum Price Per Day?: ");
-            string maxPriceString = Console.ReadLine()!;
-            int maxPriceInt = Convert.ToInt32(maxPriceString);
-            Console.WriteLine("Your Options are: ");
-
-            insertBreak();
-            var vanList =
-                vanDict
-                    .Where(van =>
-                    (van.Value.pricePerDay <= maxPriceInt)
-                    &&
-                    (van.Value.category == categoryChoice))
-                    .Select(van => new { van.Value.make, van.Value.model, van.Value.pricePerDay });
-            foreach (var van in vanList)
-            {
-                Console.WriteLine($"{van.make} - {van.model} - £{van.pricePerDay}/day");
-                insertBreak();
-            }
-        }
-        //If the user has not inputted C, M or V...
         else
         {
-            invalidInput();
+            invalidInputDuringRental();
         }
 
+        // CAR REMOVAL FUNCTION
+
+
     }
-    //If the user wishes to sign in as a member of STAFF
-    else if (userSelection == "S" || userSelection == "s")
+    //Motorbikes
+    else if (vehicleType == "M" || vehicleType == "m")
     {
-        //Insert STAFF functions here
-        Console.WriteLine("WELCOME STAFF");
-        Console.WriteLine("Which of the following functions would you like to perform?");
-        Console.WriteLine("A) ADD VEHICLES");
-        Console.WriteLine("R) REMOVE VEHICLES");
-        Console.WriteLine("E) EDIT STORE LIST");
-        string? staffMenuChoice = Console.ReadLine();
+        insertBreak();
+        Console.Write("What is your maximum Price Per Day?: ");
+        string maxPriceString = Console.ReadLine()!;
+        int maxPriceInt = Convert.ToInt32(maxPriceString);
+        insertBreak();
+        Console.WriteLine("Your Options are: ");
         insertBreak();
 
-        if (staffMenuChoice == "A" || staffMenuChoice == "a")
+        var motorbikeList =
+            motorbikeDict
+                .Where(motorbike =>
+                (motorbike.Value.pricePerDay <= maxPriceInt))
+                .Select(motorbike => new { motorbike.Value.make, motorbike.Value.model, motorbike.Value.pricePerDay });
+        foreach (var bike in motorbikeList)
+        {
+            Console.WriteLine($"{bike.make} - {bike.model} - £{bike.pricePerDay}/day");
+            insertBreak();
+        }
+    }
+    //Vans
+    else if (vehicleType == "V" || vehicleType == "v")
+    {
+        Console.WriteLine("Which category of VAN would you like to rent?");
+        Console.Write("The options are SMALL, MEDIUM or LARGE: ");
+        string categoryChoice = Console.ReadLine()!;
+        insertBreak();
+        Console.WriteLine($"You have chosen {categoryChoice}");
+        insertBreak();
+
+        Console.Write("What is your maximum Price Per Day?: ");
+        string maxPriceString = Console.ReadLine()!;
+        int maxPriceInt = Convert.ToInt32(maxPriceString);
+        Console.WriteLine("Your Options are: ");
+
+        insertBreak();
+        var vanList =
+            vanDict
+                .Where(van =>
+                (van.Value.pricePerDay <= maxPriceInt)
+                &&
+                (van.Value.category == categoryChoice))
+                .Select(van => new { van.Value.make, van.Value.model, van.Value.pricePerDay });
+        foreach (var van in vanList)
+        {
+            Console.WriteLine($"{van.make} - {van.model} - £{van.pricePerDay}/day");
+            insertBreak();
+        }
+    }
+    //If the user has not inputted C, M or V...
+    else
+    {
+        invalidInput();
+    }
+
+}
+//If the user wishes to sign in as a member of STAFF
+else if (userSelection == "S" || userSelection == "s")
+{
+    //Insert STAFF functions here
+    Console.WriteLine("WELCOME STAFF");
+    Console.WriteLine("Which of the following functions would you like to perform?");
+    Console.WriteLine("A) ADD VEHICLES");
+    Console.WriteLine("R) REMOVE VEHICLES");
+    Console.WriteLine("E) EDIT STORE LIST");
+    string? staffMenuChoice = Console.ReadLine();
+    insertBreak();
+
+    if (staffMenuChoice == "A" || staffMenuChoice == "a")
+    {
+
+        Console.WriteLine("Would you like to add");
+        Console.WriteLine("C) CAR");
+        Console.WriteLine("M) MOTORBIKE");
+        Console.WriteLine("OR");
+        Console.WriteLine("V) VAN");
+        Console.Write("PLEASE ENTER YOUR CHOICE: ");
+        string addVehicleType = Console.ReadLine()!;
+
+        if (addVehicleType == "C" || addVehicleType == "c")
         {
             Console.Write("Would you like to ADD MULTIPLE CARS?: ");
             string addMultipleCars = Console.ReadLine()!;
@@ -521,7 +539,42 @@ void removeCar(string userCarMakeSelection, string userCarModelSelection)
 
                 }
             }
+        }
+        else if (addVehicleType == "M" || addVehicleType == "m")
+        {
+            Console.Write("Would you like to ADD MULTIPLE MOTORBIKES?: ");
+            string addMultipleMotorbikes = Console.ReadLine()!;
 
+            if (addMultipleMotorbikes == "Yes" || addMultipleMotorbikes == "yes" || addMultipleMotorbikes == "Y" || addMultipleMotorbikes == "y")
+            {
+                Console.Write("How many motorbikes would you like to add?: ");
+                string stringHowManyMotorbikes = Console.ReadLine()!;
+                int intHowManyMotorbikes = Convert.ToInt32(stringHowManyMotorbikes);
+
+                while (intHowManyMotorbikes > 0)
+                {
+                    intHowManyMotorbikes--;
+                    addMotorbike();
+                }
+            }
+        }
+        else if (addVehicleType == "V" || addVehicleType == "v")
+        {
+            Console.Write("Would you like to ADD MULTIPLE VANS?: ");
+            string addMultipleVans = Console.ReadLine()!;
+
+            if (addMultipleVans == "Yes" || addMultipleVans == "yes" || addMultipleVans == "Y" || addMultipleVans == "y")
+            {
+                Console.Write("How many vans would you like to add?: ");
+                string stringHowManyVans = Console.ReadLine()!;
+                int intHowManyVans = Convert.ToInt32(stringHowManyVans);
+
+                while (intHowManyVans > 0)
+                {
+                    intHowManyVans--;
+                    addVan();
+                }
+            }
         }
         else if (staffMenuChoice == "R" || staffMenuChoice == "r")
         {
@@ -588,7 +641,7 @@ void removeCar(string userCarMakeSelection, string userCarModelSelection)
         invalidInput();
 
     }
-
+}
 // ============================================================================== MAIN PROGRAM ENDS ===================================================
 //Potential Developments
 

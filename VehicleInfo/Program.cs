@@ -576,53 +576,60 @@ else if (userSelection == "S" || userSelection == "s")
                 }
             }
         }
-        else if (staffMenuChoice == "R" || staffMenuChoice == "r")
+        else
         {
-            //Remove Vehicle from list section
+            //Provide Error Message
+            invalidInput();
+            Console.WriteLine("WRONG SECTION");
         }
-        else if (staffMenuChoice == "E" || staffMenuChoice == "e")
+    }
+    else if (staffMenuChoice == "R" || staffMenuChoice == "r")
+    {
+        //Remove Vehicle from list section
+    }
+    else if (staffMenuChoice == "E" || staffMenuChoice == "e")
+    {
+        Console.WriteLine("The current list of stores will be displayed below: ");
+        insertBreak();
+
+        storeListDisplay();
+
+        insertBreak();
+        Console.Write("Would you like to Add a new store to the list?: ");
+        string decision = Console.ReadLine()!;
+        if (decision == "Yes" || decision == "yes")
         {
-            Console.WriteLine("The current list of stores will be displayed below: ");
-            insertBreak();
+            storeAdd();
+            Console.WriteLine("Would you like to add another store?: ");
+            string addMoreStores = Console.ReadLine()!;
 
-            storeListDisplay();
-
-            insertBreak();
-            Console.Write("Would you like to Add a new store to the list?: ");
-            string decision = Console.ReadLine()!;
-            if (decision == "Yes" || decision == "yes")
+            if (addMoreStores == "Yes" || addMoreStores == "yes")
             {
                 storeAdd();
-                Console.WriteLine("Would you like to add another store?: ");
-                string addMoreStores = Console.ReadLine()!;
-
-                if (addMoreStores == "Yes" || addMoreStores == "yes")
-                {
-                    storeAdd();
-                }
-                else
-                {
-                    Console.WriteLine("You will now be logged out, THANK YOU.");
-                    return;
-                }
             }
-            else if (decision == "No" || decision == "no")
+            else
             {
-                Console.WriteLine("Would you like to remove a store from the list?: ");
-                string removeStore = Console.ReadLine()!;
+                Console.WriteLine("You will now be logged out, THANK YOU.");
+                return;
+            }
+        }
+        else if (decision == "No" || decision == "no")
+        {
+            Console.WriteLine("Would you like to remove a store from the list?: ");
+            string removeStore = Console.ReadLine()!;
 
-                if (removeStore == "Yes" || removeStore == "yes")
+            if (removeStore == "Yes" || removeStore == "yes")
+            {
+                Console.WriteLine("Please enter the name of the store you wish to remove from the list");
+                Console.WriteLine("OR");
+                Console.WriteLine("Press V to view the list");
+                Console.Write("Enter Your Choice: ");
+                string choice = Console.ReadLine()!;
+
+                if (choice == "V" || choice == "v")
                 {
-                    Console.WriteLine("Please enter the name of the store you wish to remove from the list");
-                    Console.WriteLine("OR");
-                    Console.WriteLine("Press V to view the list");
-                    Console.Write("Enter Your Choice: ");
-                    string choice = Console.ReadLine()!;
-
-                    if (choice == "V" || choice == "v")
-                    {
-                        storeListDisplay();
-                    }
+                    storeListDisplay();
+                }
                     // else if (choice == )
                     // {
                     //         // IF THE CHOICE THE USER HAS MADE IS EQUAL TO ONE OF THE ITEMS WITHIN THE LIST THEN SOMETHING SHOULD HAPPEN IN HERE.
@@ -630,18 +637,33 @@ else if (userSelection == "S" || userSelection == "s")
                 }
             }
         }
-        else
+    else
         {
             //Provide Error Message
             invalidInput();
+            Console.WriteLine("WRONG SECTION");
         }
-    }
-    else
-    {
-        invalidInput();
-
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ============================================================================== MAIN PROGRAM ENDS ===================================================
 //Potential Developments
 

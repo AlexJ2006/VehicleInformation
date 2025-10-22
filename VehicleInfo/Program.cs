@@ -378,12 +378,12 @@ else if (userSelection == "G" || userSelection == "g")
         insertBreak();
         //I HAVE REMOVED IENUMERABLE, WILL THIS STILL WORK?
         var carList =
-            carDict
-                .Where(car =>
-                (car.Value.pricePerDay <= maxPriceInt)
-                &&
-                (car.Value.category == categoryChoice))
-                .Select(car => new { car.Value.make, car.Value.model, car.Value.pricePerDay });
+        carDict
+        .Where(car =>
+            car.Value.pricePerDay <= maxPriceInt &&
+            car.Value.category.Equals(categoryChoice, StringComparison.OrdinalIgnoreCase))
+        .Select(car => new { car.Value.make, car.Value.model, car.Value.pricePerDay });
+
         foreach (var Car in carList)// i = 0, i++)
         {
             Console.WriteLine($"{Car.make} - {Car.model} - £{Car.pricePerDay}/day");
@@ -411,11 +411,13 @@ else if (userSelection == "G" || userSelection == "g")
             var userCarSelection = carDict.Values.FirstOrDefault(Car =>
             Car.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
             Car.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
+            
 
             if (userCarSelection != null)
             {
                 int totalPrice = userCarSelection.pricePerDay * numberOfDaysRental;
                 Console.WriteLine($"Your total will be £{totalPrice}");
+                
             }
             else
             {
@@ -461,6 +463,38 @@ else if (userSelection == "G" || userSelection == "g")
             Console.WriteLine($"{bike.make} - {bike.model} - £{bike.pricePerDay}/day");
             insertBreak();
         }
+        Console.WriteLine("Please fill out the following fields for the CAR you wish to RENT");
+        Console.Write("MAKE: ");
+        string userMotorbikeMakeSelection = Console.ReadLine()!;
+        insertBreak();
+        Console.Write("MODEL: ");
+        string userMotorbikeModelSelection = Console.ReadLine()!;
+        insertBreak();
+        Console.Write("How many days would you like to rent the CAR for?: ");
+        string stringNumberOfDaysRental = Console.ReadLine()!;
+        int numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
+
+        Console.WriteLine($"You would like to rent the {userMotorbikeMakeSelection} {userMotorbikeModelSelection}");
+        Console.WriteLine($"For {numberOfDaysRental} days");
+        Console.Write("Press Y to CONTINUE: ");
+        string continueWithRental = Console.ReadLine()!;
+
+        if (continueWithRental == "Y" || continueWithRental == "y")
+        {
+            var userMotorbikeSelection = carDict.Values.FirstOrDefault(Motorbike =>
+            Motorbike.make.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+            Motorbike.model.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
+
+            if (userMotorbikeSelection != null)
+            {
+                int totalPrice = userMotorbikeSelection.pricePerDay * numberOfDaysRental;
+                Console.WriteLine($"Your total will be £{totalPrice}");
+
+            }
+            else
+            {
+                Console.WriteLine("MOTORBIKE NOT FOUND.");
+            }
     }
     //Vans
     else if (vehicleType == "V" || vehicleType == "v")
@@ -512,7 +546,6 @@ else if (userSelection == "S" || userSelection == "s")
 
     if (staffMenuChoice == "A" || staffMenuChoice == "a")
     {
-
         Console.WriteLine("Would you like to add");
         Console.WriteLine("C) CAR");
         Console.WriteLine("M) MOTORBIKE");
@@ -630,37 +663,20 @@ else if (userSelection == "S" || userSelection == "s")
                 {
                     storeListDisplay();
                 }
-                    // else if (choice == )
-                    // {
-                    //         // IF THE CHOICE THE USER HAS MADE IS EQUAL TO ONE OF THE ITEMS WITHIN THE LIST THEN SOMETHING SHOULD HAPPEN IN HERE.
-                    // }
+                else
+                {
+                    invalidInput();
                 }
             }
         }
-    else
+        else
         {
             //Provide Error Message
             invalidInput();
             Console.WriteLine("WRONG SECTION");
         }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

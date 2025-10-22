@@ -347,7 +347,6 @@ else if (userSelection == "G" || userSelection == "g")
     Console.Write("Please enter your NAME: ");
     string guestName = Console.ReadLine()!;
     insertBreak();
-    insertBreak();
     Console.WriteLine($"Welcome, {guestName}!");
     insertBreak();
     Console.WriteLine("Please choose from ONE of the following options:");
@@ -365,10 +364,12 @@ else if (userSelection == "G" || userSelection == "g")
         //MAY NOT USE THIS FUNCTIONALITY UNLESS IT CAN BE INTEGRATED EASILY.
 
         Console.WriteLine("Which category of CAR would you like to rent?");
+        insertBreak();
         Console.Write("The options are SMALL, MEDIUM or LARGE: ");
         string categoryChoice = Console.ReadLine()!;
         insertBreak();
         Console.WriteLine($"You have chosen {categoryChoice}");
+        insertBreak();
 
         Console.Write("What is your maximum Price Per Day?: ");
         string maxPriceString = Console.ReadLine()!;
@@ -391,6 +392,7 @@ else if (userSelection == "G" || userSelection == "g")
         }
 
         Console.WriteLine("Please fill out the following fields for the CAR you wish to RENT");
+        insertBreak();
         Console.Write("MAKE: ");
         string userCarMakeSelection = Console.ReadLine()!;
         insertBreak();
@@ -400,24 +402,27 @@ else if (userSelection == "G" || userSelection == "g")
         Console.Write("How many days would you like to rent the CAR for?: ");
         string stringNumberOfDaysRental = Console.ReadLine()!;
         int numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
+        insertBreak();
 
         Console.WriteLine($"You would like to rent the {userCarMakeSelection} {userCarModelSelection}");
-        Console.WriteLine($"For {numberOfDaysRental} days");
+        insertBreak();
+        Console.WriteLine($"For {numberOfDaysRental} days?");
         Console.Write("Press Y to CONTINUE: ");
         string continueWithRental = Console.ReadLine()!;
+        insertBreak();
 
         if (continueWithRental == "Y" || continueWithRental == "y")
         {
             var userCarSelection = carDict.Values.FirstOrDefault(Car =>
             Car.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
             Car.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
-            
+
 
             if (userCarSelection != null)
             {
                 int totalPrice = userCarSelection.pricePerDay * numberOfDaysRental;
                 Console.WriteLine($"Your total will be £{totalPrice}");
-                
+
             }
             else
             {
@@ -439,8 +444,6 @@ else if (userSelection == "G" || userSelection == "g")
         }
 
         // CAR REMOVAL FUNCTION
-
-
     }
     //Motorbikes
     else if (vehicleType == "M" || vehicleType == "m")
@@ -458,30 +461,34 @@ else if (userSelection == "G" || userSelection == "g")
                 .Where(motorbike =>
                 (motorbike.Value.pricePerDay <= maxPriceInt))
                 .Select(motorbike => new { motorbike.Value.make, motorbike.Value.model, motorbike.Value.pricePerDay });
-        foreach (var bike in motorbikeList)
+        foreach (var motorbike in motorbikeList)
         {
-            Console.WriteLine($"{bike.make} - {bike.model} - £{bike.pricePerDay}/day");
+            Console.WriteLine($"{motorbike.make} - {motorbike.model} - £{motorbike.pricePerDay}/day");
             insertBreak();
         }
-        Console.WriteLine("Please fill out the following fields for the CAR you wish to RENT");
+        Console.WriteLine("Please fill out the following fields for the MOTORBIKE you wish to RENT");
+        insertBreak();
         Console.Write("MAKE: ");
         string userMotorbikeMakeSelection = Console.ReadLine()!;
         insertBreak();
         Console.Write("MODEL: ");
         string userMotorbikeModelSelection = Console.ReadLine()!;
         insertBreak();
-        Console.Write("How many days would you like to rent the CAR for?: ");
+        Console.Write("How many days would you like to rent the MOTORBIKE for?: ");
         string stringNumberOfDaysRental = Console.ReadLine()!;
         int numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
+        insertBreak();
 
         Console.WriteLine($"You would like to rent the {userMotorbikeMakeSelection} {userMotorbikeModelSelection}");
-        Console.WriteLine($"For {numberOfDaysRental} days");
+        insertBreak();
+        Console.WriteLine($"For {numberOfDaysRental} days?");
         Console.Write("Press Y to CONTINUE: ");
         string continueWithRental = Console.ReadLine()!;
+        insertBreak();
 
         if (continueWithRental == "Y" || continueWithRental == "y")
         {
-            var userMotorbikeSelection = carDict.Values.FirstOrDefault(Motorbike =>
+            var userMotorbikeSelection = motorbikeDict.Values.FirstOrDefault(Motorbike =>
             Motorbike.make.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
             Motorbike.model.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
 
@@ -495,8 +502,8 @@ else if (userSelection == "G" || userSelection == "g")
             {
                 Console.WriteLine("MOTORBIKE NOT FOUND.");
             }
-    }
-    //Vans
+        }
+        //Vans
     else if (vehicleType == "V" || vehicleType == "v")
     {
         Console.WriteLine("Which category of VAN would you like to rent?");
@@ -507,8 +514,8 @@ else if (userSelection == "G" || userSelection == "g")
         insertBreak();
 
         Console.Write("What is your maximum Price Per Day?: ");
-        string maxPriceString = Console.ReadLine()!;
-        int maxPriceInt = Convert.ToInt32(maxPriceString);
+        string maxVanPriceString = Console.ReadLine()!;
+        int maxVanPriceInt = Convert.ToInt32(maxVanPriceString);
         Console.WriteLine("Your Options are: ");
 
         insertBreak();
@@ -519,18 +526,52 @@ else if (userSelection == "G" || userSelection == "g")
                 &&
                 (van.Value.category == categoryChoice))
                 .Select(van => new { van.Value.make, van.Value.model, van.Value.pricePerDay });
-        foreach (var van in vanList)
-        {
-            Console.WriteLine($"{van.make} - {van.model} - £{van.pricePerDay}/day");
+            foreach (var van in vanList)
+            {
+                Console.WriteLine($"{van.make} - {van.model} - £{van.pricePerDay}/day");
+                insertBreak();
+            }
+            Console.WriteLine("Please fill out the following fields for the CAR you wish to RENT");
+            Console.Write("MAKE: ");
+            string userVanMakeSelection = Console.ReadLine()!;
             insertBreak();
-        }
-    }
-    //If the user has not inputted C, M or V...
-    else
-    {
-        invalidInput();
+            Console.Write("MODEL: ");
+            string userVanModelSelection = Console.ReadLine()!;
+            insertBreak();
+            Console.Write("How many days would you like to rent the CAR for?: ");
+            string stringNumberOfDaysVanRental = Console.ReadLine()!;
+            int numberOfDaysVanRental = Convert.ToInt32(stringNumberOfDaysVanRental);
+
+            Console.WriteLine($"You would like to rent the {userVanMakeSelection} {userVanModelSelection}");
+            Console.WriteLine($"For {numberOfDaysVanRental} days?");
+            Console.Write("Press Y to CONTINUE: ");
+            string continueWithVanRental = Console.ReadLine()!;
+
+            if (continueWithVanRental == "Y" || continueWithVanRental == "y")
+            {
+                var userVanSelection = vanDict.Values.FirstOrDefault(Van =>
+                Van.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                Van.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
+
+                if (userVanSelection != null)
+                {
+                    int totalPrice = userVanSelection.pricePerDay * numberOfDaysVanRental;
+                    Console.WriteLine($"Your total will be £{totalPrice}");
+
+                }
+                else
+                {
+                    Console.WriteLine("MOTORBIKE NOT FOUND.");
+                }
+            }
     }
 
+        //If the user has not inputted C, M or V...
+        else
+        {
+            invalidInput();
+        }
+    }
 }
 //If the user wishes to sign in as a member of STAFF
 else if (userSelection == "S" || userSelection == "s")
@@ -678,10 +719,20 @@ else if (userSelection == "S" || userSelection == "s")
     }
 }
 
-
-
 // ============================================================================== MAIN PROGRAM ENDS ===================================================
 //Potential Developments
 
 //We have the potential to add in a new dataset containing supercars/luxury vehicles for rental.
 //This will give us the opportunity to use a new type potentially other than dictionary if applciable.
+
+//In the assessment application
+
+//You need to take arguments
+//And also handle them properly
+
+//The --3 argument will show the version of the program.
+//This is a very common command line argument
+
+//Do we need to use command line arguments multiple times or only once to show we know how to use them?
+
+//You need to include the things that we have learnt within the assessment so that we can get higher marks

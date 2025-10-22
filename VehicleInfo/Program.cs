@@ -507,6 +507,7 @@ else if (userSelection == "G" || userSelection == "g")
     //Vans
     else if (vehicleType == "V" || vehicleType == "v")
     {
+        insertBreak();
         Console.WriteLine("Which category of VAN would you like to rent?");
         insertBreak();
         Console.Write("The options are SMALL, MEDIUM or LARGE: ");
@@ -522,13 +523,13 @@ else if (userSelection == "G" || userSelection == "g")
         Console.WriteLine("Your Options are: ");
 
         insertBreak();
+
         var vanList =
             vanDict
                 .Where(van =>
-                (van.Value.pricePerDay <= maxVanPriceInt)
-                &&
-                (van.Value.category == categoryChoice))
+                (van.Value.pricePerDay <= maxVanPriceInt))
                 .Select(van => new { van.Value.make, van.Value.model, van.Value.pricePerDay });
+
         foreach (var van in vanList)
         {
             Console.WriteLine($"{van.make} - {van.model} - £{van.pricePerDay}/day");
@@ -567,7 +568,7 @@ else if (userSelection == "G" || userSelection == "g")
             }
             else
             {
-                Console.WriteLine("MOTORBIKE NOT FOUND.");
+                Console.WriteLine("VAN RENTED");
             }
         }
         //If the user has not inputted C, M or V...

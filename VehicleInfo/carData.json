@@ -1,13 +1,4 @@
 {
-  "MD62JKD": {
-    "make": "Ford",
-    "model": "Galaxy",
-    "yearOfManufacture": 2022,
-    "mileage": 60897,
-    "category": "Large",
-    "pricePerDay": 150,
-    "numberPlate": "MD62JKD"
-  },
   "NM60LDS": {
     "make": "Nissan",
     "model": "Quashqai",

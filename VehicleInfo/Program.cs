@@ -500,7 +500,7 @@ else if (userSelection == "G" || userSelection == "g")
                 Console.WriteLine($"Your total will be £{totalPrice}");
 
                 removeCar(userCarMakeSelection, userCarModelSelection);
-                Console.WriteLine($"Thank you, you have rented the {userCarMakeSelection} {userCarModelSelection} for {numberOfDaysRental} costing {totalPrice}");
+                Console.WriteLine($"Thank you, you have rented the {userCarMakeSelection} {userCarModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}");
 
             }
             else
@@ -575,7 +575,7 @@ else if (userSelection == "G" || userSelection == "g")
                 Console.WriteLine($"Your total will be £{totalPrice}");
 
                 removeMotorbike(userMotorbikeMakeSelection, userMotorbikeModelSelection);
-                Console.WriteLine($"Thank you, you have rented the {userMotorbikeMakeSelection} {userMotorbikeModelSelection} for {numberOfDaysRental} costing {totalPrice}");
+                Console.WriteLine($"Thank you, you have rented the {userMotorbikeMakeSelection} {userMotorbikeModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}");
             }
             else
             {
@@ -646,7 +646,7 @@ else if (userSelection == "G" || userSelection == "g")
                 Console.WriteLine($"Your total will be £{totalPrice}");
 
                 removeVan(userVanMakeSelection, userVanModelSelection);
-                Console.WriteLine($"Thank you, you have rented the {userVanMakeSelection} {userVanModelSelection} for {numberOfDaysVanRental} costing {totalPrice}");
+                Console.WriteLine($"Thank you, you have rented the {userVanMakeSelection} {userVanModelSelection} for {numberOfDaysVanRental} days, costing £{totalPrice}");
             }
             else
             {

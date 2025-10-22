@@ -568,7 +568,7 @@ else if (userSelection == "G" || userSelection == "g")
             }
             else
             {
-                Console.WriteLine("VAN RENTED");
+                Console.WriteLine("VAN NOT FOUND");
             }
         }
         //If the user has not inputted C, M or V...

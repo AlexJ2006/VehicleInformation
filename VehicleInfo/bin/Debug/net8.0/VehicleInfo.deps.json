@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "VehicleInfo/1.0.0": {
+      "VehicleInfo/2.0": {
         "runtime": {
           "VehicleInfo.dll": {}
         }
@@ -14,7 +14,7 @@
     }
   },
   "libraries": {
-    "VehicleInfo/1.0.0": {
+    "VehicleInfo/2.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

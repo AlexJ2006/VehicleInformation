@@ -11,7 +11,7 @@
     "/Users/alexjakeman/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "restore": {
       "projectUniqueName": "/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/VehicleInfo.csproj",
       "projectName": "VehicleInfo",

@@ -11,6 +11,15 @@ using CarInfo;
 using MotorbikeInfo;
 using VanInfo;
 using storeList;
+using System.Reflection;
+
+//Showing the user the version as per the "Version" tag within the VehicleInfo.csproj file.
+var version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown";
+
+insertBreak();
+Console.WriteLine("=================================");
+Console.WriteLine($"      Version {version}");
+Console.WriteLine("=================================");
 
 var stores = StoreInfo.stores;
 //Initialising the variables for the car, motorbike and van dictionaries being pulled from the other file.
@@ -42,7 +51,7 @@ void invalidInputDuringRental()
 //Saving the Van details to the JSON file.
 void VansToJson()
 {
-    var json = JsonSerializer.Serialize(carDict, new JsonSerializerOptions { WriteIndented = true });
+    var json = JsonSerializer.Serialize(vanDict, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(vanDataFilePath, json);
 }
 //Saving the car details to the JSON file.
@@ -54,8 +63,8 @@ void CarsToJson()
 //Saving the Motorbike details to the JSON file.
 void MotorbikesToJson()
 {
-    var json = JsonSerializer.Serialize(vanDict, new JsonSerializerOptions { WriteIndented = true });
-    File.WriteAllText(vanDataFilePath, json);
+    var json = JsonSerializer.Serialize(motorbikeDict, new JsonSerializerOptions { WriteIndented = true });
+    File.WriteAllText(motorbikeDataFilePath, json);
 }
 
 //Loading the CARS into the program.
@@ -106,7 +115,6 @@ void storeListDisplay()
         Console.WriteLine(store);
     }
 }
-
 
 void addCar()
 {
@@ -247,8 +255,8 @@ void addMotorbike()
     string motorbikeModel = Console.ReadLine()!;
     insertBreak();
     Console.Write("YEAR OF MANUFACTURE: ");
-    string stringMotorbikeYearOfManufacture = Console.ReadLine()!;
-    int intVanYearOfManufacture = Convert.ToInt32(stringMotorbikeYearOfManufacture);
+    string stringYearOfManufacture = Console.ReadLine()!;
+    int intYearOfManufacture = Convert.ToInt32(stringYearOfManufacture);
     insertBreak();
     Console.Write("MILEAGE: ");
     string stringMotorbikeMileage = Console.ReadLine()!;
@@ -273,7 +281,7 @@ void addMotorbike()
         {
             make = motorbikeMake,
             model = motorbikeModel,
-            yearOfManufacture = intVanYearOfManufacture,
+            yearOfManufacture = intYearOfManufacture,
             mileage = intMotorbikeMileage,
             pricePerDay = intPricePerDay,
             numberPlate = motorbikePlate
@@ -317,9 +325,9 @@ void removeCar(string userCarMakeSelection, string userCarModelSelection)
 //Van Removal
 void removeVan(string userVanMakeSelection, string userVanModelSelection)
 {
-    if (carDict.ContainsKey(userVanMakeSelection))
+    if (vanDict.ContainsKey(userVanMakeSelection))
     {
-        carDict.Remove(userVanMakeSelection);
+        vanDict.Remove(userVanMakeSelection);
     }
     else
     {
@@ -367,6 +375,8 @@ void removeMotorbike(string userMotorbikeMakeSelection, string userMotorbikeMode
     File.WriteAllText(motorbikeDataFilePath, json);
 }
 //======================================================== MAIN PROGRAM BEGINS ==========================================================================
+
+//Trying to call the main function to show the version history
 
 //Welcoming the user
 //Getting their log-in selection

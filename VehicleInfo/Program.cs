@@ -503,10 +503,12 @@ else if (userSelection == "G" || userSelection == "g")
                 Console.WriteLine("MOTORBIKE NOT FOUND.");
             }
         }
-        //Vans
+    }
+    //Vans
     else if (vehicleType == "V" || vehicleType == "v")
     {
         Console.WriteLine("Which category of VAN would you like to rent?");
+        insertBreak();
         Console.Write("The options are SMALL, MEDIUM or LARGE: ");
         string categoryChoice = Console.ReadLine()!;
         insertBreak();
@@ -516,56 +518,58 @@ else if (userSelection == "G" || userSelection == "g")
         Console.Write("What is your maximum Price Per Day?: ");
         string maxVanPriceString = Console.ReadLine()!;
         int maxVanPriceInt = Convert.ToInt32(maxVanPriceString);
+        insertBreak();
         Console.WriteLine("Your Options are: ");
 
         insertBreak();
         var vanList =
             vanDict
                 .Where(van =>
-                (van.Value.pricePerDay <= maxPriceInt)
+                (van.Value.pricePerDay <= maxVanPriceInt)
                 &&
                 (van.Value.category == categoryChoice))
                 .Select(van => new { van.Value.make, van.Value.model, van.Value.pricePerDay });
-            foreach (var van in vanList)
-            {
-                Console.WriteLine($"{van.make} - {van.model} - £{van.pricePerDay}/day");
-                insertBreak();
-            }
-            Console.WriteLine("Please fill out the following fields for the CAR you wish to RENT");
-            Console.Write("MAKE: ");
-            string userVanMakeSelection = Console.ReadLine()!;
+        foreach (var van in vanList)
+        {
+            Console.WriteLine($"{van.make} - {van.model} - £{van.pricePerDay}/day");
             insertBreak();
-            Console.Write("MODEL: ");
-            string userVanModelSelection = Console.ReadLine()!;
-            insertBreak();
-            Console.Write("How many days would you like to rent the CAR for?: ");
-            string stringNumberOfDaysVanRental = Console.ReadLine()!;
-            int numberOfDaysVanRental = Convert.ToInt32(stringNumberOfDaysVanRental);
+        }
+        Console.WriteLine("Please fill out the following fields for the VAN you wish to RENT");
+        insertBreak();
+        Console.Write("MAKE: ");
+        string userVanMakeSelection = Console.ReadLine()!;
+        insertBreak();
+        Console.Write("MODEL: ");
+        string userVanModelSelection = Console.ReadLine()!;
+        insertBreak();
+        Console.Write("How many days would you like to rent the VAN for?: ");
+        string stringNumberOfDaysVanRental = Console.ReadLine()!;
+        int numberOfDaysVanRental = Convert.ToInt32(stringNumberOfDaysVanRental);
+        insertBreak();
 
-            Console.WriteLine($"You would like to rent the {userVanMakeSelection} {userVanModelSelection}");
-            Console.WriteLine($"For {numberOfDaysVanRental} days?");
-            Console.Write("Press Y to CONTINUE: ");
-            string continueWithVanRental = Console.ReadLine()!;
+        Console.WriteLine($"You would like to rent the {userVanMakeSelection} {userVanModelSelection}");
+        Console.WriteLine($"For {numberOfDaysVanRental} days?");
+        insertBreak();
+        Console.Write("Press Y to CONTINUE: ");
+        string continueWithVanRental = Console.ReadLine()!;
+        insertBreak();
 
-            if (continueWithVanRental == "Y" || continueWithVanRental == "y")
+        if (continueWithVanRental == "Y" || continueWithVanRental == "y")
+        {
+            var userVanSelection = vanDict.Values.FirstOrDefault(Van =>
+            Van.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+            Van.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
+
+            if (userVanSelection != null)
             {
-                var userVanSelection = vanDict.Values.FirstOrDefault(Van =>
-                Van.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-                Van.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
-
-                if (userVanSelection != null)
-                {
-                    int totalPrice = userVanSelection.pricePerDay * numberOfDaysVanRental;
-                    Console.WriteLine($"Your total will be £{totalPrice}");
-
-                }
-                else
-                {
-                    Console.WriteLine("MOTORBIKE NOT FOUND.");
-                }
+                int totalPrice = userVanSelection.pricePerDay * numberOfDaysVanRental;
+                Console.WriteLine($"Your total will be £{totalPrice}");
             }
-    }
-
+            else
+            {
+                Console.WriteLine("MOTORBIKE NOT FOUND.");
+            }
+        }
         //If the user has not inputted C, M or V...
         else
         {
@@ -735,4 +739,4 @@ else if (userSelection == "S" || userSelection == "s")
 
 //Do we need to use command line arguments multiple times or only once to show we know how to use them?
 
-//You need to include the things that we have learnt within the assessment so that we can get higher marks
+//You need to include the things that we have learnt within the assessment so that we can get higher marks.

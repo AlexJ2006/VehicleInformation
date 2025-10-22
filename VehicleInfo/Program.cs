@@ -16,10 +16,24 @@ using System.Reflection;
 //Showing the user the version as per the "Version" tag within the VehicleInfo.csproj file.
 var version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown";
 
+//Specifiying the commands that can be used within the terminal to obtain the current application version.
+if (args.Length > 0 && (args[0] == "current version" || args[0] == "--current version"))
+{
+    //How the application version will be displayed to the user.
+    Console.WriteLine($"Current App Version {version}");
+    return;
+}
+
+//Version display at the top of the code, each time the program is run
+//OPTION 1
 insertBreak();
 Console.WriteLine("=================================");
 Console.WriteLine($"      Version {version}");
 Console.WriteLine("=================================");
+
+//Displaying the Version to the user (OPTION 2)
+insertBreak();
+Console.WriteLine($" ========== Version {version} ===========");
 
 var stores = StoreInfo.stores;
 //Initialising the variables for the car, motorbike and van dictionaries being pulled from the other file.

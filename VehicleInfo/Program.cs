@@ -17,7 +17,7 @@ using System.Reflection;
 var version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown";
 
 //Specifiying the commands that can be used within the terminal to obtain the current application version.
-if (args.Length > 0 && (args[0] == "current version" || args[0] == "--current version"))
+if (args.Length > 0 && (args[0] == "version" || args[0] == "--version"))
 {
     //How the application version will be displayed to the user.
     Console.WriteLine($"Current App Version {version}");

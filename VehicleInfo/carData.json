@@ -1,0 +1,38 @@
+{
+  "MD62JKD": {
+    "make": "Ford",
+    "model": "Galaxy",
+    "yearOfManufacture": 2022,
+    "mileage": 60897,
+    "category": "Large",
+    "pricePerDay": 150,
+    "numberPlate": "MD62JKD"
+  },
+  "NM60LDS": {
+    "make": "Nissan",
+    "model": "Quashqai",
+    "yearOfManufacture": 2020,
+    "mileage": 50982,
+    "category": "Medium",
+    "pricePerDay": 120,
+    "numberPlate": "NM60LDS"
+  },
+  "WF15HGG": {
+    "make": "Smart",
+    "model": "ForFour",
+    "yearOfManufacture": 2015,
+    "mileage": 74982,
+    "category": "Small",
+    "pricePerDay": 85,
+    "numberPlate": "WF15HGG"
+  },
+  "MC24NEW": {
+    "make": "Toyota",
+    "model": "Aygo",
+    "yearOfManufacture": 2024,
+    "mileage": 13521,
+    "category": "Small",
+    "pricePerDay": 100,
+    "numberPlate": "MC24NEW"
+  }
+}

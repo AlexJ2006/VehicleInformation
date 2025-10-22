@@ -104,7 +104,6 @@ namespace CarInfo
                 //MORE CARS SHOULD BE ADDED HERE
                 //THE CARS ABOVE HAVE BEEN IMPLEMENTED MANUALLY FOR TESTING PURPOSES.
             }
-
         }
 
         public class Car

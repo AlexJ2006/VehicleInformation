@@ -287,20 +287,21 @@ void addMotorbike()
         insertBreak();
         Console.WriteLine("MOTORBIKE ADDED");
 }
-//REMOVAL FUNCTIONS BEGIN
+//================================================================== REMOVAL FUNCTIONS BEGIN ========================================================
+//Car Removal
 void removeCar(string userCarMakeSelection, string userCarModelSelection)
 {
-    if(carDict.ContainsKey(userCarMakeSelection))
+    if (carDict.ContainsKey(userCarMakeSelection))
     {
         carDict.Remove(userCarMakeSelection);
     }
-    else 
+    else
     {
         var rentedCar = carDict.FirstOrDefault(Car =>
         Car.Value.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
         Car.Value.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
 
-        if(!string.IsNullOrEmpty(rentedCar.Key))
+        if (!string.IsNullOrEmpty(rentedCar.Key))
         {
             carDict.Remove(rentedCar.Key);
         }
@@ -309,16 +310,67 @@ void removeCar(string userCarMakeSelection, string userCarModelSelection)
             Console.WriteLine("Could not find the car wihtin the list");
         }
     }
-    
-    var json = JsonSerializer.Serialize(carDict, new JsonSerializerOptions {WriteIndented = true});
+
+    var json = JsonSerializer.Serialize(carDict, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(carDataFilePath, json);
 }
+//Van Removal
+void removeVan(string userVanMakeSelection, string userVanModelSelection)
+{
+    if (carDict.ContainsKey(userVanMakeSelection))
+    {
+        carDict.Remove(userVanMakeSelection);
+    }
+    else
+    {
+        var rentedVan = vanDict.FirstOrDefault(Van =>
+        Van.Value.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+        Van.Value.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
 
+        if (!string.IsNullOrEmpty(rentedVan.Key))
+        {
+            vanDict.Remove(rentedVan.Key);
+        }
+        else
+        {
+            Console.WriteLine("Could not find the van wihtin the list");
+        }
+    }
+
+    var json = JsonSerializer.Serialize(vanDict, new JsonSerializerOptions { WriteIndented = true });
+    File.WriteAllText(vanDataFilePath, json);
+}
+//Motorbike Removal 
+void removeMotorbike(string userMotorbikeMakeSelection, string userMotorbikeModelSelection)
+{
+    if (motorbikeDict.ContainsKey(userMotorbikeMakeSelection))
+    {
+        motorbikeDict.Remove(userMotorbikeMakeSelection);
+    }
+    else
+    {
+        var rentedMotorbike = motorbikeDict.FirstOrDefault(Motorbike =>
+        Motorbike.Value.make.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+        Motorbike.Value.model.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
+
+        if (!string.IsNullOrEmpty(rentedMotorbike.Key))
+        {
+            motorbikeDict.Remove(rentedMotorbike.Key);
+        }
+        else
+        {
+            Console.WriteLine("Could not find the car wihtin the list");
+        }
+    }
+
+    var json = JsonSerializer.Serialize(motorbikeDict, new JsonSerializerOptions { WriteIndented = true });
+    File.WriteAllText(motorbikeDataFilePath, json);
+}
 //======================================================== MAIN PROGRAM BEGINS ==========================================================================
 
-    //Welcoming the user
-    //Getting their log-in selection
-    insertBreak();
+//Welcoming the user
+//Getting their log-in selection
+insertBreak();
     Console.WriteLine("WELCOME to CRS");
     insertBreak();
     Console.WriteLine("Please select one of the following choices:");
@@ -423,13 +475,14 @@ else if (userSelection == "G" || userSelection == "g")
                 int totalPrice = userCarSelection.pricePerDay * numberOfDaysRental;
                 Console.WriteLine($"Your total will be £{totalPrice}");
 
+                removeCar(userCarMakeSelection, userCarModelSelection);
+                Console.WriteLine($"Thank you, you have rented the {userCarMakeSelection} {userCarModelSelection} for {numberOfDaysRental} costing {totalPrice}");
+
             }
             else
             {
                 Console.WriteLine("CAR NOT FOUND.");
             }
-
-
         }
         else if (continueWithRental == "N" || continueWithRental == "n")
         {
@@ -497,6 +550,8 @@ else if (userSelection == "G" || userSelection == "g")
                 int totalPrice = userMotorbikeSelection.pricePerDay * numberOfDaysRental;
                 Console.WriteLine($"Your total will be £{totalPrice}");
 
+                removeMotorbike(userMotorbikeMakeSelection, userMotorbikeModelSelection);
+                Console.WriteLine($"Thank you, you have rented the {userMotorbikeMakeSelection} {userMotorbikeModelSelection} for {numberOfDaysRental} costing {totalPrice}");
             }
             else
             {
@@ -565,6 +620,9 @@ else if (userSelection == "G" || userSelection == "g")
             {
                 int totalPrice = userVanSelection.pricePerDay * numberOfDaysVanRental;
                 Console.WriteLine($"Your total will be £{totalPrice}");
+
+                removeVan(userVanMakeSelection, userVanModelSelection);
+                Console.WriteLine($"Thank you, you have rented the {userVanMakeSelection} {userVanModelSelection} for {numberOfDaysVanRental} costing {totalPrice}");
             }
             else
             {

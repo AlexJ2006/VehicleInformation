@@ -44,22 +44,22 @@
     "pricePerDay": 100,
     "numberPlate": "MC24NEW"
   },
-  "FD62LOW": {
-    "make": "Ford",
-    "model": "Focus",
-    "yearOfManufacture": 2012,
-    "mileage": 123765,
-    "category": "Medium",
-    "pricePerDay": 90,
-    "numberPlate": "FD62LOW"
+  "RV22TYT": {
+    "make": "Toyota",
+    "model": "Rav4",
+    "yearOfManufacture": 2022,
+    "mileage": 28962,
+    "category": "MEDIUM",
+    "pricePerDay": 200,
+    "numberPlate": "RV22TYT"
   },
-  "HD23MIN": {
-    "make": "Hyundai",
-    "model": "i10",
-    "yearOfManufacture": 2023,
-    "mileage": 29873,
-    "category": "SMALL",
-    "pricePerDay": 120,
-    "numberPlate": "HD23MIN"
+  "ML75GLB": {
+    "make": "Mercedes",
+    "model": "GLB",
+    "yearOfManufacture": 2025,
+    "mileage": 29983,
+    "category": "MEDIUM",
+    "pricePerDay": 300,
+    "numberPlate": "ML75GLB"
   }
 }

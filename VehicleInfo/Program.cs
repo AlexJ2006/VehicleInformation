@@ -132,6 +132,9 @@ void storeListDisplay()
 
 void addCar()
 {
+    //Loading the cars from the JSON file. 
+    LoadCars();
+
     insertBreak();
     Console.WriteLine("Please complete the following fields for the CAR you wish to add");
     insertBreak();
@@ -188,7 +191,7 @@ void addCar()
         CarInfo.CarData.carDict.Add(newCar.numberPlate, newCar);
 
         //Saving the Cars to the JSON file.
-        CarsToJson();
+        CarData.SaveToJson();
 
         insertBreak();
         Console.WriteLine("CAR ADDED");

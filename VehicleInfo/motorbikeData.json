@@ -1,0 +1,26 @@
+{
+  "HD23LOW": {
+    "make": "Harley Davidson",
+    "model": "RoadGlide",
+    "yearOfManufacture": 2023,
+    "mileage": 25856,
+    "pricePerDay": 200,
+    "numberPlate": "HD23LOW"
+  },
+  "BM25SPD": {
+    "make": "BMW",
+    "model": "F900 GS",
+    "yearOfManufacture": 2025,
+    "mileage": 1298,
+    "pricePerDay": 180,
+    "numberPlate": "BM25SPD"
+  },
+  "SP24LOR": {
+    "make": "BMW",
+    "model": "R1300 GS Adventure",
+    "yearOfManufacture": 2024,
+    "mileage": 11092,
+    "pricePerDay": 200,
+    "numberPlate": "SP24LOR"
+  }
+}

@@ -25,11 +25,11 @@ if (args.Length > 0 && (args[0] == "version" || args[0] == "--version"))
 }
 
 //Version display at the top of the code, each time the program is run
-//OPTION 1
-insertBreak();
-Console.WriteLine("=================================");
-Console.WriteLine($"      Version {version}");
-Console.WriteLine("=================================");
+// //OPTION 1
+// insertBreak();
+// Console.WriteLine("=================================");
+// Console.WriteLine($"      Version {version}");
+// Console.WriteLine("=================================");
 
 //Displaying the Version to the user (OPTION 2)
 insertBreak();
@@ -134,6 +134,7 @@ void addCar()
 {
     insertBreak();
     Console.WriteLine("Please complete the following fields for the CAR you wish to add");
+    insertBreak();
     Console.Write("MAKE: ");
     string carMake = Console.ReadLine()!;
     insertBreak();
@@ -187,7 +188,7 @@ void addCar()
         CarInfo.CarData.carDict.Add(newCar.numberPlate, newCar);
 
         //Saving the Cars to the JSON file.
-        CarData.SaveToJson();
+        CarsToJson();
 
         insertBreak();
         Console.WriteLine("CAR ADDED");
@@ -224,7 +225,7 @@ void addVan()
 
     //Using this opportunity to showcase another way of working around potential errors
     //For example here, the logic would get unneccessarily long and complex if I used the same method as usual
-    //Whereas, here cutting that out I can account for a change in case (uppercase or lowercase, the system ignores it)
+    //Whereas here, cutting that out I can account for a change in case (uppercase or lowercase, the system ignores it)
     if (!(vanCategory.Equals("Small", StringComparison.OrdinalIgnoreCase)
        || vanCategory.Equals("Medium", StringComparison.OrdinalIgnoreCase)
         || vanCategory.Equals("Large", StringComparison.OrdinalIgnoreCase)))
@@ -664,34 +665,49 @@ else if (userSelection == "G" || userSelection == "g")
 else if (userSelection == "S" || userSelection == "s")
 {
     //Insert STAFF functions here
+    insertBreak();
     Console.WriteLine("WELCOME STAFF");
+    insertBreak();
     Console.WriteLine("Which of the following functions would you like to perform?");
+    insertBreak();
     Console.WriteLine("A) ADD VEHICLES");
+    insertBreak();
     Console.WriteLine("R) REMOVE VEHICLES");
+    insertBreak();
     Console.WriteLine("E) EDIT STORE LIST");
+    insertBreak();
+    Console.Write("Please Enter Your Choice: ");
     string? staffMenuChoice = Console.ReadLine();
     insertBreak();
 
     if (staffMenuChoice == "A" || staffMenuChoice == "a")
     {
         Console.WriteLine("Would you like to add");
+        insertBreak();
         Console.WriteLine("C) CAR");
+        insertBreak();
         Console.WriteLine("M) MOTORBIKE");
+        insertBreak();
         Console.WriteLine("OR");
+        insertBreak();
         Console.WriteLine("V) VAN");
+        insertBreak();
         Console.Write("PLEASE ENTER YOUR CHOICE: ");
         string addVehicleType = Console.ReadLine()!;
+        insertBreak();
 
         if (addVehicleType == "C" || addVehicleType == "c")
         {
             Console.Write("Would you like to ADD MULTIPLE CARS?: ");
             string addMultipleCars = Console.ReadLine()!;
+            insertBreak();
 
             if (addMultipleCars == "Yes" || addMultipleCars == "yes" || addMultipleCars == "Y" || addMultipleCars == "y")
             {
                 Console.Write("How many cars would you like to add?: ");
                 string stringHowManyCars = Console.ReadLine()!;
                 int intHowManyCars = Convert.ToInt32(stringHowManyCars);
+                insertBreak();
 
                 while (intHowManyCars > 0)
                 {
@@ -811,6 +827,7 @@ else if (userSelection == "S" || userSelection == "s")
 
 //We have the potential to add in a new dataset containing supercars/luxury vehicles for rental.
 //This will give us the opportunity to use a new type potentially other than dictionary if applciable.
+//Should check the date and only take the car out of the system on the correct date.
 
 //In the assessment application
 

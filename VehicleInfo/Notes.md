@@ -3,11 +3,13 @@
 //Log in area. Choose whether you would like to log in as a USER or as a STAFF MEMBER.
 
 ======== //If USER, you will be asked:
-========//Which CATEGORY of car you would like (SMALL, MEDIUM or LARGE)
-//How long you would like to rent the car for (Then the price of the car/day will be multiplied by the days)
+======== //Which CATEGORY of car you would like (SMALL, MEDIUM or LARGE)
+======== //How long you would like to rent the car for (Then the price of the car/day will be multiplied by the days)
 //Which Store you would like to collect the car from and which store you would like to drop the car off to.
-//You will then get a message relaying your choice back to you
-//E.g. You wish to rent "RENTED CAR CHOICE" from "STORENAME" for "LENGTH OF RENTAL" is this correct? 
+======== //You will then get a message relaying your choice back to you
+======== //E.g. You wish to rent "RENTED CAR CHOICE" from "STORENAME" for "LENGTH OF RENTAL" is this correct? 
+
+The last option on the list has now changed so that it doesn't include the store selection.
 
 if yes... We will notify "STORENAME"
 
@@ -27,9 +29,9 @@ else
 
 
 //IMPORTANT ASSESSMENT NOTES
-// DONE ---- Once you know which type of application you are going to make. ----
-//Think about which type of data you are going to store.
-//Then think about which functionality you are going to offer.
+======== // DONE ---- Once you know which type of application you are going to make. ----
+======== //Think about which type of data you are going to store.
+======== //Then think about which functionality you are going to offer.
 //Look at applications that serve the same purpose for inspiration.
 //You could USE DIFFERENT TYPES OF DATA COLLECTIONS.
 //To ENSURE YOU INCLUDE EVERY TOPIC COVERED IN YOUR ASSESSMENT.

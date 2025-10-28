@@ -43,5 +43,32 @@
     "category": "Small",
     "pricePerDay": 100,
     "numberPlate": "MC24NEW"
+  },
+  "AN22AMK": {
+    "make": "Ford",
+    "model": "Fiesta",
+    "yearOfManufacture": 2022,
+    "mileage": 129763,
+    "category": "Small",
+    "pricePerDay": 75,
+    "numberPlate": "AN22AMK"
+  },
+  "FT19LUV": {
+    "make": "Fiat",
+    "model": "500",
+    "yearOfManufacture": 2019,
+    "mileage": 65782,
+    "category": "Small",
+    "pricePerDay": 60,
+    "numberPlate": "FT19LUV"
+  },
+  "DN74HQE": {
+    "make": "Suzuki",
+    "model": "Swift",
+    "yearOfManufacture": 2024,
+    "mileage": 12876,
+    "category": "Small",
+    "pricePerDay": 100,
+    "numberPlate": "DN74HQE"
   }
 }

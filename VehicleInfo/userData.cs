@@ -2,7 +2,7 @@ using System;
 using System.Data.SQLite;
 using System.Security.Permissions;
 
-namespace UserRentalData
+namespace UserData
 {
     public static class UserDatabaseManager
     {
@@ -36,7 +36,7 @@ namespace UserRentalData
             return new SQLiteConnection(dbConnection);
         }
 
-        public static bool RegisteredUser(string User_ID, string User_Password, string First_Name, string Last_Name, string DoB, string Contact_Number)
+        public static bool RegisterUser(string User_ID, string User_Password, string First_Name, string Last_Name, string DoB, string Contact_Number)
         {
             using (var connection = UserDatabaseManager.GetConnection())
             {
@@ -86,6 +86,11 @@ namespace UserRentalData
                     return count > 0;
                 }
             }
+        }
+
+        internal static void InitialiizeDatabase()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -12,9 +12,13 @@ using MotorbikeInfo;
 using VanInfo;
 using storeList;
 using System.Reflection;
+using UserData;
+using System.ComponentModel.Design.Serialization;
 
 //Loading the Car Data into the program.
 CarData.LoadJsonData();
+
+UserDatabaseManager.InitialiizeDatabase();
 
 //Showing the user the version as per the "Version" tag within the VehicleInfo.csproj file.
 var version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown";
@@ -49,6 +53,37 @@ LoadVans();
 void insertBreak()
 {
     Console.WriteLine("");
+}
+void RegisterNewUser()
+{
+    Console.WriteLine("Please Complete the following Steps to create your account");
+    insertBreak();
+    Console.WriteLine("Please note, the user ID must ONLY contain NUMBERS ");
+    insertBreak();
+    Console.Write("UserID: ");
+    string stringUserID = Console.ReadLine()!;
+    int userID = Convert.ToInt32(stringUserID);
+    insertBreak();
+    Console.WriteLine("Please note, the password MUST contain UPPER and LOWER cases and NUMBERS");
+    Console.Write("Password:");
+    string stringUserPassword = Console.ReadLine()!;
+    int UserPassword = Convert.ToInt32(stringUserPassword);
+    insertBreak();
+    Console.Write("First Name: ");
+    string firstName = Console.ReadLine()!;
+    insertBreak();
+    Console.Write("Last Name: ");
+    string lastName = Console.ReadLine()!;
+    insertBreak();
+    Console.WriteLine("DoB: ");
+    string stringDoB = Console.ReadLine()!;
+    int DoB = Convert.ToInt32(stringDoB);
+    insertBreak();
+    Console.Write("Contact Number: ");
+    string stringContactNumber = Console.ReadLine()!;
+    int contactNumber = Convert.ToInt32(stringContactNumber);
+
+    UserDatabaseManager.RegisterUser(userID, UserPassword, firstName, lastName, DoB, contactNumber);
 }
 void invalidInputDuringRental()
 {
@@ -841,4 +876,7 @@ else if (userSelection == "S" || userSelection == "s")
 //The abover statements are included within the week 6 work for robustness.
 //The file needs to be within the bin file (at the same level as the exe document).
 //I could have a list of the filenames (in a normal list).
-//And then the user can select a file to open. 
+//And then the user can select a file to open.
+
+//Need to continue working on the user create account function.
+//Need to continue implementing the User log in function. 

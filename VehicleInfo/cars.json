@@ -70,5 +70,14 @@
     "category": "Small",
     "pricePerDay": 100,
     "numberPlate": "DN74HQE"
+  },
+  "FK11ASK": {
+    "make": "Ford",
+    "model": "KA",
+    "yearOfManufacture": 2011,
+    "mileage": 127833,
+    "category": "small",
+    "pricePerDay": 60,
+    "numberPlate": "FK11ASK"
   }
 }

@@ -33,7 +33,7 @@ Console.WriteLine($" ========== Version {version} ===========");
 
 var stores = StoreInfo.stores;
 //Setting the filepath for the car data.
-string carDataFilePath = "carData.json";
+//string carDataFilePath = "carData.json";
 string motorbikeDataFilePath = "motorbikeData.json";
 string vanDataFilePath = "vanData.json";
 
@@ -60,12 +60,7 @@ void VansToJson()
     var json = JsonSerializer.Serialize(VanData.vanDict, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(vanDataFilePath, json);
 }
-//Saving the car details to the JSON file.
-void CarsToJson()
-{
-    var json = JsonSerializer.Serialize(CarData.carDict, new JsonSerializerOptions { WriteIndented = true });
-    File.WriteAllText(carDataFilePath, json);
-}
+
 //Saving the Motorbike details to the JSON file.
 void MotorbikesToJson()
 {
@@ -76,29 +71,18 @@ void MotorbikesToJson()
 //Loading the CARS into the program.
 void LoadCars()
 {
-    if(File.Exists(carDataFilePath))
-    {
-        string json = File.ReadAllText(carDataFilePath);
-        CarData.carDict = JsonSerializer.Deserialize<Dictionary<string, Car>>(json)!;
-    }
+    CarData.LoadJsonData();
 }
+
 //Loading the MOTORBIKES into the program.
 void LoadMotorbikes()
 {
-    if(File.Exists(motorbikeDataFilePath))
-    {
-        string json = File.ReadAllText(motorbikeDataFilePath);
-        MotorbikeData.motorbikeDict = JsonSerializer.Deserialize<Dictionary<string, Motorbike>>(json)!;
-    }
+    MotorbikeData.LoadJsonData();
 }
 //Loading the VANS into the program
 void LoadVans()
 {
-    if(File.Exists(vanDataFilePath))
-    {
-        string json = File.ReadAllText(vanDataFilePath);
-        VanData.vanDict = JsonSerializer.Deserialize<Dictionary<string, Van>>(json)!;
-    }
+    VanData.LoadJsonData();
 }
 //If the user input does not meet the logic that has been set out.
 void invalidInput()
@@ -121,6 +105,7 @@ void storeListDisplay()
         Console.WriteLine(store);
     }
 }
+
 
 void addCar()
 {
@@ -184,13 +169,15 @@ void addCar()
 
         //Saving the Cars to the JSON file.
         CarData.SaveToJson();
-        CarsToJson();
         Console.WriteLine("CAR ADDED");
     } 
 }
 
 void addVan()
-{ 
+{
+
+    LoadVans();
+
     insertBreak();
     Console.WriteLine("Please complete the following fields for the VAN you wish to add");
     Console.Write("MAKE: ");
@@ -254,7 +241,9 @@ void addVan()
 }
 
 void addMotorbike()
-{ 
+{
+    LoadMotorbikes();
+
     insertBreak();
     Console.WriteLine("Please complete the following fields for the MOTORBIKE you wish to add");
     Console.Write("MAKE: ");
@@ -308,6 +297,8 @@ void addMotorbike()
 //Car Removal
 void removeCar(string userCarMakeSelection, string userCarModelSelection)
 {
+    LoadCars();
+
     if (CarData.carDict.ContainsKey(userCarMakeSelection))
     {
         CarData.carDict.Remove(userCarMakeSelection);
@@ -329,11 +320,13 @@ void removeCar(string userCarMakeSelection, string userCarModelSelection)
     }
 
     var json = JsonSerializer.Serialize(CarData.carDict, new JsonSerializerOptions { WriteIndented = true });
-    File.WriteAllText(carDataFilePath, json);
+    CarData.SaveToJson();
 }
 //Van Removal
 void removeVan(string userVanMakeSelection, string userVanModelSelection)
 {
+    LoadVans();
+
     if (VanData.vanDict.ContainsKey(userVanMakeSelection))
     {
         VanData.vanDict.Remove(userVanMakeSelection);
@@ -355,11 +348,13 @@ void removeVan(string userVanMakeSelection, string userVanModelSelection)
     }
 
     var json = JsonSerializer.Serialize(VanData.vanDict, new JsonSerializerOptions { WriteIndented = true });
-    File.WriteAllText(vanDataFilePath, json);
+    VanData.SaveToJson();
 }
 //Motorbike Removal 
 void removeMotorbike(string userMotorbikeMakeSelection, string userMotorbikeModelSelection)
 {
+    LoadMotorbikes();
+
     if (MotorbikeData.motorbikeDict.ContainsKey(userMotorbikeMakeSelection))
     {
         MotorbikeData.motorbikeDict.Remove(userMotorbikeMakeSelection);
@@ -381,7 +376,7 @@ void removeMotorbike(string userMotorbikeMakeSelection, string userMotorbikeMode
     }
 
     var json = JsonSerializer.Serialize(MotorbikeData.motorbikeDict, new JsonSerializerOptions { WriteIndented = true });
-    File.WriteAllText(motorbikeDataFilePath, json);
+    MotorbikeData.SaveToJson();
 }
 //======================================================== MAIN PROGRAM BEGINS ==========================================================================
 
@@ -518,6 +513,8 @@ else if (userSelection == "G" || userSelection == "g")
     //Motorbikes
     else if (vehicleType == "M" || vehicleType == "m")
     {
+        LoadMotorbikes();
+
         insertBreak();
         Console.Write("What is your maximum Price Per Day?: ");
         string maxPriceString = Console.ReadLine()!;
@@ -579,6 +576,8 @@ else if (userSelection == "G" || userSelection == "g")
     //Vans
     else if (vehicleType == "V" || vehicleType == "v")
     {
+        LoadVans();
+
         insertBreak();
         Console.WriteLine("Which category of VAN would you like to rent?");
         insertBreak();
@@ -730,6 +729,12 @@ else if (userSelection == "S" || userSelection == "s")
                     addMotorbike();
                 }
             }
+            else
+            {
+                //One instance of the Add Motorbike class occurs rather than multiple
+                insertBreak();
+                addMotorbike();
+            }
         }
         else if (addVehicleType == "V" || addVehicleType == "v")
         {
@@ -747,6 +752,11 @@ else if (userSelection == "S" || userSelection == "s")
                     intHowManyVans--;
                     addVan();
                 }
+            }
+            else
+            {
+                insertBreak();
+                addVan();
             }
         }
         else
@@ -836,3 +846,13 @@ else if (userSelection == "S" || userSelection == "s")
 //Do we need to use command line arguments multiple times or only once to show we know how to use them?
 
 //You need to include the things that we have learnt within the assessment so that we can get higher marks.
+
+//Make sure that as many exceptions as possible are covered.
+//Could use the try functions for this, try...while...
+//Exceptions can be seen my hovering over the top of functions.
+
+//For premium cars, I could use a databse which would allow me to use the try, catch, finally statements.
+//The abover statements are included within the week 6 work for robustness.
+//The file needs to be within the bin file (at the same level as the exe document).
+//I could have a list of the filenames (in a normal list).
+//And then the user can select a file to open. 

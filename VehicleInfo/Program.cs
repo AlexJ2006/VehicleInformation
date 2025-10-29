@@ -36,10 +36,6 @@ insertBreak();
 Console.WriteLine($" ========== Version {version} ===========");
 
 var stores = StoreInfo.stores;
-//Initialising the variables for the car, motorbike and van dictionaries being pulled from the other file.
-var carDict = CarData.carDict;
-var motorbikeDict = MotorbikeData.motorbikeDict;
-var vanDict = VanData.vanDict;
 //Setting the filepath for the car data.
 string carDataFilePath = "carData.json";
 string motorbikeDataFilePath = "motorbikeData.json";
@@ -65,19 +61,19 @@ void invalidInputDuringRental()
 //Saving the Van details to the JSON file.
 void VansToJson()
 {
-    var json = JsonSerializer.Serialize(vanDict, new JsonSerializerOptions { WriteIndented = true });
+    var json = JsonSerializer.Serialize(VanData.vanDict, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(vanDataFilePath, json);
 }
 //Saving the car details to the JSON file.
 void CarsToJson()
 {
-    var json = JsonSerializer.Serialize(carDict, new JsonSerializerOptions { WriteIndented = true });
+    var json = JsonSerializer.Serialize(CarData.carDict, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(carDataFilePath, json);
 }
 //Saving the Motorbike details to the JSON file.
 void MotorbikesToJson()
 {
-    var json = JsonSerializer.Serialize(motorbikeDict, new JsonSerializerOptions { WriteIndented = true });
+    var json = JsonSerializer.Serialize(MotorbikeData.motorbikeDict, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(motorbikeDataFilePath, json);
 }
 
@@ -87,7 +83,7 @@ void LoadCars()
     if(File.Exists(carDataFilePath))
     {
         string json = File.ReadAllText(carDataFilePath);
-        carDict = JsonSerializer.Deserialize<Dictionary<string, Car>>(json);
+        CarData.carDict = JsonSerializer.Deserialize<Dictionary<string, Car>>(json);
     }
 }
 //Loading the MOTORBIKES into the program.
@@ -96,7 +92,7 @@ void LoadMotorbikes()
     if(File.Exists(motorbikeDataFilePath))
     {
         string json = File.ReadAllText(motorbikeDataFilePath);
-        motorbikeDict = JsonSerializer.Deserialize<Dictionary<string, Motorbike>>(json);
+        MotorbikeData.motorbikeDict = JsonSerializer.Deserialize<Dictionary<string, Motorbike>>(json);
     }
 }
 //Loading the VANS into the program
@@ -105,7 +101,7 @@ void LoadVans()
     if(File.Exists(vanDataFilePath))
     {
         string json = File.ReadAllText(vanDataFilePath);
-        vanDict = JsonSerializer.Deserialize<Dictionary<string, Van>>(json);
+        VanData.vanDict = JsonSerializer.Deserialize<Dictionary<string, Van>>(json);
     }
 }
 //If the user input does not meet the logic that has been set out.
@@ -192,10 +188,10 @@ void addCar()
 
         //Saving the Cars to the JSON file.
         CarData.SaveToJson();
-
+        LoadCars();
         insertBreak();
         Console.WriteLine("CAR ADDED");
-    }
+    } 
 }
 
 void addVan()
@@ -317,19 +313,19 @@ void addMotorbike()
 //Car Removal
 void removeCar(string userCarMakeSelection, string userCarModelSelection)
 {
-    if (carDict.ContainsKey(userCarMakeSelection))
+    if (CarData.carDict.ContainsKey(userCarMakeSelection))
     {
-        carDict.Remove(userCarMakeSelection);
+        CarData.carDict.Remove(userCarMakeSelection);
     }
     else
     {
-        var rentedCar = carDict.FirstOrDefault(Car =>
+        var rentedCar = CarData.carDict.FirstOrDefault(Car =>
         Car.Value.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
         Car.Value.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
 
         if (!string.IsNullOrEmpty(rentedCar.Key))
         {
-            carDict.Remove(rentedCar.Key);
+            CarData.carDict.Remove(rentedCar.Key);
         }
         else
         {
@@ -337,25 +333,25 @@ void removeCar(string userCarMakeSelection, string userCarModelSelection)
         }
     }
 
-    var json = JsonSerializer.Serialize(carDict, new JsonSerializerOptions { WriteIndented = true });
+    var json = JsonSerializer.Serialize(CarData.carDict, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(carDataFilePath, json);
 }
 //Van Removal
 void removeVan(string userVanMakeSelection, string userVanModelSelection)
 {
-    if (vanDict.ContainsKey(userVanMakeSelection))
+    if (VanData.vanDict.ContainsKey(userVanMakeSelection))
     {
-        vanDict.Remove(userVanMakeSelection);
+        VanData.vanDict.Remove(userVanMakeSelection);
     }
     else
     {
-        var rentedVan = vanDict.FirstOrDefault(Van =>
+        var rentedVan = VanData.vanDict.FirstOrDefault(Van =>
         Van.Value.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
         Van.Value.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
 
         if (!string.IsNullOrEmpty(rentedVan.Key))
         {
-            vanDict.Remove(rentedVan.Key);
+            VanData.vanDict.Remove(rentedVan.Key);
         }
         else
         {
@@ -363,25 +359,25 @@ void removeVan(string userVanMakeSelection, string userVanModelSelection)
         }
     }
 
-    var json = JsonSerializer.Serialize(vanDict, new JsonSerializerOptions { WriteIndented = true });
+    var json = JsonSerializer.Serialize(VanData.vanDict, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(vanDataFilePath, json);
 }
 //Motorbike Removal 
 void removeMotorbike(string userMotorbikeMakeSelection, string userMotorbikeModelSelection)
 {
-    if (motorbikeDict.ContainsKey(userMotorbikeMakeSelection))
+    if (MotorbikeData.motorbikeDict.ContainsKey(userMotorbikeMakeSelection))
     {
-        motorbikeDict.Remove(userMotorbikeMakeSelection);
+        MotorbikeData.motorbikeDict.Remove(userMotorbikeMakeSelection);
     }
     else
     {
-        var rentedMotorbike = motorbikeDict.FirstOrDefault(Motorbike =>
+        var rentedMotorbike = MotorbikeData.motorbikeDict.FirstOrDefault(Motorbike =>
         Motorbike.Value.make.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
         Motorbike.Value.model.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
 
         if (!string.IsNullOrEmpty(rentedMotorbike.Key))
         {
-            motorbikeDict.Remove(rentedMotorbike.Key);
+            MotorbikeData.motorbikeDict.Remove(rentedMotorbike.Key);
         }
         else
         {
@@ -389,7 +385,7 @@ void removeMotorbike(string userMotorbikeMakeSelection, string userMotorbikeMode
         }
     }
 
-    var json = JsonSerializer.Serialize(motorbikeDict, new JsonSerializerOptions { WriteIndented = true });
+    var json = JsonSerializer.Serialize(MotorbikeData.motorbikeDict, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(motorbikeDataFilePath, json);
 }
 //======================================================== MAIN PROGRAM BEGINS ==========================================================================
@@ -437,6 +433,7 @@ else if (userSelection == "G" || userSelection == "g")
     //Cars
     if (vehicleType == "C" || vehicleType == "c")
     {
+        LoadCars();
         insertBreak();
         Console.WriteLine("You have chosen CAR");
         insertBreak();
@@ -459,7 +456,7 @@ else if (userSelection == "G" || userSelection == "g")
         insertBreak();
         //I HAVE REMOVED IENUMERABLE, WILL THIS STILL WORK?
         var carList =
-        carDict
+        CarData.carDict
         .Where(car =>
             car.Value.pricePerDay <= maxPriceInt &&
             car.Value.category.Equals(categoryChoice, StringComparison.OrdinalIgnoreCase))
@@ -493,7 +490,7 @@ else if (userSelection == "G" || userSelection == "g")
 
         if (continueWithRental == "Y" || continueWithRental == "y")
         {
-            var userCarSelection = carDict.Values.FirstOrDefault(Car =>
+            var userCarSelection = CarData.carDict.Values.FirstOrDefault(Car =>
             Car.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
             Car.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
 
@@ -538,7 +535,7 @@ else if (userSelection == "G" || userSelection == "g")
         insertBreak();
 
         var motorbikeList =
-            motorbikeDict
+            MotorbikeData.motorbikeDict
                 .Where(motorbike =>
                 (motorbike.Value.pricePerDay <= maxPriceInt))
                 .Select(motorbike => new { motorbike.Value.make, motorbike.Value.model, motorbike.Value.pricePerDay });
@@ -569,7 +566,7 @@ else if (userSelection == "G" || userSelection == "g")
 
         if (continueWithRental == "Y" || continueWithRental == "y")
         {
-            var userMotorbikeSelection = motorbikeDict.Values.FirstOrDefault(Motorbike =>
+            var userMotorbikeSelection = MotorbikeData.motorbikeDict.Values.FirstOrDefault(Motorbike =>
             Motorbike.make.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
             Motorbike.model.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
 
@@ -608,7 +605,7 @@ else if (userSelection == "G" || userSelection == "g")
         insertBreak();
 
         var vanList =
-            vanDict
+            VanData.vanDict
                 .Where(van =>
                 (van.Value.pricePerDay <= maxVanPriceInt))
                 .Select(van => new { van.Value.make, van.Value.model, van.Value.pricePerDay });
@@ -640,7 +637,7 @@ else if (userSelection == "G" || userSelection == "g")
 
         if (continueWithVanRental == "Y" || continueWithVanRental == "y")
         {
-            var userVanSelection = vanDict.Values.FirstOrDefault(Van =>
+            var userVanSelection = VanData.vanDict.Values.FirstOrDefault(Van =>
             Van.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
             Van.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
 

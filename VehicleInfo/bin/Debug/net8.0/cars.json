@@ -61,5 +61,23 @@
     "category": "SMALL",
     "pricePerDay": 120,
     "numberPlate": "HD23MIN"
+  },
+  "ML18HBD": {
+    "make": "Mazda",
+    "model": "MX5",
+    "yearOfManufacture": 2018,
+    "mileage": 65374,
+    "category": "SMALL",
+    "pricePerDay": 125,
+    "numberPlate": "ML18HBD"
+  },
+  "SK22JKS": {
+    "make": "Smart",
+    "model": "ForTwo",
+    "yearOfManufacture": 2022,
+    "mileage": 28763,
+    "category": "SMALL",
+    "pricePerDay": 130,
+    "numberPlate": "SK22JKS"
   }
 }

@@ -26,15 +26,6 @@
     "pricePerDay": 120,
     "numberPlate": "NM60LDS"
   },
-  "WF15HGG": {
-    "make": "Smart",
-    "model": "ForFour",
-    "yearOfManufacture": 2015,
-    "mileage": 74982,
-    "category": "Small",
-    "pricePerDay": 85,
-    "numberPlate": "WF15HGG"
-  },
   "MC24NEW": {
     "make": "Toyota",
     "model": "Aygo",

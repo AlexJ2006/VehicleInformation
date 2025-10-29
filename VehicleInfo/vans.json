@@ -34,14 +34,5 @@
     "category": "MEDIUM",
     "pricePerDay": 200,
     "numberPlate": "IV20COD"
-  },
-  "MA22LSI": {
-    "make": "MAXUS",
-    "model": "Delivery",
-    "yearOfManufacture": 2022,
-    "mileage": 109823,
-    "category": "LARGE",
-    "pricePerDay": 200,
-    "numberPlate": "MA22LSI"
   }
 }

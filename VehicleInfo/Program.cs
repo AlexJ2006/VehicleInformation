@@ -54,20 +54,6 @@ void invalidInputDuringRental()
 {
     Console.WriteLine("Sorry, this vehicle could not be found.");
 }
-//Saving the Van details to the JSON file.
-void VansToJson()
-{
-    var json = JsonSerializer.Serialize(VanData.vanDict, new JsonSerializerOptions { WriteIndented = true });
-    File.WriteAllText(vanDataFilePath, json);
-}
-
-//Saving the Motorbike details to the JSON file.
-void MotorbikesToJson()
-{
-    var json = JsonSerializer.Serialize(MotorbikeData.motorbikeDict, new JsonSerializerOptions { WriteIndented = true });
-    File.WriteAllText(motorbikeDataFilePath, json);
-}
-
 //Loading the CARS into the program.
 void LoadCars()
 {

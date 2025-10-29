@@ -79,7 +79,7 @@ void LoadCars()
     if(File.Exists(carDataFilePath))
     {
         string json = File.ReadAllText(carDataFilePath);
-        CarData.carDict = JsonSerializer.Deserialize<Dictionary<string, Car>>(json);
+        CarData.carDict = JsonSerializer.Deserialize<Dictionary<string, Car>>(json)!;
     }
 }
 //Loading the MOTORBIKES into the program.
@@ -88,7 +88,7 @@ void LoadMotorbikes()
     if(File.Exists(motorbikeDataFilePath))
     {
         string json = File.ReadAllText(motorbikeDataFilePath);
-        MotorbikeData.motorbikeDict = JsonSerializer.Deserialize<Dictionary<string, Motorbike>>(json);
+        MotorbikeData.motorbikeDict = JsonSerializer.Deserialize<Dictionary<string, Motorbike>>(json)!;
     }
 }
 //Loading the VANS into the program
@@ -97,7 +97,7 @@ void LoadVans()
     if(File.Exists(vanDataFilePath))
     {
         string json = File.ReadAllText(vanDataFilePath);
-        VanData.vanDict = JsonSerializer.Deserialize<Dictionary<string, Van>>(json);
+        VanData.vanDict = JsonSerializer.Deserialize<Dictionary<string, Van>>(json)!;
     }
 }
 //If the user input does not meet the logic that has been set out.
@@ -507,7 +507,6 @@ else if (userSelection == "G" || userSelection == "g")
             Console.WriteLine("Thank you.");
             Console.WriteLine("The program will now TERMINATE.");
             return;
-
         }
         else
         {

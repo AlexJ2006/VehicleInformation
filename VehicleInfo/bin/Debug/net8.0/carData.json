@@ -8,15 +8,6 @@
     "pricePerDay": 150,
     "numberPlate": "MD62JKD"
   },
-  "DL21OLP": {
-    "make": "Dacia",
-    "model": "Sandero",
-    "yearOfManufacture": 2021,
-    "mileage": 75061,
-    "category": "Small",
-    "pricePerDay": 80,
-    "numberPlate": "DL21OLP"
-  },
   "NM60LDS": {
     "make": "Nissan",
     "model": "Quashqai",

@@ -1,13 +1,4 @@
 {
-  "MD69SPR": {
-    "make": "Mercedes",
-    "model": "Sprinter",
-    "yearOfManufacture": 2019,
-    "mileage": 125927,
-    "category": "Large",
-    "pricePerDay": 200,
-    "numberPlate": "MD69SPR"
-  },
   "VW23MDS": {
     "make": "Volkswagen",
     "model": "Caddy",
@@ -34,5 +25,14 @@
     "category": "Small",
     "pricePerDay": 185,
     "numberPlate": "JD82DSK"
+  },
+  "IV20COD": {
+    "make": "Iveco",
+    "model": "Daily",
+    "yearOfManufacture": 2020,
+    "mileage": 28738,
+    "category": "MEDIUM",
+    "pricePerDay": 200,
+    "numberPlate": "IV20COD"
   }
 }

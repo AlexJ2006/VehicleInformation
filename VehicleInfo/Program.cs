@@ -27,13 +27,6 @@ if (args.Length > 0 && (args[0] == "version" || args[0] == "--version"))
     return;
 }
 
-//Version display at the top of the code, each time the program is run
-// //OPTION 1
-// insertBreak();
-// Console.WriteLine("=================================");
-// Console.WriteLine($"      Version {version}");
-// Console.WriteLine("=================================");
-
 //Displaying the Version to the user (OPTION 2)
 insertBreak();
 Console.WriteLine($" ========== Version {version} ===========");
@@ -191,7 +184,7 @@ void addCar()
 
         //Saving the Cars to the JSON file.
         CarData.SaveToJson();
-        insertBreak();
+        CarsToJson();
         Console.WriteLine("CAR ADDED");
     } 
 }
@@ -250,7 +243,7 @@ void addVan()
             numberPlate = vanPlate
         };
         //Adding the van to the dictionary.
-        VanInfo.VanData.vanDict.Add(newVan.numberPlate, newVan);
+        VanData.vanDict.Add(newVan.numberPlate, newVan);
 
         //Saving the Van to the JSON file.
         VanData.SaveToJson();
@@ -303,7 +296,7 @@ void addMotorbike()
             numberPlate = motorbikePlate
         };
         //Adding the van to the dictionary.
-        MotorbikeInfo.MotorbikeData.motorbikeDict.Add(newMotorbike.numberPlate, newMotorbike);
+        MotorbikeData.motorbikeDict.Add(newMotorbike.numberPlate, newMotorbike);
 
         //Saving the Van to the JSON file.
         MotorbikeData.SaveToJson();
@@ -715,6 +708,10 @@ else if (userSelection == "S" || userSelection == "s")
                     addCar();
 
                 }
+            }
+            else
+            {
+                addCar();
             }
         }
         else if (addVehicleType == "M" || addVehicleType == "m")

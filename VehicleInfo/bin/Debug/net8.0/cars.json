@@ -26,15 +26,6 @@
     "pricePerDay": 120,
     "numberPlate": "NM60LDS"
   },
-  "WF15HGG": {
-    "make": "Smart",
-    "model": "ForFour",
-    "yearOfManufacture": 2015,
-    "mileage": 74982,
-    "category": "Small",
-    "pricePerDay": 85,
-    "numberPlate": "WF15HGG"
-  },
   "MC24NEW": {
     "make": "Toyota",
     "model": "Aygo",
@@ -44,40 +35,31 @@
     "pricePerDay": 100,
     "numberPlate": "MC24NEW"
   },
-  "FD62LOW": {
-    "make": "Ford",
-    "model": "Focus",
-    "yearOfManufacture": 2012,
-    "mileage": 123765,
-    "category": "Medium",
-    "pricePerDay": 90,
-    "numberPlate": "FD62LOW"
-  },
-  "HD23MIN": {
-    "make": "Hyundai",
-    "model": "i10",
-    "yearOfManufacture": 2023,
-    "mileage": 29873,
-    "category": "SMALL",
-    "pricePerDay": 120,
-    "numberPlate": "HD23MIN"
-  },
-  "ML18HBD": {
-    "make": "Mazda",
-    "model": "MX5",
-    "yearOfManufacture": 2018,
-    "mileage": 65374,
-    "category": "SMALL",
-    "pricePerDay": 125,
-    "numberPlate": "ML18HBD"
-  },
-  "SK22JKS": {
-    "make": "Smart",
-    "model": "ForTwo",
+  "RV22TYT": {
+    "make": "Toyota",
+    "model": "Rav4",
     "yearOfManufacture": 2022,
-    "mileage": 28763,
-    "category": "SMALL",
-    "pricePerDay": 130,
-    "numberPlate": "SK22JKS"
+    "mileage": 28962,
+    "category": "MEDIUM",
+    "pricePerDay": 200,
+    "numberPlate": "RV22TYT"
+  },
+  "ML75GLB": {
+    "make": "Mercedes",
+    "model": "GLB",
+    "yearOfManufacture": 2025,
+    "mileage": 29983,
+    "category": "MEDIUM",
+    "pricePerDay": 300,
+    "numberPlate": "ML75GLB"
+  },
+  "JS22SLO": {
+    "make": "Ford",
+    "model": "Focus ST",
+    "yearOfManufacture": 2022,
+    "mileage": 98327,
+    "category": "medium",
+    "pricePerDay": 200,
+    "numberPlate": "JS22SLO"
   }
 }

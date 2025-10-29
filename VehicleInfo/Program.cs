@@ -13,6 +13,9 @@ using VanInfo;
 using storeList;
 using System.Reflection;
 
+//Loading the Car Data into the program.
+CarData.LoadJsonData();
+
 //Showing the user the version as per the "Version" tag within the VehicleInfo.csproj file.
 var version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown";
 
@@ -149,7 +152,7 @@ void addCar()
     int intCarMileage = Convert.ToInt32(stringCarMileage);
     insertBreak();
     Console.Write("CATEGORY: ");
-    string carCategory = Console.ReadLine()!;
+    string carCategory = Console.ReadLine()!.Trim().ToLower(); ;
     insertBreak();
     Console.Write("PRICE PER DAY: ");
     string stringPricePerDay = Console.ReadLine()!;
@@ -184,11 +187,10 @@ void addCar()
             numberPlate = carPlate
         };
         //Adding the car to the dictionary.
-        CarInfo.CarData.carDict.Add(newCar.numberPlate, newCar);
+        CarData.carDict.Add(newCar.numberPlate, newCar);
 
         //Saving the Cars to the JSON file.
         CarData.SaveToJson();
-        LoadCars();
         insertBreak();
         Console.WriteLine("CAR ADDED");
     } 
@@ -438,8 +440,6 @@ else if (userSelection == "G" || userSelection == "g")
         Console.WriteLine("You have chosen CAR");
         insertBreak();
 
-        //MAY NOT USE THIS FUNCTIONALITY UNLESS IT CAN BE INTEGRATED EASILY.
-
         Console.WriteLine("Which category of CAR would you like to rent?");
         insertBreak();
         Console.Write("The options are SMALL, MEDIUM or LARGE: ");
@@ -462,7 +462,7 @@ else if (userSelection == "G" || userSelection == "g")
             car.Value.category.Equals(categoryChoice, StringComparison.OrdinalIgnoreCase))
         .Select(car => new { car.Value.make, car.Value.model, car.Value.pricePerDay });
 
-        foreach (var Car in carList)// i = 0, i++)
+        foreach (var Car in carList)
         {
             Console.WriteLine($"{Car.make} - {Car.model} - £{Car.pricePerDay}/day");
             insertBreak();

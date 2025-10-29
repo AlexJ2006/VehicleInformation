@@ -9,21 +9,6 @@ namespace CarInfo
         public static Dictionary<string, Car> carDict = new Dictionary<string, Car>();
         private static string filepath = "cars.json";
 
-        static CarData()
-        {
-            LoadJsonData();
-
-            if (File.Exists(filepath))
-            {
-                LoadJsonData();
-            }
-            else
-            {
-                AddInitialCars();
-                SaveToJson();
-            }
-        }
-
         public static void SaveToJson()
         {
             var options = new JsonSerializerOptions { WriteIndented = true };

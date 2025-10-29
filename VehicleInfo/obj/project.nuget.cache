@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "jLfKWTxgcwM=",
+  "dgSpecHash": "dfCN83/SvB8=",
   "success": true,
   "projectFilePath": "/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/VehicleInfo.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/alexjakeman/.nuget/packages/system.data.sqlite/2.0.2/system.data.sqlite.2.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

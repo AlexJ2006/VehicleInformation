@@ -27,7 +27,6 @@ else
 //User is asked to sign in, needs to create an ID which should be checked against the "database" to ensure that it isn't duplicated.
 //Then, the user can return to the sign in area (restaring the program)
 
-
 //IMPORTANT ASSESSMENT NOTES
 ======== // DONE ---- Once you know which type of application you are going to make. ----
 ======== //Think about which type of data you are going to store.

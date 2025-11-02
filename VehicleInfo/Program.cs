@@ -14,11 +14,14 @@ using storeList;
 using System.Reflection;
 using UserData;
 using System.ComponentModel.Design.Serialization;
+using System.Security.Cryptography;
+using System.Data.Common;
+using System.Linq;
 
 //Loading the Car Data into the program.
 CarData.LoadJsonData();
 
-UserDatabaseManager.InitialiizeDatabase();
+UserDatabaseManager.InitializeDatabase();
 
 //Showing the user the version as per the "Version" tag within the VehicleInfo.csproj file.
 var version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown";
@@ -54,6 +57,26 @@ void insertBreak()
 {
     Console.WriteLine("");
 }
+void LogIn()
+{
+    Console.WriteLine("Please enter your credentials");
+    Console.Write("USER ID: ");
+    string userID = Console.ReadLine()!;
+    insertBreak();
+    Console.Write("PASSWORD: ");
+    string password = Console.ReadLine()!;
+
+    if (UserDatabaseManager.ValidateUserLogIn(userID, password))
+    {
+        //if the user can/has been logged in
+        Console.WriteLine("YOU HAVE BEEN LOGGED IN");
+    }
+    else
+    {
+        //if the user can't be logged in 
+        Console.WriteLine("LOGIN UNSUCCESSFUL");
+    }
+}
 void RegisterNewUser()
 {
     Console.WriteLine("Please Complete the following Steps to create your account");
@@ -83,7 +106,7 @@ void RegisterNewUser()
     string stringContactNumber = Console.ReadLine()!;
     int contactNumber = Convert.ToInt32(stringContactNumber);
 
-    UserDatabaseManager.RegisterUser(userID, UserPassword, firstName, lastName, DoB, contactNumber);
+    UserDatabaseManager.RegisterUser(stringUserID, stringUserPassword, firstName, lastName, stringDoB, stringContactNumber);
 }
 void invalidInputDuringRental()
 {

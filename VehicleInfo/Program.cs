@@ -54,6 +54,13 @@ void insertBreak()
 {
     Console.WriteLine("");
 }
+void adminModeAlert()
+{
+    Console.WriteLine("**************** USER ALERT ****************");
+    Console.WriteLine("To enter ADMIN MODE please enter the following when prompted");
+    Console.WriteLine("--admin adminUsername adminPassword");
+    Console.WriteLine("**************** USER ALERT ****************");
+}
 void LogIn()
 {
     insertBreak();
@@ -473,14 +480,79 @@ Console.WriteLine($" ================ Version {version} ================");
 insertBreak();
 Console.WriteLine("WELCOME to CRS");
 insertBreak();
-Console.WriteLine("**************** USER ALERT ****************");
-Console.WriteLine("To enter ADMIN MODE please enter the following when prompted");
-Console.WriteLine("--admin adminUsername adminPassword");
-Console.WriteLine("**************** USER ALERT ****************");
+//The alert for the admin mode selection.
+adminModeAlert();
 Console.Write("ENTER COMMAND: ");
 string enterAdmin = Console.ReadLine()!;
 
-if()
+static void userAdminMode(string[] args)
+{
+    if (args.Length != 3)
+    {
+        adminModeAlert();
+        return;
+    }
+    if (args[0] == "--admin")
+    {
+        //Check the password.
+    }
+    else
+    {
+        Console.WriteLine("ERROR. PLEASE RETRY.");
+        Console.WriteLine("OR CONTINUE AS A GUEST");
+    }
+}
+
+//NEED TO PICK THIS UP TOMORROW
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 insertBreak();
     Console.WriteLine("Please select one of the following choices:");
     insertBreak();

@@ -1,5 +1,5 @@
 using System;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Security.Permissions;
 
 namespace UserData
@@ -7,11 +7,11 @@ namespace UserData
     public static class UserDatabaseManager
     {
         private static string databaseFile = "userInfo.db";
-        private static string dbConnection = $"Data Source={databaseFile};Version=3;";
+        private static string dbConnection = $"Data Source={databaseFile};";
 
         public static void InitializeDatabase()
         {
-            using (var connection = new SQLiteConnection(dbConnection))
+            using (var connection = new SqliteConnection(dbConnection))
             {
                 connection.Open();
 
@@ -24,19 +24,19 @@ namespace UserData
                 DoB INTEGER NOT NULL,
                 Contact_Number INTEGER NOT NULL);";
 
-                using (var cmd = new SQLiteCommand(createUserInfoTable, connection))
+                using (var cmd = new SqliteCommand(createUserInfoTable, connection))
                 {
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public static SQLiteConnection GetConnection()
+        public static SqliteConnection GetConnection()
         {
-            return new SQLiteConnection(dbConnection);
+            return new SqliteConnection(dbConnection);
         }
 
-        public static bool RegisterUser(string User_ID, string User_Password, string First_Name, string Last_Name, string DoB, string Contact_Number)
+        public static bool RegisteredUser(string User_ID, string User_Password, string First_Name, string Last_Name, string DoB, string Contact_Number)
         {
             using (var connection = UserDatabaseManager.GetConnection())
             {
@@ -46,7 +46,7 @@ namespace UserData
                 INSERT INTO UserInfo (User_ID, User_Password, First_Name, Last_Name, DoB, Contact_Number)
                 VALUES (@User_ID, @User_Password, @First_Name, @Last_Name, @DoB, @Contact_Number);";
 
-                using (var cmd = new SQLiteCommand(insertQuery, connection))
+                using (var cmd = new SqliteCommand(insertQuery, connection))
                 {
                     cmd.Parameters.AddWithValue("@User_ID", User_ID);
                     cmd.Parameters.AddWithValue("@User_Password", User_Password);
@@ -60,7 +60,7 @@ namespace UserData
                         Console.WriteLine("Your account has been registered. THANK YOU.");
                         return true;
                     }
-                    catch (SQLiteException ex)
+                    catch (SqliteException ex)
                     {
                         Console.WriteLine($"Your account could not be registered. PLEASE RETRY.");
                         return false;
@@ -77,7 +77,7 @@ namespace UserData
 
                 string selectQuery = "SELECT COUNT(*) FROM UserInfo WHERE User_ID = @User_ID AND User_Password = @User_Password;";
 
-                using (var cmd = new SQLiteCommand(selectQuery, connection))
+                using (var cmd = new SqliteCommand(selectQuery, connection))
                 {
                     cmd.Parameters.AddWithValue("@User_ID", User_ID);
                     cmd.Parameters.AddWithValue("@User_Password", User_Password);

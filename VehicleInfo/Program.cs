@@ -17,6 +17,7 @@ using System.ComponentModel.Design.Serialization;
 using System.Security.Cryptography;
 using System.Data.Common;
 using System.Linq;
+using SQLitePCL;
 
 //Loading the Car Data into the program.
 CarData.LoadJsonData();
@@ -90,7 +91,7 @@ void RegisterNewUser()
     Console.WriteLine("Please note, the password MUST contain UPPER and LOWER cases and NUMBERS");
     Console.Write("Password:");
     string stringUserPassword = Console.ReadLine()!;
-    int UserPassword = Convert.ToInt32(stringUserPassword);
+    // int UserPassword = Convert.ToInt32(stringUserPassword);
     insertBreak();
     Console.Write("First Name: ");
     string firstName = Console.ReadLine()!;
@@ -100,13 +101,13 @@ void RegisterNewUser()
     insertBreak();
     Console.WriteLine("DoB: ");
     string stringDoB = Console.ReadLine()!;
-    int DoB = Convert.ToInt32(stringDoB);
+    // int DoB = Convert.ToInt32(stringDoB);
     insertBreak();
     Console.Write("Contact Number: ");
     string stringContactNumber = Console.ReadLine()!;
     int contactNumber = Convert.ToInt32(stringContactNumber);
 
-    UserDatabaseManager.RegisterUser(stringUserID, stringUserPassword, firstName, lastName, stringDoB, stringContactNumber);
+    UserDatabaseManager.RegisteredUser(stringUserID, stringUserPassword, firstName, lastName, stringDoB, stringContactNumber);
 }
 void invalidInputDuringRental()
 {
@@ -439,6 +440,8 @@ insertBreak();
     insertBreak();
     Console.WriteLine("C) to CREATE an ACCOUNT");
     insertBreak();
+    Console.WriteLine("L) to LOG IN to an EXISTING ACCOUNT");
+    insertBreak();
     Console.Write("ENTER YOUR CHOICE: ");
     string userSelection = Console.ReadLine()!;
 
@@ -534,7 +537,6 @@ else if (userSelection == "G" || userSelection == "g")
 
                 removeCar(userCarMakeSelection, userCarModelSelection);
                 Console.WriteLine($"Thank you, you have rented the {userCarMakeSelection} {userCarModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}");
-
             }
             else
             {
@@ -870,6 +872,10 @@ else if (userSelection == "S" || userSelection == "s")
             Console.WriteLine("WRONG SECTION");
         }
     }
+}
+else if (userSelection == "L" || userSelection == "l")
+{
+    LogIn();
 }
 
 // ============================================================================== MAIN PROGRAM ENDS ===================================================

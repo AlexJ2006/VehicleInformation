@@ -43,9 +43,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "System.Data.SQLite": {
+            "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[2.0.2, )"
+              "version": "[9.0.10, )"
             }
           },
           "imports": [

@@ -35,10 +35,6 @@ if (args.Length > 0 && (args[0] == "version" || args[0] == "--version"))
     return;
 }
 
-//Displaying the Version to the user (OPTION 2)
-insertBreak();
-Console.WriteLine($" ========== Version {version} ===========");
-
 var stores = StoreInfo.stores;
 //Setting the filepath for the car data.
 //string carDataFilePath = "carData.json";
@@ -60,22 +56,62 @@ void insertBreak()
 }
 void LogIn()
 {
-    Console.WriteLine("Please enter your credentials");
-    Console.Write("USER ID: ");
-    string userID = Console.ReadLine()!;
     insertBreak();
-    Console.Write("PASSWORD: ");
-    string password = Console.ReadLine()!;
+    Console.WriteLine("Do you currentl have an account?");
+    insertBreak();
+    Console.WriteLine("Please enter: ");
+    insertBreak();
+    Console.WriteLine("Y for YES");
+    Console.WriteLine("OR");
+    Console.Write("N for NO ");
+    string userHasAnAccount = Console.ReadLine()!;
+    
 
-    if (UserDatabaseManager.ValidateUserLogIn(userID, password))
+    if (userHasAnAccount == "Y" || userHasAnAccount == "y")
     {
-        //if the user can/has been logged in
-        Console.WriteLine("YOU HAVE BEEN LOGGED IN");
+        //Obtaining the user's details.
+        Console.WriteLine("Please enter your credentials");
+        Console.Write("USER ID: ");
+        string userID = Console.ReadLine()!;
+        insertBreak();
+        Console.Write("PASSWORD: ");
+        string password = Console.ReadLine()!;
+
+        if (UserDatabaseManager.ValidateUserLogIn(userID, password))
+        {
+            //if the user can/has been logged in
+            Console.WriteLine("YOU HAVE BEEN LOGGED IN");
+        }
+        else
+        {
+            //if the user can't be logged in 
+            Console.WriteLine("LOGIN UNSUCCESSFUL");
+            Console.WriteLine("The Program will now terminate. PLEASE RETRY.");
+            return;
+        }
+        //Complete the log in functions
     }
-    else
+    else if (userHasAnAccount == "N" || userHasAnAccount == "n")
     {
-        //if the user can't be logged in 
-        Console.WriteLine("LOGIN UNSUCCESSFUL");
+        Console.Write("Would you like to CREATE an account?: ");
+        string createAccount = Console.ReadLine()!;
+
+        if (createAccount == "Y" || createAccount == "y")
+        {
+            //The user creates their account here.
+            RegisterNewUser();
+        }
+        else if (createAccount == "N" || createAccount == "n")
+        {
+            Console.Write("Would you like to continue as a GUEST?: ");
+            string continueAsGuest = Console.ReadLine()!;
+
+            if(continueAsGuest == "Y" || continueAsGuest == "y")
+            {
+                //Tell the user that they are not able to rent cars, they can only browse the available cars.
+                //The user continues as a guest.
+            }
+        }
     }
 }
 void RegisterNewUser()
@@ -429,9 +465,23 @@ void removeMotorbike(string userMotorbikeMakeSelection, string userMotorbikeMode
 
 //Welcoming the user
 //Getting their log-in selection
+
 insertBreak();
-    Console.WriteLine("WELCOME to CRS");
-    insertBreak();
+//Displaying the Version.
+insertBreak();
+Console.WriteLine($" ================ Version {version} ================");
+insertBreak();
+Console.WriteLine("WELCOME to CRS");
+insertBreak();
+Console.WriteLine("**************** USER ALERT ****************");
+Console.WriteLine("To enter ADMIN MODE please enter the following when prompted");
+Console.WriteLine("--admin adminUsername adminPassword");
+Console.WriteLine("**************** USER ALERT ****************");
+Console.Write("ENTER COMMAND: ");
+string enterAdmin = Console.ReadLine()!;
+
+if()
+insertBreak();
     Console.WriteLine("Please select one of the following choices:");
     insertBreak();
     Console.WriteLine("G) for GUEST");
@@ -902,10 +952,10 @@ else if (userSelection == "L" || userSelection == "l")
 //Exceptions can be seen my hovering over the top of functions.
 
 //For premium cars, I could use a databse which would allow me to use the try, catch, finally statements.
-//The abover statements are included within the week 6 work for robustness.
+//The above statements are included within the week 6 work for robustness.
 //The file needs to be within the bin file (at the same level as the exe document).
 //I could have a list of the filenames (in a normal list).
 //And then the user can select a file to open.
 
 //Need to continue working on the user create account function.
-//Need to continue implementing the User log in function. 
+//Need to continue implementing the User log in function.

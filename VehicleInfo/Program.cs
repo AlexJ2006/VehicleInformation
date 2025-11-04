@@ -54,11 +54,11 @@ void insertBreak()
 {
     Console.WriteLine("");
 }
-void adminModeAlert()
+void staffModeAlert()
 {
     Console.WriteLine("**************** USER ALERT ****************");
-    Console.WriteLine("To enter ADMIN MODE please enter the following when prompted");
-    Console.WriteLine("--admin adminUsername adminPassword");
+    Console.WriteLine("To enter STAFF MODE please enter the following when prompted");
+    Console.WriteLine("--staff staffUsername staffPassword");
     Console.WriteLine("**************** USER ALERT ****************");
 }
 void LogIn()
@@ -480,85 +480,44 @@ Console.WriteLine($" ================ Version {version} ================");
 insertBreak();
 Console.WriteLine("WELCOME to CRS");
 insertBreak();
-//The alert for the admin mode selection.
-adminModeAlert();
+//The alert for the staff mode selection.
+staffModeAlert();
 Console.Write("ENTER COMMAND: ");
-string enterAdmin = Console.ReadLine()!;
+string enterStaff = Console.ReadLine()!;
 
-static void userAdminMode(string[] args)
+ void userStaffMode(string[] args)
 {
     if (args.Length != 3)
     {
-        adminModeAlert();
+        Console.WriteLine("**************** USER ALERT ****************");
+        Console.WriteLine("To enter STAFF MODE please enter the following when prompted");
+        Console.WriteLine("--staff staffUsername staffPassword");
+        Console.WriteLine("**************** USER ALERT ****************");
         return;
     }
-    if (args[0] == "--admin")
+    if (args[0] == "--staff")
     {
+        //Check the username.
         //Check the password.
+
+        if the username and password are correct...
+        if(username and password match the database)
+        {
+            staffModeFunctions();
+        }
     }
     else
     {
-        Console.WriteLine("ERROR. PLEASE RETRY.");
-        Console.WriteLine("OR CONTINUE AS A GUEST");
+        Console.WriteLine("ERROR. PLEASE RESTART THE PROGRAM.");
     }
 }
 
-//NEED TO PICK THIS UP TOMORROW
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Outside the user staff mode function
 
 insertBreak();
     Console.WriteLine("Please select one of the following choices:");
     insertBreak();
     Console.WriteLine("G) for GUEST");
-    insertBreak();
-    Console.WriteLine("S) for STAFF");
     insertBreak();
     Console.WriteLine("C) to CREATE an ACCOUNT");
     insertBreak();
@@ -820,10 +779,9 @@ else if (userSelection == "G" || userSelection == "g")
         }
     }
 }
-//If the user wishes to sign in as a member of STAFF
-else if (userSelection == "S" || userSelection == "s")
+
+void staffModeFunctions()
 {
-    //Insert STAFF functions here
     insertBreak();
     Console.WriteLine("WELCOME STAFF");
     insertBreak();
@@ -994,11 +952,13 @@ else if (userSelection == "S" || userSelection == "s")
             Console.WriteLine("WRONG SECTION");
         }
     }
+
+    else if (userSelection == "L" || userSelection == "l")
+    {
+        LogIn();
+    }
 }
-else if (userSelection == "L" || userSelection == "l")
-{
-    LogIn();
-}
+
 
 // ============================================================================== MAIN PROGRAM ENDS ===================================================
 //Potential Developments

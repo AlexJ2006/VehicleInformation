@@ -73,7 +73,6 @@ void LogIn()
     Console.Write("N for NO ");
     string userHasAnAccount = Console.ReadLine()!;
     
-
     if (userHasAnAccount == "Y" || userHasAnAccount == "y")
     {
         //Obtaining the user's details.
@@ -491,24 +490,40 @@ string enterStaff = Console.ReadLine()!;
     {
         Console.WriteLine("**************** USER ALERT ****************");
         Console.WriteLine("To enter STAFF MODE please enter the following when prompted");
-        Console.WriteLine("--staff staffUsername staffPassword");
+        Console.WriteLine("--staff staffID staffPassword");
+        Console.WriteLine("OR");
+        insertBreak();
+        Console.WriteLine("To enter ADMIN MODE please enter the following when prompted");
+        Console.WriteLine("--admin adminID and adminPassword");
         Console.WriteLine("**************** USER ALERT ****************");
         return;
     }
     if (args[0] == "--staff")
     {
-        //Check the username.
+        //Check the ID.
         //Check the password.
-
-        if the username and password are correct...
-        if(username and password match the database)
+        if(args[1] ==)
         {
+
+        }
+
+        //if the username and password are correct...
+        //How can I get these to work?
+        //How can I read the password from the input given by the user?
+        if (username and password match the database)
+        {
+            //The User has been entered into the staff mode.
             staffModeFunctions();
         }
     }
+    else if (args[0] == "--admin")
+    {
+        //The user will enter the admin mode in which they can manage the staff.
+        //This is where the encapsulation part of the work comes into use.
+    }
     else
     {
-        Console.WriteLine("ERROR. PLEASE RESTART THE PROGRAM.");
+        Console.WriteLine("ERROR. PLEASE RESTART THE PROGRAM.");   
     }
 }
 
@@ -991,3 +1006,11 @@ void staffModeFunctions()
 
 //Need to continue working on the user create account function.
 //Need to continue implementing the User log in function.
+
+//Make sure to catch exceptions throughout the code.
+//Even if it makes the code look messy
+
+//Could have it so the admin user can view all of the staff details by printing them from the file. 
+//This could work by using the week 6 content and using try, catch and exception handling.
+
+//Could potentially aslo put the guest section into a function.

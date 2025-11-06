@@ -8,11 +8,15 @@ using VanInfo;
 using storeList;
 using System.Reflection;
 using UserData;
-using StaffDataFile;
+using VehicleInfo;
+
+StaffData.LoadJsonData();
 
 //Loading the Car Data into the program.
 CarData.LoadJsonData();
-StaffData.LoadJsonData();
+
+
+//StaffData.LoadJsonData();
 
 UserDatabaseManager.InitializeDatabase();
 
@@ -476,45 +480,23 @@ staffModeAlert();
 Console.Write("ENTER COMMAND: ");
 string enterStaff = Console.ReadLine()!;
 
- void userStaffMode(string[] args)
+void userStaffMode(string[] args)
 {
-    if (args.Length != 2)
+    if (args.Length == 3 && args[0] == "--staff")
     {
-        Console.WriteLine("**************** USER ALERT ****************");
-        Console.WriteLine("To enter STAFF MODE please enter the following when prompted");
-        Console.WriteLine("--staff staffID staffPassword");
-        Console.WriteLine("OR");
-        insertBreak();
-        Console.WriteLine("To enter ADMIN MODE please enter the following when prompted");
-        Console.WriteLine("--admin adminID and adminPassword");
-        Console.WriteLine("**************** USER ALERT ****************");
-        return;
-    }
-    if (args[0] == "--staff " && args[1] == "staffID " && args[2] == "staffPassword ")
-    {
-        Console.WriteLine("STAFF");
-        return;
-        
-        //Check the ID.
-        //Check the password.
+        int id = int.Parse(args[1]);
+        string lastName = args[2];
 
-        //if the username and password are correct...
-        //How can I get these to work?
-        //How can I read the password from the input given by the user?
-        // if (username and password match the database)
-        // {
-        //     //The User has been entered into the staff mode.
-        //     staffModeFunctions();
-        // }
-    }
-    else if (args[0] == "--admin")
-    {
-        //The user will enter the admin mode in which they can manage the staff.
-        //This is where the encapsulation part of the work comes into use.
-    }
-    else
-    {
-        Console.WriteLine("ERROR. PLEASE RESTART THE PROGRAM.");   
+        if (StaffData.staffDict.TryGetValue(id, out Staff staff) && staff.lastName == lastName)
+        {
+            Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
+            staffModeFunctions();
+            return;
+        }
+        else
+        {
+            Console.WriteLine("ACCESS DENIED");
+        }
     }
 }
 
@@ -522,26 +504,38 @@ string enterStaff = Console.ReadLine()!;
 userStaffMode(args);
 
 insertBreak();
-    Console.WriteLine("Please select one of the following choices:");
-    insertBreak();
-    Console.WriteLine("G) for GUEST");
-    insertBreak();
-    Console.WriteLine("C) to CREATE an ACCOUNT");
-    insertBreak();
-    Console.WriteLine("L) to LOG IN to an EXISTING ACCOUNT");
-    insertBreak();
-    Console.Write("ENTER YOUR CHOICE: ");
-    string userSelection = Console.ReadLine()!;
+Console.WriteLine("Please select one of the following choices:");
+insertBreak();
+Console.WriteLine("G) for GUEST");
+insertBreak();
+Console.WriteLine("C) to CREATE an ACCOUNT");
+insertBreak();
+Console.WriteLine("L) to LOG IN to an EXISTING ACCOUNT");
+insertBreak();
+Console.Write("ENTER YOUR CHOICE: ");
 
-//If the user is a NEW USER (ACCOUNT CREATION IN THE FUTURE)
-if (userSelection == "C" || userSelection == "c")
+string userSelection = Console.ReadLine()!.Trim().ToUpper();
+
+if (userSelection == "C")
 {
     Console.WriteLine("WELCOME NEW USER");
-    //Insert NEW USER functions here
+    // Insert NEW USER functions here
+}
+else if (userSelection == "L")
+{
+    Console.WriteLine("LOGGING YOU IN...");
+}
+else if (userSelection == "G")
+{
+    Console.WriteLine("ENTERING GUEST MODE...");
+}
+else
+{
+    Console.WriteLine("INVALID OPTION. PLEASE TRY AGAIN.");
 }
 
 //If the user has chosen to use the system as a GUEST.
-else if (userSelection == "G" || userSelection == "g")
+if (userSelection == "G" || userSelection == "g")
 {
     //Insert GUEST functions here
     insertBreak();

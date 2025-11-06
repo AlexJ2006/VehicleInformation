@@ -1,10 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 //Console.WriteLine("Hello, World!");
-
-using System.Collections.Concurrent;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.Marshalling;
 using System.Text.Json;
 //Allowing program.cs to access my dictionary (info) files.
 using CarInfo;
@@ -13,14 +8,11 @@ using VanInfo;
 using storeList;
 using System.Reflection;
 using UserData;
-using System.ComponentModel.Design.Serialization;
-using System.Security.Cryptography;
-using System.Data.Common;
-using System.Linq;
-using SQLitePCL;
+using StaffDataFile;
 
 //Loading the Car Data into the program.
 CarData.LoadJsonData();
+StaffData.LoadJsonData();
 
 UserDatabaseManager.InitializeDatabase();
 
@@ -486,7 +478,7 @@ string enterStaff = Console.ReadLine()!;
 
  void userStaffMode(string[] args)
 {
-    if (args.Length != 3)
+    if (args.Length != 2)
     {
         Console.WriteLine("**************** USER ALERT ****************");
         Console.WriteLine("To enter STAFF MODE please enter the following when prompted");
@@ -498,23 +490,22 @@ string enterStaff = Console.ReadLine()!;
         Console.WriteLine("**************** USER ALERT ****************");
         return;
     }
-    if (args[0] == "--staff")
+    if (args[0] == "--staff " && args[1] == "staffID " && args[2] == "staffPassword ")
     {
+        Console.WriteLine("STAFF");
+        return;
+        
         //Check the ID.
         //Check the password.
-        if(args[1] ==)
-        {
-
-        }
 
         //if the username and password are correct...
         //How can I get these to work?
         //How can I read the password from the input given by the user?
-        if (username and password match the database)
-        {
-            //The User has been entered into the staff mode.
-            staffModeFunctions();
-        }
+        // if (username and password match the database)
+        // {
+        //     //The User has been entered into the staff mode.
+        //     staffModeFunctions();
+        // }
     }
     else if (args[0] == "--admin")
     {
@@ -528,6 +519,7 @@ string enterStaff = Console.ReadLine()!;
 }
 
 //Outside the user staff mode function
+userStaffMode(args);
 
 insertBreak();
     Console.WriteLine("Please select one of the following choices:");
@@ -795,6 +787,60 @@ else if (userSelection == "G" || userSelection == "g")
     }
 }
 
+void adminFunctions()
+{
+    Console.WriteLine("Please select a function from the following");
+    insertBreak();
+    Console.WriteLine("A) ADD staff member");
+    insertBreak();
+    Console.WriteLine("R) REMOVE staff member");
+    insertBreak();
+    Console.WriteLine("V) VIEW staff member lsit");
+    insertBreak();
+    Console.Write("ENTER YOUR CHOICE:");
+    string adminFunctionChoice = Console.ReadLine()!;
+
+    if (adminFunctionChoice == "A" || adminFunctionChoice == "a")
+    {
+        insertBreak();
+        Console.Write("STAFF ID: ");
+        string stringStaffID = Console.ReadLine()!;
+        int staffID = Convert.ToInt32(stringStaffID);
+        Console.Write("FIRST NAME: ");
+        string firstName = Console.ReadLine()!;
+        Console.Write("LAST NAME: ");
+        string lastName = Console.ReadLine()!;
+            
+        Staff newStaff = new Staff
+        {
+            staffID = staffID,
+            firstName = firstName,
+            lastName = lastName
+        };
+            //Adding the car to the dictionary.
+            StaffData.staffDict.Add(newStaff.staffID, newStaff);
+
+            //Saving the Cars to the JSON file.
+            CarData.SaveToJson();
+            Console.WriteLine("CAR ADDED");
+
+    }
+    else if (adminFunctionChoice == "R" || adminFunctionChoice == "r")
+    {
+
+    }
+    else if (adminFunctionChoice == "V" || adminFunctionChoice == "v")
+    {
+
+    }
+    else
+    {
+        invalidInput();
+    }
+
+}
+
+//Still need to ensure this function is called somewhere.
 void staffModeFunctions()
 {
     insertBreak();
@@ -1014,3 +1060,7 @@ void staffModeFunctions()
 //This could work by using the week 6 content and using try, catch and exception handling.
 
 //Could potentially aslo put the guest section into a function.
+
+//Could use IEnumerable for the storelist.
+
+//Look at putting the functions into classes and moving them to other files and then calling them into the program.cs which will just be used for calling the functions.

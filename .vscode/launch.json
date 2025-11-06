@@ -1,0 +1,8 @@
+{
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console)",
+            "args": ["--staff", "--admin"], 
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+namespace StaffDataFile;
+{
+    public static class StaffData
+    {
+        public static Dictionary<string, Staff> staffDict = new();
+        private static readonly string filepath = "staff.json";
+
+        // Save staff to the JSON file.
+        public static void SaveToJson()
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string json = JsonSerializer.Serialize(staffDict, options);
+            File.WriteAllText(filepath, json);
+        }
+
+        // Load cars from JSON file into memory
+        public static void LoadJsonData()
+        {
+            if (File.Exists(filepath))
+            {
+                string json = File.ReadAllText(filepath);
+                staffDict = JsonSerializer.Deserialize<Dictionary<string, Staff>>(json)
+                          ?? new Dictionary<string, Staff>();
+            }
+            else
+            {
+                staffDict = new Dictionary<string, Staff>();
+            }
+        }
+    }
+    class Staff
+    {
+       private string _staffID;
+        public string StaffID
+        {
+            get => _staffID;
+            set
+            {
+                if (value.Length <= 4)
+                    _staffID = value;
+                else
+                    Console.WriteLine("Please ensure your ID is less than 5 characters.");
+            }
+        }
+
+        private string firstName;
+        
+        private string lastName;
+
+        public string GetStaffID() { return staffID; }
+
+        public string GetName() { return firstName + " " + lastName; }
+
+        public void SetStaffID(int newStaffID)
+        {
+            if(newStaffID > 5000)
+            {
+                    
+            }
+        }
+    }
+}

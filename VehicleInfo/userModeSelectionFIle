@@ -1,0 +1,24 @@
+//Trying to use command line arguments.
+//not going to use them in this way now .
+
+static void userModeSelection(string[] args)
+{
+
+    if (args.Length != 3)
+    {
+        Console.WriteLine("WELCOME USER");
+        Console.WriteLine("Please provide your credentials in the following format");
+        Console.WriteLine("--customer Username Password");
+        Console.WriteLine("--staff Username Password");
+        return;
+    }
+    if (args[0] == "--customer")
+    {
+        //Check the password.
+    }
+    else if (args[0] == "--staff")
+    {
+        //check the password
+    }
+}
+LogIn();

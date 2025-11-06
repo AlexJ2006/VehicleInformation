@@ -1,0 +1,107 @@
+
+//TESTING PAGE FOR EASIER IMPLEMENTATION
+
+
+
+void insertBreak()
+{
+    Console.WriteLine("");
+}
+void LogIn()
+{
+
+    Console.WriteLine("Do you currentl have an account?");
+    Console.WriteLie("Please enter: ");
+    Console.WriteLine("Y for YES");
+    Console.WriteLine("OR");
+    Console.WriteLine("N for NO");
+    string userHasAnAccount = Console.ReadLine()!;
+
+    if (userHasAnAccount == "Y" || userHasAnAccount == "y")
+    {
+        //Obtaining the user's details.
+        Console.WriteLine("Please enter your credentials");
+        Console.Write("USER ID: ");
+        string userID = Console.ReadLine()!;
+        insertBreak();
+        Console.Write("PASSWORD: ");
+        string password = Console.ReadLine()!;
+
+        if (UserDatabaseManager.ValidateUserLogIn(userID, password))
+        {
+            //if the user can/has been logged in
+            Console.WriteLine("YOU HAVE BEEN LOGGED IN");
+        }
+        else
+        {
+            //if the user can't be logged in 
+            Console.WriteLine("LOGIN UNSUCCESSFUL");
+            Console.WriteLine("The Program will now terminate. PLEASE RETRY.");
+            return;
+        }
+        //Complete the log in functions
+    }
+    else if (userHasAnAccount == "N" || "n")
+    {
+        Console.Write("Would you like to CREATE an account?: ");
+        string createAccount = Console.ReadLine()!;
+
+        if (createAccount == "Y" || createAccount == "y")
+        {
+            //The user creates their account here.
+            RegisterNewUser();
+        }
+        else if (createAccount == "N" || createAccount == "n")
+        {
+            Console.Write("Would you like to continue as a GUEST?: ");
+            string continueAsGuest = Console.ReadLine()!;
+
+            if(continueAsGuest == "Y" || continueAsGuest == "y")
+            {
+                //Tell the user that they are not able to rent cars, they can only browse the available cars.
+                //The user continues as a guest.
+            }
+        }
+    }
+}
+void RegisterNewUser()
+{
+    //Might not need to convert the password, DoB and contact number to an integer as they are used as strings when entered into the database.
+    //Hence why they are commented out within the code.
+    Console.WriteLine("Please Complete the following Steps to create your account");
+    insertBreak();
+    Console.WriteLine("Please note, the user ID must ONLY contain NUMBERS ");
+    insertBreak();
+    Console.Write("UserID: ");
+    string stringUserID = Console.ReadLine()!;
+    int userID = Convert.ToInt32(stringUserID);
+    insertBreak();
+    Console.WriteLine("Please note, the password MUST contain UPPER and LOWER cases and NUMBERS");
+    Console.Write("Password:");
+    string stringUserPassword = Console.ReadLine()!;
+    // int UserPassword = Convert.ToInt32(stringUserPassword);
+    insertBreak();
+    Console.Write("First Name: ");
+    string firstName = Console.ReadLine()!;
+    insertBreak();
+    Console.Write("Last Name: ");
+    string lastName = Console.ReadLine()!;
+    insertBreak();
+    Console.WriteLine("DoB: ");
+    string stringDoB = Console.ReadLine()!;
+    // int DoB = Convert.ToInt32(stringDoB);
+    insertBreak();
+    Console.Write("Contact Number: ");
+    string stringContactNumber = Console.ReadLine()!;
+    // int contactNumber = Convert.ToInt32(stringContactNumber);
+
+    UserDatabaseManager.RegisteredUser(stringUserID, stringUserPassword, firstName, lastName, stringDoB, stringContactNumber);
+}
+
+
+
+
+else if (userSelection == "L" || userSelection == "l")
+{
+    LogIn();
+}

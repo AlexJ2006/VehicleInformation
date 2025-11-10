@@ -33,6 +33,8 @@ namespace VehicleInfo
             Console.WriteLine("**************** USER ALERT ****************");
             Console.WriteLine("To enter STAFF MODE please enter the following when prompted");
             Console.WriteLine("--staff staffUsername staffPassword");
+            Console.WriteLine("ELSE");
+            Console.WriteLine("Enter E to enter the guest/customer menus");
             Console.WriteLine("**************** USER ALERT ****************");
         }
         public static void getAndShowVersion()

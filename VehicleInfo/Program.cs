@@ -1,5 +1,5 @@
-﻿//Allowing program.cs to access my dictionary (info) files.
-using CarInfo;
+﻿using CarInfo;
+using System.Formats.Asn1;
 using System.Reflection;
 using UserData;
 using VehicleInfo;
@@ -16,42 +16,14 @@ VehicleManagement.LoadMotorbikes();
 //Loading the van data
 VehicleManagement.LoadVans();
 
-    //Staff Function
-    void userStaffMode(string[] args)
-    {
-        // Expect: --staff <id> <lastName>
-        if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
-        {
-            if (!int.TryParse(args[1], out int id))
-            {
-                Console.WriteLine("Invalid staff ID format.");
-                return;
-            }
-
-            string lastName = args[2];
-
-            if (StaffData.staffDict.TryGetValue(id, out Staff staff) &&
-                staff.lastName.Equals(lastName, StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
-                UserType.staffMember();
-                return;
-            }
-
-            Console.WriteLine("ACCESS DENIED");
-            return;
-        }
-        Console.WriteLine("INVALID INPUT. PLEASE RETRY.");
-    }
-
-
 //======================================================== MAIN PROGRAM BEGINS ==========================================================================
+    UserType.staffArgsMenu();
     Utilities.welcomeUser();
     Console.Write("ENTER COMMAND: ");
     string enterStaff = Console.ReadLine()!;
     string[] staffArgs = enterStaff.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-    userStaffMode(staffArgs);
+    UserType.staffArgsMenu(staffArgs);
 
     Utilities.userSelectMenu();
     Console.Write("ENTER YOUR CHOICE: ");

@@ -449,7 +449,7 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.WriteLine("MOTORBIKE ADDED");
         }
-        public static void removeCar(userCarMakeSelection, userCarModelSelection)
+        public static void removeCar(string userCarMakeSelection, string userCarModelSelection)
         {
             LoadCars();
 
@@ -476,7 +476,7 @@ namespace VehicleInfo
             var json = JsonSerializer.Serialize(CarData.carDict, new JsonSerializerOptions { WriteIndented = true });
             CarData.SaveToJson();
         }
-        public static void removeVan(userVanMakeSelection, userVanModelSelection)
+        public static void removeVan( string userVanMakeSelection, string userVanModelSelection)
         {
             LoadVans();
 
@@ -503,7 +503,7 @@ namespace VehicleInfo
             var json = JsonSerializer.Serialize(VanData.vanDict, new JsonSerializerOptions { WriteIndented = true });
             VanData.SaveToJson();
         }
-        public static void removeMotorbike(userMotorbikeMakeSelection, userMotorbikeModelSelection)
+        public static void removeMotorbike(string userMotorbikeMakeSelection, string userMotorbikeModelSelection)
         {
             LoadMotorbikes();
 

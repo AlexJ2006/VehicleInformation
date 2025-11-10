@@ -4,6 +4,35 @@ namespace VehicleInfo
 {
     public static class UserType
     {
+        public static void staffArgsMenu(string[] args)
+        {
+            if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!int.TryParse(args[1], out int id))
+            {
+                Console.WriteLine("Invalid staff ID format.");
+                return;
+            }
+
+            string lastName = args[2];
+
+        if (StaffData.staffDict.TryGetValue(id, out Staff staff) &&
+            staff.lastName.Equals(lastName, StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
+            UserType.staffMember();
+            return;
+        }
+        else
+        {
+            Console.WriteLine("MAIN FUNCTION CHOSEN.");
+            return;
+        }
+
+            
+        }
+        Console.WriteLine("INVALID INPUT. PLEASE RETRY.");
+        }
         public static void staffMember()
         {
             Utilities.insertBreak();
@@ -260,5 +289,6 @@ namespace VehicleInfo
             Utilities.invalidInput();
         }
         }
+
     }
 }

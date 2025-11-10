@@ -8,6 +8,251 @@ namespace VehicleInfo
 {
     public static class VehicleManagement
     {
+        public static void guestMenu()
+        {
+            //Insert GUEST functions here
+            Utilities.insertBreak();
+            Console.Write("Please enter your NAME: ");
+            string guestName = Console.ReadLine()!;
+            Utilities.insertBreak();
+            Console.WriteLine($"Welcome, {guestName}!");
+            Utilities.insertBreak();
+            Console.WriteLine("Please choose from ONE of the following options:");
+            Utilities.insertBreak();
+            Console.Write("C for CAR, M for MOTORCYCLE, V for VAN: ");
+            string vehicleType = Console.ReadLine()!;
+
+            //Cars
+            if (vehicleType == "C" || vehicleType == "c")
+            {
+                LoadCars();
+                Utilities.insertBreak();
+                Console.WriteLine("You have chosen CAR");
+                Utilities.insertBreak();
+
+                Console.WriteLine("Which category of CAR would you like to rent?");
+                Utilities.insertBreak();
+                Console.Write("The options are SMALL, MEDIUM or LARGE: ");
+                string categoryChoice = Console.ReadLine()!;
+                Utilities.insertBreak();
+                Console.WriteLine($"You have chosen {categoryChoice}");
+                Utilities.insertBreak();
+
+                Console.Write("What is your maximum Price Per Day?: ");
+                string maxPriceString = Console.ReadLine()!;
+                int maxPriceInt = Convert.ToInt32(maxPriceString);
+                Console.WriteLine("The options meeting your criteria are: ");
+                // TRYING TO GET THIS TO WORK TO PRESENT THE USER WITH MULTIPLE PIECES OF INFORMATION
+                Utilities.insertBreak();
+                //I HAVE REMOVED IENUMERABLE, WILL THIS STILL WORK?
+                var carList =
+                CarData.carDict
+                .Where(car =>
+                    car.Value.pricePerDay <= maxPriceInt &&
+                    car.Value.category.Equals(categoryChoice, StringComparison.OrdinalIgnoreCase))
+                .Select(car => new { car.Value.make, car.Value.model, car.Value.pricePerDay });
+
+                foreach (var Car in carList)
+                {
+                    Console.WriteLine($"{Car.make} - {Car.model} - £{Car.pricePerDay}/day");
+                    Utilities.insertBreak();
+                }
+
+                Console.WriteLine("Please fill out the following fields for the CAR you wish to RENT");
+                Utilities.insertBreak();
+                Console.Write("MAKE: ");
+                string userCarMakeSelection = Console.ReadLine()!;
+                Utilities.insertBreak();
+                Console.Write("MODEL: ");
+                string userCarModelSelection = Console.ReadLine()!;
+                Utilities.insertBreak();
+                Console.Write("How many days would you like to rent the CAR for?: ");
+                string stringNumberOfDaysRental = Console.ReadLine()!;
+                int numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
+                Utilities.insertBreak();
+
+                Console.WriteLine($"You would like to rent the {userCarMakeSelection} {userCarModelSelection}");
+                Utilities.insertBreak();
+                Console.WriteLine($"For {numberOfDaysRental} days?");
+                Console.Write("Press Y to CONTINUE: ");
+                string continueWithRental = Console.ReadLine()!;
+                Utilities.insertBreak();
+
+                if (continueWithRental == "Y" || continueWithRental == "y")
+                {
+                    var userCarSelection = CarData.carDict.Values.FirstOrDefault(Car =>
+                    Car.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                    Car.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
+
+
+                    if (userCarSelection != null)
+                    {
+                        int totalPrice = userCarSelection.pricePerDay * numberOfDaysRental;
+                        Console.WriteLine($"Your total will be £{totalPrice}");
+
+                        VehicleManagement.removeCar(userCarMakeSelection, userCarModelSelection);
+                        Console.WriteLine($"Thank you, you have rented the {userCarMakeSelection} {userCarModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("CAR NOT FOUND.");
+                    }
+                }
+                else if (continueWithRental == "N" || continueWithRental == "n")
+                {
+                    Console.WriteLine("Thank you.");
+                    Console.WriteLine("The program will now TERMINATE.");
+                    return;
+                }
+                else
+                {
+                    Utilities.invaliInputDuringRental();
+                }
+
+                // CAR REMOVAL FUNCTION
+            }
+            //Motorbikes
+            else if (vehicleType == "M" || vehicleType == "m")
+            {
+                LoadMotorbikes();
+
+                Utilities.insertBreak();
+                Console.Write("What is your maximum Price Per Day?: ");
+                string maxPriceString = Console.ReadLine()!;
+                int maxPriceInt = Convert.ToInt32(maxPriceString);
+                Utilities.insertBreak();
+                Console.WriteLine("Your Options are: ");
+                Utilities.insertBreak();
+
+                var motorbikeList =
+                    MotorbikeData.motorbikeDict
+                        .Where(motorbike =>
+                        (motorbike.Value.pricePerDay <= maxPriceInt))
+                        .Select(motorbike => new { motorbike.Value.make, motorbike.Value.model, motorbike.Value.pricePerDay });
+                foreach (var motorbike in motorbikeList)
+                {
+                    Console.WriteLine($"{motorbike.make} - {motorbike.model} - £{motorbike.pricePerDay}/day");
+                    Utilities.insertBreak();
+                }
+                Console.WriteLine("Please fill out the following fields for the MOTORBIKE you wish to RENT");
+                Utilities.insertBreak();
+                Console.Write("MAKE: ");
+                string userMotorbikeMakeSelection = Console.ReadLine()!;
+                Utilities.insertBreak();
+                Console.Write("MODEL: ");
+                string userMotorbikeModelSelection = Console.ReadLine()!;
+                Utilities.insertBreak();
+                Console.Write("How many days would you like to rent the MOTORBIKE for?: ");
+                string stringNumberOfDaysRental = Console.ReadLine()!;
+                int numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
+                Utilities.insertBreak();
+
+                Console.WriteLine($"You would like to rent the {userMotorbikeMakeSelection} {userMotorbikeModelSelection}");
+                Utilities.insertBreak();
+                Console.WriteLine($"For {numberOfDaysRental} days?");
+                Console.Write("Press Y to CONTINUE: ");
+                string continueWithRental = Console.ReadLine()!;
+                Utilities.insertBreak();
+
+                if (continueWithRental == "Y" || continueWithRental == "y")
+                {
+                    var userMotorbikeSelection = MotorbikeData.motorbikeDict.Values.FirstOrDefault(Motorbike =>
+                    Motorbike.make.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                    Motorbike.model.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
+
+                    if (userMotorbikeSelection != null)
+                    {
+                        int totalPrice = userMotorbikeSelection.pricePerDay * numberOfDaysRental;
+                        Console.WriteLine($"Your total will be £{totalPrice}");
+
+                        VehicleManagement.removeMotorbike(userMotorbikeMakeSelection, userMotorbikeModelSelection);
+                        Console.WriteLine($"Thank you, you have rented the {userMotorbikeMakeSelection} {userMotorbikeModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("MOTORBIKE NOT FOUND.");
+                    }
+                }
+            }
+            //Vans
+            else if (vehicleType == "V" || vehicleType == "v")
+            {
+                LoadVans();
+
+                Utilities.insertBreak();
+                Console.WriteLine("Which category of VAN would you like to rent?");
+                Utilities.insertBreak();
+                Console.Write("The options are SMALL, MEDIUM or LARGE: ");
+                string categoryChoice = Console.ReadLine()!;
+                Utilities.insertBreak();
+                Console.WriteLine($"You have chosen {categoryChoice}");
+                Utilities.insertBreak();
+
+                Console.Write("What is your maximum Price Per Day?: ");
+                string maxVanPriceString = Console.ReadLine()!;
+                int maxVanPriceInt = Convert.ToInt32(maxVanPriceString);
+                Utilities.insertBreak();
+                Console.WriteLine("Your Options are: ");
+
+                Utilities.insertBreak();
+
+                var vanList =
+                    VanData.vanDict
+                        .Where(van =>
+                        (van.Value.pricePerDay <= maxVanPriceInt))
+                        .Select(van => new { van.Value.make, van.Value.model, van.Value.pricePerDay });
+
+                foreach (var van in vanList)
+                {
+                    Console.WriteLine($"{van.make} - {van.model} - £{van.pricePerDay}/day");
+                    Utilities.insertBreak();
+                }
+                Console.WriteLine("Please fill out the following fields for the VAN you wish to RENT");
+                Utilities.insertBreak();
+                Console.Write("MAKE: ");
+                string userVanMakeSelection = Console.ReadLine()!;
+                Utilities.insertBreak();
+                Console.Write("MODEL: ");
+                string userVanModelSelection = Console.ReadLine()!;
+                Utilities.insertBreak();
+                Console.Write("How many days would you like to rent the VAN for?: ");
+                string stringNumberOfDaysVanRental = Console.ReadLine()!;
+                int numberOfDaysVanRental = Convert.ToInt32(stringNumberOfDaysVanRental);
+                Utilities.insertBreak();
+
+                Console.WriteLine($"You would like to rent the {userVanMakeSelection} {userVanModelSelection}");
+                Console.WriteLine($"For {numberOfDaysVanRental} days?");
+                Utilities.insertBreak();
+                Console.Write("Press Y to CONTINUE: ");
+                string continueWithVanRental = Console.ReadLine()!;
+                Utilities.insertBreak();
+
+                if (continueWithVanRental == "Y" || continueWithVanRental == "y")
+                {
+                    var userVanSelection = VanData.vanDict.Values.FirstOrDefault(Van =>
+                    Van.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                    Van.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
+
+                    if (userVanSelection != null)
+                    {
+                        int totalPrice = userVanSelection.pricePerDay * numberOfDaysVanRental;
+                        Console.WriteLine($"Your total will be £{totalPrice}");
+
+                        VehicleManagement.removeVan(userVanMakeSelection, userVanModelSelection);
+                        Console.WriteLine($"Thank you, you have rented the {userVanMakeSelection} {userVanModelSelection} for {numberOfDaysVanRental} days, costing £{totalPrice}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("VAN NOT FOUND");
+                    }
+                }
+                //If the user has not inputted C, M or V...
+                else
+                {
+                    Utilities.invalidInput();
+                }
+            }
+        }
 
         public static void LoadCars()
         {
@@ -204,7 +449,7 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.WriteLine("MOTORBIKE ADDED");
         }
-        public static void removeCar()
+        public static void removeCar(userCarMakeSelection, userCarModelSelection)
         {
             LoadCars();
 
@@ -230,6 +475,60 @@ namespace VehicleInfo
 
             var json = JsonSerializer.Serialize(CarData.carDict, new JsonSerializerOptions { WriteIndented = true });
             CarData.SaveToJson();
+        }
+        public static void removeVan(userVanMakeSelection, userVanModelSelection)
+        {
+            LoadVans();
+
+            if (VanData.vanDict.ContainsKey(userVanMakeSelection))
+            {
+                VanData.vanDict.Remove(userVanMakeSelection);
+            }
+            else
+            {
+                var rentedVan = VanData.vanDict.FirstOrDefault(Van =>
+                Van.Value.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                Van.Value.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
+
+                if (!string.IsNullOrEmpty(rentedVan.Key))
+                {
+                    VanData.vanDict.Remove(rentedVan.Key);
+                }
+                else
+                {
+                    Console.WriteLine("Could not find the van wihtin the list");
+                }
+            }
+
+            var json = JsonSerializer.Serialize(VanData.vanDict, new JsonSerializerOptions { WriteIndented = true });
+            VanData.SaveToJson();
+        }
+        public static void removeMotorbike(userMotorbikeMakeSelection, userMotorbikeModelSelection)
+        {
+            LoadMotorbikes();
+
+            if (MotorbikeData.motorbikeDict.ContainsKey(userMotorbikeMakeSelection))
+            {
+                MotorbikeData.motorbikeDict.Remove(userMotorbikeMakeSelection);
+            }
+            else
+            {
+                var rentedMotorbike = MotorbikeData.motorbikeDict.FirstOrDefault(Motorbike =>
+                Motorbike.Value.make.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                Motorbike.Value.model.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
+
+                if (!string.IsNullOrEmpty(rentedMotorbike.Key))
+                {
+                    MotorbikeData.motorbikeDict.Remove(rentedMotorbike.Key);
+                }
+                else
+                {
+                    Console.WriteLine("Could not find the car wihtin the list");
+                }
+            }
+
+            var json = JsonSerializer.Serialize(MotorbikeData.motorbikeDict, new JsonSerializerOptions { WriteIndented = true });
+            MotorbikeData.SaveToJson();
         }
     }
 }

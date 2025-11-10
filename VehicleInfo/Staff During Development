@@ -10,7 +10,7 @@
 //     Console.WriteLine("R) REMOVE VEHICLES");
 //     Console.WriteLine("E) EDIT STORE LIST");
 //     string? staffMenuChoice = Console.ReadLine();
-//     insertBreak();
+//     Utilities.insertBreak();();
 
 //     if (staffMenuChoice == "A" || staffMenuChoice == "a")
 //     {
@@ -68,11 +68,11 @@
 //         else if (staffMenuChoice == "E" || staffMenuChoice == "e")
 //         {
 //             Console.WriteLine("The current list of stores will be displayed below: ");
-//             insertBreak();
+//             Utilities.insertBreak();();
 
 //             storeListDisplay();
 
-//             insertBreak();
+//             Utilities.insertBreak();();
 //             Console.Write("Would you like to Add a new store to the list?: ");
 //             string decision = Console.ReadLine()!;
 //             if (decision == "Yes" || decision == "yes")

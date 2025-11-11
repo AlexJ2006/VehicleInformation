@@ -7,19 +7,17 @@ namespace VehicleInfo
         public static void LogIn()
         {
             Utilities.insertBreak();
-            Console.WriteLine("Do you currentl have an account?");
+            Console.WriteLine("Do you currently have an account?");
             Utilities.insertBreak();
-            Console.WriteLine("Please enter: ");
-            Utilities.insertBreak();
-            Console.WriteLine("Y for YES");
-            Console.WriteLine("OR");
-            Console.Write("N for NO ");
+            Console.Write("Y OR N: ");
             string userHasAnAccount = Console.ReadLine()!;
             
             if (userHasAnAccount == "Y" || userHasAnAccount == "y")
             {
                 //Obtaining the user's details.
+                Utilities.insertBreak();
                 Console.WriteLine("Please enter your credentials");
+                Utilities.insertBreak();
                 Console.Write("USER ID: ");
                 string userID = Console.ReadLine()!;
                 Utilities.insertBreak();
@@ -42,6 +40,7 @@ namespace VehicleInfo
             }
             else if (userHasAnAccount == "N" || userHasAnAccount == "n")
             {
+                Utilities.insertBreak();
                 Console.Write("Would you like to CREATE an account?: ");
                 string createAccount = Console.ReadLine()!;
 

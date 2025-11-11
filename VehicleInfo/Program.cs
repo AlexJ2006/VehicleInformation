@@ -17,14 +17,15 @@ VehicleManagement.LoadMotorbikes();
 VehicleManagement.LoadVans();
 
 //======================================================== MAIN PROGRAM BEGINS ==========================================================================
-    UserType.staffArgsMenu();
-    Utilities.welcomeUser();
-    Console.Write("ENTER COMMAND: ");
-    string enterStaff = Console.ReadLine()!;
-    string[] staffArgs = enterStaff.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+//Showing the user the current version of the program.
+Utilities.getAndShowVersion();
 
-    UserType.staffArgsMenu(staffArgs);
+//Welcoming the user to the program.
+Utilities.welcomeUser();
 
+//Presenting the user with the option to sign in as a member of staff (using command line arguments).
+UserType.staffArgsMenu(args);
+    
     Utilities.userSelectMenu();
     Console.Write("ENTER YOUR CHOICE: ");
     string userSelection = Console.ReadLine()!.Trim().ToUpper();
@@ -38,7 +39,7 @@ if (userSelection == "C")
 else if (userSelection == "L")
 {
     Utilities.insertBreak();
-    Utilities.loggingInMessage();
+    LogInFunction.LogIn();
 }
 else if (userSelection == "G")
 {
@@ -46,7 +47,7 @@ else if (userSelection == "G")
     Utilities.guestModeMessage();
     VehicleManagement.guestMenu();
 }
-else if (userSelection == "L" || userSelection == "l")
+else if (userSelection == "L")
 {
     LogInFunction.LogIn();
 }
@@ -55,7 +56,6 @@ else
     Utilities.insertBreak();
     Utilities.invalidInput();
 }
-
 
 // ============================================================================== MAIN PROGRAM ENDS ===================================================
 //Potential Developments

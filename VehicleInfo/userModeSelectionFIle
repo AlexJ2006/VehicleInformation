@@ -21,4 +21,4 @@ static void userModeSelection(string[] args)
         //check the password
     }
 }
-LogIn();
+//PREVIOUSLY, there was a login function here.

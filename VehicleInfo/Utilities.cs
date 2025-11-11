@@ -36,6 +36,7 @@ namespace VehicleInfo
             Console.WriteLine("ELSE");
             Console.WriteLine("Enter E to enter the guest/customer menus");
             Console.WriteLine("**************** USER ALERT ****************");
+            Utilities.insertBreak();
         }
         public static void getAndShowVersion()
         {
@@ -53,10 +54,11 @@ namespace VehicleInfo
             Console.WriteLine("WELCOME to CRS");
             insertBreak();
             //The alert for the staff mode selection.
-            Utilities.staffModeAlert();
         }
         public static void userSelectMenu()
         {
+            Utilities.insertBreak();
+            Console.WriteLine("Loading MAIN FUNCTION...");
             insertBreak();
             Console.WriteLine("Please select one of the following choices:");
             insertBreak();
@@ -66,6 +68,26 @@ namespace VehicleInfo
             insertBreak();
             Console.WriteLine("L) to LOG IN to an EXISTING ACCOUNT");
             insertBreak();
+        }
+        public static void getUserCommand()
+        {
+            Console.WriteLine("To enter as STAFF or ADMIN. PLease enter your credentials. ");
+            Utilities.insertBreak();
+            Console.WriteLine("OR");
+            Utilities.insertBreak();
+            Console.WriteLine("Press E to enter the main program now");
+            Utilities.insertBreak();
+            Console.Write("ENTER COMMAND: ");
+            string enterStaff = Console.ReadLine()!;
+            string[] staffArgs = enterStaff.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        }
+        public static void invalidPasswordEntry()
+        {
+            Console.WriteLine("Your password MUST NOT exceed 16 characters");
+        }
+        public static void invalidUserIDEntry()
+        {
+            Console.WriteLine("Your USER ID MUST NOT exceed 5 characters and MUST only contain numbers");
         }
     }
 }

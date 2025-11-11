@@ -6,33 +6,31 @@ namespace VehicleInfo
     {
         public static void staffArgsMenu(string[] args)
         {
+
+            Utilities.getUserCommand();
             if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
-        {
-            if (!int.TryParse(args[1], out int id))
             {
-                Console.WriteLine("Invalid staff ID format.");
+                if (!int.TryParse(args[1], out int id))
+                {
+                    Console.WriteLine("Invalid staff ID format.");
+                    return;
+                }
+                string lastName = args[2];
+
+                if (StaffData.staffDict.TryGetValue(id, out Staff staff) &&
+                    staff.lastName.Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
+                    UserType.staffMember();
+                }
+                else
+                {
+                    Console.WriteLine("ACCESS DENIED");
+                }
                 return;
             }
-
-            string lastName = args[2];
-
-        if (StaffData.staffDict.TryGetValue(id, out Staff staff) &&
-            staff.lastName.Equals(lastName, StringComparison.OrdinalIgnoreCase))
-        {
-            Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
-            UserType.staffMember();
-            return;
-        }
-        else
-        {
-            Console.WriteLine("MAIN FUNCTION CHOSEN.");
-            return;
         }
 
-            
-        }
-        Console.WriteLine("INVALID INPUT. PLEASE RETRY.");
-        }
         public static void staffMember()
         {
             Utilities.insertBreak();
@@ -112,7 +110,7 @@ namespace VehicleInfo
                     {
                         //One instance of the Add Motorbike class occurs rather than multiple
                         Utilities.insertBreak();
-                        
+
                         VehicleManagement.addMotorbike();
                     }
                 }
@@ -173,7 +171,6 @@ namespace VehicleInfo
                     else
                     {
                         Console.WriteLine("You will now be logged out, THANK YOU.");
-                        return;
                     }
                 }
                 else if (decision == "No" || decision == "no")
@@ -209,18 +206,17 @@ namespace VehicleInfo
         }
         public static void RegisterNewUser()
         {
+            Utilities.insertBreak();
             Console.WriteLine("Please Complete the following Steps to create your account");
             Utilities.insertBreak();
-            Console.WriteLine("Please note, the user ID must ONLY contain NUMBERS ");
+            Console.WriteLine("Please note, the USER ID must ONLY contain NUMBERS and must not contain more than 5 characters");
             Utilities.insertBreak();
             Console.Write("UserID: ");
             string stringUserID = Console.ReadLine()!;
-            int userID = Convert.ToInt32(stringUserID);
             Utilities.insertBreak();
-            Console.WriteLine("Please note, the password MUST contain UPPER and LOWER cases and NUMBERS");
+            Console.WriteLine("Please note, the password MUST NOT exceed the length of 16 characters.");
             Console.Write("Password:");
             string stringUserPassword = Console.ReadLine()!;
-            // int UserPassword = Convert.ToInt32(stringUserPassword);
             Utilities.insertBreak();
             Console.Write("First Name: ");
             string firstName = Console.ReadLine()!;
@@ -230,65 +226,82 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.WriteLine("DoB: ");
             string stringDoB = Console.ReadLine()!;
-            // int DoB = Convert.ToInt32(stringDoB);
             Utilities.insertBreak();
             Console.Write("Contact Number: ");
             string stringContactNumber = Console.ReadLine()!;
             int contactNumber = Convert.ToInt32(stringContactNumber);
 
-            UserData.UserDatabaseManager.RegisteredUser(stringUserID, stringUserPassword, firstName, lastName, stringDoB, stringContactNumber);
+            if (stringUserID.Length > 5)
+            {
+                Utilities.invalidUserIDEntry();
+                return;
+            }
+            else if (stringUserPassword.Length > 16)
+            {
+                Utilities.invalidPasswordEntry();
+                return;
+            }
+            else
+            {
+                UserData.UserDatabaseManager.RegisteredUser(stringUserID, stringUserPassword, firstName, lastName, stringDoB, stringContactNumber);
+            }            
         }
         public static void AdminFunction()
         {
-             Console.WriteLine("Please select a function from the following");
-        Utilities.insertBreak();
-        Console.WriteLine("A) ADD staff member");
-        Utilities.insertBreak();
-        Console.WriteLine("R) REMOVE staff member");
-        Utilities.insertBreak();
-        Console.WriteLine("V) VIEW staff member lsit");
-        Utilities.insertBreak();
-        Console.Write("ENTER YOUR CHOICE:");
-        string adminFunctionChoice = Console.ReadLine()!;
-
-        if (adminFunctionChoice == "A" || adminFunctionChoice == "a")
-        {
+            Console.WriteLine("Please select a function from the following");
             Utilities.insertBreak();
-            Console.Write("STAFF ID: ");
-            string stringStaffID = Console.ReadLine()!;
-            int staffID = Convert.ToInt32(stringStaffID);
-            Console.Write("FIRST NAME: ");
-            string firstName = Console.ReadLine()!;
-            Console.Write("LAST NAME: ");
-            string lastName = Console.ReadLine()!;
+            Console.WriteLine("A) ADD staff member");
+            Utilities.insertBreak();
+            Console.WriteLine("R) REMOVE staff member");
+            Utilities.insertBreak();
+            Console.WriteLine("V) VIEW staff member lsit");
+            Utilities.insertBreak();
+            Console.Write("ENTER YOUR CHOICE:");
+            string adminFunctionChoice = Console.ReadLine()!;
 
-            Staff newStaff = new Staff
+            if (adminFunctionChoice == "A" || adminFunctionChoice == "a")
             {
-                staffID = staffID,
-                firstName = firstName,
-                lastName = lastName
-            };
-            //Adding the car to the dictionary.
-            StaffData.staffDict.Add(newStaff.staffID, newStaff);
+                Utilities.insertBreak();
+                Console.Write("STAFF ID: ");
+                string stringStaffID = Console.ReadLine()!;
+                int staffID = Convert.ToInt32(stringStaffID);
+                Console.Write("FIRST NAME: ");
+                string firstName = Console.ReadLine()!;
+                Console.Write("LAST NAME: ");
+                string lastName = Console.ReadLine()!;
 
-            //Saving the Cars to the JSON file.
-            CarData.SaveToJson();
-            Console.WriteLine("CAR ADDED");
+                Staff newStaff = new Staff
+                {
+                    staffID = staffID,
+                    firstName = firstName,
+                    lastName = lastName
+                };
+                //Adding the car to the dictionary.
+                StaffData.staffDict.Add(newStaff.staffID, newStaff);
 
+                //Saving the Cars to the JSON file.
+                CarData.SaveToJson();
+                Console.WriteLine("CAR ADDED");
+
+            }
+            else if (adminFunctionChoice == "R" || adminFunctionChoice == "r")
+            {
+
+            }
+            else if (adminFunctionChoice == "V" || adminFunctionChoice == "v")
+            {
+
+            }
+            else
+            {
+                Utilities.invalidInput();
+            }
         }
-        else if (adminFunctionChoice == "R" || adminFunctionChoice == "r")
+
+        internal static void staffArgsMenu(object staffArgs)
         {
-
+            throw new NotImplementedException();
         }
-        else if (adminFunctionChoice == "V" || adminFunctionChoice == "v")
-        {
-
-        }
-        else
-        {
-            Utilities.invalidInput();
-        }
-        }
-
     }
 }
+

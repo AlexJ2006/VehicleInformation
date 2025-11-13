@@ -4,3 +4,40 @@
 
 //Does it matter how messy my code might look?
 //Should I try and cut the codebase down at all?
+
+//For the assessment, should we try and use a database or is it okay to simply use json files?
+//If we decide to use json files throughout the entire thing rather than a database, will we lose out on any marks?
+
+== Not all programs need databses, he says we shouldn't really use them, we need to show how we can manage using.
+== text files or other methods of storing data. 
+== json files can be edited and they should not become too large.
+== need to explain why we have used what we can
+== could potentially say in my powerpoint how, in the future I would change the methods I have used.
+== for example, if the program became much larger.
+
+//What is meant by interfaces?? EXTRA MARKS
+
+== encapsulation and construction relates to a single class
+== as your classes get bigger and you can see relationships between classes, you can use inheritance and polymorphism to bind them together.
+==you can "beautifully" design one class and then instead of repeating the same thing, you can use that class to relate it to the other one and allow it to inherit the information (properties) from the other class.
+
+==for example, Junghun created a softwareEngineer class and then a seniorEngineer class that inherited things from the "base" software engineer.
+
+=instead of putting everything as private it needs to be protected.
+== this means the subclass can access the data without any issue but it is not public to anything else. they don't even need getters and setters, they can access it easily. 
+
+==if you put private, even the subclass cannot access it. this means it is fully protected.
+
+==you can decide how you would like the data to be shared, exactly as you want it to be. 
+
+==whenever you create the new subclasses, you have to store them separately as otherwise it will assume that everything it the base class, not the subclass. this is where polymorphism comes in.
+
+==using polymorphism we can store the subclass object within the bqse class object and we can automatically select the proper functionality for us. 
+
+==in order to use this you define the base class with the virtual keyword.
+
+==whilst defining the subclass, you can use the override keyword.
+
+==the abstract class is not in the lecture slides.
+
+==the reason why we need abstract classes is as later we might decide to add functionality only for one of the members (either the base class or the subclass) if you add it to one it may automatically add it to the other. this is why we need abstract classes. the abstract class 

@@ -3,6 +3,7 @@ using CarInfo;
 using VanInfo;
 using MotorbikeInfo;
 using System.Text.Json;
+using System.Security.Cryptography;
 
 namespace VehicleInfo
 {
@@ -40,7 +41,18 @@ namespace VehicleInfo
 
                 Console.Write("What is your maximum Price Per Day?: ");
                 string maxPriceString = Console.ReadLine()!;
-                int maxPriceInt = Convert.ToInt32(maxPriceString);
+                int maxPriceInt;
+
+                try
+                {
+                    maxPriceInt = Convert.ToInt32(maxPriceString);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + maxPriceString + "'to a number");
+                    return;
+                }
                 Console.WriteLine("The options meeting your criteria are: ");
                 // TRYING TO GET THIS TO WORK TO PRESENT THE USER WITH MULTIPLE PIECES OF INFORMATION
                 Utilities.insertBreak();
@@ -68,7 +80,19 @@ namespace VehicleInfo
                 Utilities.insertBreak();
                 Console.Write("How many days would you like to rent the CAR for?: ");
                 string stringNumberOfDaysRental = Console.ReadLine()!;
-                int numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
+
+                int numberOfDaysRental;
+
+                try
+                {
+                    numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + maxPriceString + "'to a number");
+                    return;
+                }
                 Utilities.insertBreak();
 
                 Console.WriteLine($"You would like to rent the {userCarMakeSelection} {userCarModelSelection}");
@@ -110,7 +134,7 @@ namespace VehicleInfo
                 }
 
                 // CAR REMOVAL FUNCTION
-            }
+                }
             //Motorbikes
             else if (vehicleType == "M" || vehicleType == "m")
             {
@@ -119,7 +143,19 @@ namespace VehicleInfo
                 Utilities.insertBreak();
                 Console.Write("What is your maximum Price Per Day?: ");
                 string maxPriceString = Console.ReadLine()!;
-                int maxPriceInt = Convert.ToInt32(maxPriceString);
+                int maxPriceInt;
+
+                try
+                {
+                    maxPriceInt = Convert.ToInt32(maxPriceString);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + maxPriceString + "'to a number");
+                    return;
+                }
+               
                 Utilities.insertBreak();
                 Console.WriteLine("Your Options are: ");
                 Utilities.insertBreak();
@@ -144,7 +180,18 @@ namespace VehicleInfo
                 Utilities.insertBreak();
                 Console.Write("How many days would you like to rent the MOTORBIKE for?: ");
                 string stringNumberOfDaysRental = Console.ReadLine()!;
-                int numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
+                int numberOfDaysRental;
+
+                try
+                {
+                    numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringNumberOfDaysRental + "'to a number");
+                    return;
+                }
                 Utilities.insertBreak();
 
                 Console.WriteLine($"You would like to rent the {userMotorbikeMakeSelection} {userMotorbikeModelSelection}");
@@ -190,7 +237,18 @@ namespace VehicleInfo
 
                 Console.Write("What is your maximum Price Per Day?: ");
                 string maxVanPriceString = Console.ReadLine()!;
-                int maxVanPriceInt = Convert.ToInt32(maxVanPriceString);
+                int maxVanPriceInt;
+
+                try
+                {
+                    maxVanPriceInt = Convert.ToInt32(maxVanPriceString);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + maxVanPriceString + "'to a number");
+                    return;
+                }
                 Utilities.insertBreak();
                 Console.WriteLine("Your Options are: ");
 
@@ -217,7 +275,18 @@ namespace VehicleInfo
                 Utilities.insertBreak();
                 Console.Write("How many days would you like to rent the VAN for?: ");
                 string stringNumberOfDaysVanRental = Console.ReadLine()!;
-                int numberOfDaysVanRental = Convert.ToInt32(stringNumberOfDaysVanRental);
+                int numberOfDaysVanRental;
+
+                try
+                {
+                    numberOfDaysVanRental = Convert.ToInt32(stringNumberOfDaysVanRental);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringNumberOfDaysVanRental + "'to a number");
+                    return;
+                }
                 Utilities.insertBreak();
 
                 Console.WriteLine($"You would like to rent the {userVanMakeSelection} {userVanModelSelection}");
@@ -282,18 +351,55 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.Write("YEAR OF MANUFACTURE: ");
             string stringCarYearOfManufacture = Console.ReadLine()!;
-            int intCarYearOfManufacture = Convert.ToInt32(stringCarYearOfManufacture);
+            
+            int intCarYearOfManufacture;
+
+                try
+                {
+                    intCarYearOfManufacture= Convert.ToInt32(stringCarYearOfManufacture);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringCarYearOfManufacture + "'to a number");
+                    return;
+                }
             Utilities.insertBreak();
             Console.Write("MILEAGE: ");
             string stringCarMileage = Console.ReadLine()!;
-            int intCarMileage = Convert.ToInt32(stringCarMileage);
+            
+            int intCarMileage;
+
+                try
+                {
+                    intCarMileage = Convert.ToInt32(stringCarMileage);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringCarMileage + "'to a number");
+                    return;
+                }
             Utilities.insertBreak();
             Console.Write("CATEGORY: ");
             string carCategory = Console.ReadLine()!.Trim().ToLower(); ;
             Utilities.insertBreak();
             Console.Write("PRICE PER DAY: ");
             string stringPricePerDay = Console.ReadLine()!;
-            int intPricePerDay = Convert.ToInt32(stringPricePerDay);
+            // int intPricePerDay = Convert.ToInt32(stringPricePerDay);
+            int intPricePerDay;
+
+                try
+                {
+                    intPricePerDay = Convert.ToInt32(stringPricePerDay);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringPricePerDay + "'to a number");
+                    return;
+                }
+
             Utilities.insertBreak();
             Console.Write("PLATE: ");
             string carPlate = Console.ReadLine()!;
@@ -345,18 +451,48 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.Write("YEAR OF MANUFACTURE: ");
             string stringVanYearOfManufacture = Console.ReadLine()!;
-            int intVanYearOfManufacture = Convert.ToInt32(stringVanYearOfManufacture);
+            int intVanYearOfManufacture;
+            try
+                {
+                    intVanYearOfManufacture = Convert.ToInt32(stringVanYearOfManufacture);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringVanYearOfManufacture + "'to a number");
+                    return;
+                }
             Utilities.insertBreak();
             Console.Write("MILEAGE: ");
             string stringVanMileage = Console.ReadLine()!;
-            int intVanMileage = Convert.ToInt32(stringVanMileage);
+            int intVanMileage;
+            try
+                {
+                    intVanMileage = Convert.ToInt32(stringVanMileage);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringVanMileage + "'to a number");
+                    return;
+                }
             Utilities.insertBreak();
             Console.Write("CATEGORY: ");
             string vanCategory = Console.ReadLine()!;
             Utilities.insertBreak();
             Console.Write("PRICE PER DAY: ");
             string stringPricePerDay = Console.ReadLine()!;
-            int intPricePerDay = Convert.ToInt32(stringPricePerDay);
+            int intPricePerDay;
+            try
+                {
+                    intPricePerDay = Convert.ToInt32(stringPricePerDay);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringPricePerDay + "'to a number");
+                    return;
+                }
             Utilities.insertBreak();
             Console.Write("PLATE: ");
             string vanPlate = Console.ReadLine()!;
@@ -410,18 +546,48 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.Write("YEAR OF MANUFACTURE: ");
             string stringYearOfManufacture = Console.ReadLine()!;
-            int intYearOfManufacture = Convert.ToInt32(stringYearOfManufacture);
+           int intYearOfManufacture;
+            try
+                {
+                    intYearOfManufacture = Convert.ToInt32(stringYearOfManufacture);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringYearOfManufacture + "'to a number");
+                    return;
+                }
             Utilities.insertBreak();
             Console.Write("MILEAGE: ");
             string stringMotorbikeMileage = Console.ReadLine()!;
-            int intMotorbikeMileage = Convert.ToInt32(stringMotorbikeMileage);
+            int intMotorbikeMileage;
+            try
+                {
+                    intMotorbikeMileage = Convert.ToInt32(stringMotorbikeMileage);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringMotorbikeMileage+ "'to a number");
+                    return;
+                }
             Utilities.insertBreak();
             Console.Write("CATEGORY: ");
             string motorbikeCategory = Console.ReadLine()!;
             Utilities.insertBreak();
             Console.Write("PRICE PER DAY: ");
             string stringPricePerDay = Console.ReadLine()!;
-            int intPricePerDay = Convert.ToInt32(stringPricePerDay);
+            int intPricePerDay;
+            try
+                {
+                    intPricePerDay = Convert.ToInt32(stringPricePerDay);
+                }
+                catch
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringPricePerDay + "'to a number");
+                    return;
+                }
             Utilities.insertBreak();
             Console.Write("PLATE: ");
             string motorbikePlate = Console.ReadLine()!;
@@ -469,6 +635,7 @@ namespace VehicleInfo
                 }
                 else
                 {
+                    Utilities.errorRedWarning();
                     Console.WriteLine("Could not find the car wihtin the list");
                 }
             }
@@ -496,6 +663,7 @@ namespace VehicleInfo
                 }
                 else
                 {
+                    Utilities.errorRedWarning();
                     Console.WriteLine("Could not find the van wihtin the list");
                 }
             }
@@ -523,6 +691,7 @@ namespace VehicleInfo
                 }
                 else
                 {
+                    Utilities.errorRedWarning();
                     Console.WriteLine("Could not find the car wihtin the list");
                 }
             }

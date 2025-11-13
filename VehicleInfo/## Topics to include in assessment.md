@@ -18,11 +18,11 @@ You can also use IEnumerable to select number using the select function.
 
 You can also use OrderBy();
 
-3) assessment information 
+3) assessment information
 
-4) Command line arguments. 
+4) Command line arguments.
 
-5) Robustness 
+5) Robustness
 
 For example, if your program expects a certain number of command line arguments, you should be able to handle situations where the user doesn't provide this or enters them incorrectly.
 
@@ -42,7 +42,7 @@ for example
 
 and then resetting the colour by saying.
 
-Console.ResetColor; 
+Console.ResetColor;
 
 You could potentially use different colour for different things. For example, you could use yellow, red and green. 
 
@@ -61,14 +61,10 @@ All data in a class should be private.
 
 You can then use getter and setter functions to obtain the information from the class that is private.
 
-
 7) Inheritance and Polymorphism
 
 Continuation of OOP.
 
 8) Serialisation and Binary Files. 
 
-
-
-
-
+JSON Serialization and DeSerialization

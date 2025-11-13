@@ -45,10 +45,6 @@ else if (userSelection == "G")
     Utilities.guestModeMessage();
     VehicleManagement.guestMenu();
 }
-else if (userSelection == "L")
-{
-    LogInFunction.LogIn();
-}
 else
 {
     Utilities.insertBreak();

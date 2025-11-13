@@ -60,7 +60,9 @@ namespace VehicleInfo
 
             insertBreak();
             insertBreak();
-            Console.WriteLine($" ================ Version {version} ================");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"================ Version {version} ================");
+            Console.ResetColor();
             insertBreak();
         }
 

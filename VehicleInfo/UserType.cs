@@ -74,7 +74,18 @@ namespace VehicleInfo
                     {
                         Console.Write("How many cars would you like to add?: ");
                         string stringHowManyCars = Console.ReadLine()!;
-                        int intHowManyCars = Convert.ToInt32(stringHowManyCars);
+                        int intHowManyCars;
+
+                        try
+                        {
+                            intHowManyCars = Convert.ToInt32(stringHowManyCars);
+                        }
+                        catch (FormatException)
+                        {
+                            Utilities.errorYellowWarning();
+                            Console.Write("Cannot convert '" + stringHowManyCars + "'to a number");
+                            return;
+                        }
                         Utilities.insertBreak();
 
                         while (intHowManyCars > 0)
@@ -83,7 +94,7 @@ namespace VehicleInfo
                             VehicleManagement.addCar();
 
                         }
-                    }
+                        }
                     else
                     {
                         VehicleManagement.addCar();
@@ -98,7 +109,17 @@ namespace VehicleInfo
                     {
                         Console.Write("How many motorbikes would you like to add?: ");
                         string stringHowManyMotorbikes = Console.ReadLine()!;
-                        int intHowManyMotorbikes = Convert.ToInt32(stringHowManyMotorbikes);
+                        int intHowManyMotorbikes;
+                        try
+                        {
+                            intHowManyMotorbikes = Convert.ToInt32(stringHowManyMotorbikes);
+                        }
+                        catch (FormatException)
+                        {
+                            Utilities.errorYellowWarning();
+                            Console.Write("Cannot convert '" + stringHowManyMotorbikes + "'to a number");
+                            return;
+                        }
 
                         while (intHowManyMotorbikes > 0)
                         {
@@ -123,7 +144,18 @@ namespace VehicleInfo
                     {
                         Console.Write("How many vans would you like to add?: ");
                         string stringHowManyVans = Console.ReadLine()!;
-                        int intHowManyVans = Convert.ToInt32(stringHowManyVans);
+                        int intHowManyVans;
+                        try
+                        {
+                            intHowManyVans = Convert.ToInt32(stringHowManyVans);
+                        }
+                        catch (FormatException)
+                        {
+                            Utilities.errorYellowWarning();
+                            Console.Write("Cannot convert '" + stringHowManyVans + "'to a number");
+                            return;
+                        }
+
 
                         while (intHowManyVans > 0)
                         {
@@ -229,7 +261,17 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.Write("Contact Number: ");
             string stringContactNumber = Console.ReadLine()!;
-            int contactNumber = Convert.ToInt32(stringContactNumber);
+            int contactNumber;
+                        try
+                        {
+                            contactNumber = Convert.ToInt32(stringContactNumber);
+                        }
+                        catch (FormatException)
+                        {
+                            Utilities.errorYellowWarning();
+                            Console.Write("Cannot convert '" + stringContactNumber + "'to a number");
+                            return;
+                        }
 
             if (stringUserID.Length > 5)
             {
@@ -264,7 +306,19 @@ namespace VehicleInfo
                 Utilities.insertBreak();
                 Console.Write("STAFF ID: ");
                 string stringStaffID = Console.ReadLine()!;
-                int staffID = Convert.ToInt32(stringStaffID);
+                int staffID;
+
+                try
+                {
+                    staffID = Convert.ToInt32(stringStaffID);
+                }
+                catch (FormatException)
+                {
+                    Utilities.errorYellowWarning();
+                    Console.Write("Cannot convert '" + stringStaffID + "'to a number");
+                    return;
+                }
+
                 Console.Write("FIRST NAME: ");
                 string firstName = Console.ReadLine()!;
                 Console.Write("LAST NAME: ");

@@ -47,7 +47,7 @@ namespace VehicleInfo
                 {
                     maxPriceInt = Convert.ToInt32(maxPriceString);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + maxPriceString + "'to a number");
@@ -87,7 +87,7 @@ namespace VehicleInfo
                 {
                     numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + maxPriceString + "'to a number");
@@ -149,7 +149,7 @@ namespace VehicleInfo
                 {
                     maxPriceInt = Convert.ToInt32(maxPriceString);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + maxPriceString + "'to a number");
@@ -186,7 +186,7 @@ namespace VehicleInfo
                 {
                     numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringNumberOfDaysRental + "'to a number");
@@ -243,7 +243,7 @@ namespace VehicleInfo
                 {
                     maxVanPriceInt = Convert.ToInt32(maxVanPriceString);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + maxVanPriceString + "'to a number");
@@ -281,7 +281,7 @@ namespace VehicleInfo
                 {
                     numberOfDaysVanRental = Convert.ToInt32(stringNumberOfDaysVanRental);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringNumberOfDaysVanRental + "'to a number");
@@ -358,7 +358,7 @@ namespace VehicleInfo
                 {
                     intCarYearOfManufacture= Convert.ToInt32(stringCarYearOfManufacture);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringCarYearOfManufacture + "'to a number");
@@ -374,7 +374,7 @@ namespace VehicleInfo
                 {
                     intCarMileage = Convert.ToInt32(stringCarMileage);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringCarMileage + "'to a number");
@@ -386,14 +386,13 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.Write("PRICE PER DAY: ");
             string stringPricePerDay = Console.ReadLine()!;
-            // int intPricePerDay = Convert.ToInt32(stringPricePerDay);
             int intPricePerDay;
 
                 try
                 {
                     intPricePerDay = Convert.ToInt32(stringPricePerDay);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringPricePerDay + "'to a number");
@@ -456,7 +455,7 @@ namespace VehicleInfo
                 {
                     intVanYearOfManufacture = Convert.ToInt32(stringVanYearOfManufacture);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringVanYearOfManufacture + "'to a number");
@@ -470,7 +469,7 @@ namespace VehicleInfo
                 {
                     intVanMileage = Convert.ToInt32(stringVanMileage);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringVanMileage + "'to a number");
@@ -487,7 +486,7 @@ namespace VehicleInfo
                 {
                     intPricePerDay = Convert.ToInt32(stringPricePerDay);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringPricePerDay + "'to a number");
@@ -551,7 +550,7 @@ namespace VehicleInfo
                 {
                     intYearOfManufacture = Convert.ToInt32(stringYearOfManufacture);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringYearOfManufacture + "'to a number");
@@ -565,7 +564,7 @@ namespace VehicleInfo
                 {
                     intMotorbikeMileage = Convert.ToInt32(stringMotorbikeMileage);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringMotorbikeMileage+ "'to a number");
@@ -582,7 +581,7 @@ namespace VehicleInfo
                 {
                     intPricePerDay = Convert.ToInt32(stringPricePerDay);
                 }
-                catch
+                catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringPricePerDay + "'to a number");
@@ -695,7 +694,6 @@ namespace VehicleInfo
                     Console.WriteLine("Could not find the car wihtin the list");
                 }
             }
-
             var json = JsonSerializer.Serialize(MotorbikeData.motorbikeDict, new JsonSerializerOptions { WriteIndented = true });
             MotorbikeData.SaveToJson();
         }

@@ -156,7 +156,6 @@ namespace VehicleInfo
                             return;
                         }
 
-
                         while (intHowManyVans > 0)
                         {
                             intHowManyVans--;
@@ -185,6 +184,7 @@ namespace VehicleInfo
                 Console.WriteLine("The current list of stores will be displayed below: ");
                 Utilities.insertBreak();
 
+                StoreFunctions.storeListSort();
                 StoreFunctions.storeListDisplay();
 
                 Utilities.insertBreak();
@@ -212,20 +212,7 @@ namespace VehicleInfo
 
                     if (removeStore == "Yes" || removeStore == "yes")
                     {
-                        Console.WriteLine("Please enter the name of the store you wish to remove from the list");
-                        Console.WriteLine("OR");
-                        Console.WriteLine("Press V to view the list");
-                        Console.Write("Enter Your Choice: ");
-                        string choice = Console.ReadLine()!;
-
-                        if (choice == "V" || choice == "v")
-                        {
-                            StoreFunctions.storeListDisplay();
-                        }
-                        else
-                        {
-                            Utilities.invalidInput();
-                        }
+                        StoreFunctions.storeRemove();
                     }
                 }
                 else

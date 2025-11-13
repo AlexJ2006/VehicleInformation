@@ -11,7 +11,7 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.Write("Y OR N: ");
             string userHasAnAccount = Console.ReadLine()!;
-            
+
             if (userHasAnAccount == "Y" || userHasAnAccount == "y")
             {
                 //Obtaining the user's details.
@@ -54,7 +54,7 @@ namespace VehicleInfo
                     Console.Write("Would you like to continue as a GUEST?: ");
                     string continueAsGuest = Console.ReadLine()!;
 
-                    if(continueAsGuest == "Y" || continueAsGuest == "y")
+                    if (continueAsGuest == "Y" || continueAsGuest == "y")
                     {
                         //Tell the user that they are not able to rent cars, they can only browse the available cars.
                         //The user continues as a guest.
@@ -62,7 +62,6 @@ namespace VehicleInfo
                 }
             }
         }
-        
     }
-
 }
+

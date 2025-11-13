@@ -25,7 +25,6 @@ namespace storeList
     }
 }
 
-
 //THE INITIAL LAYOUT OF THE STORELIST, TAKEN DIRECTLY AS IT WAS FROM PROGRAM.CS
 
 //Setting out the list of STORES available across the UK.

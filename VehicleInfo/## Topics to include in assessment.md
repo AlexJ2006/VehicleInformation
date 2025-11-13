@@ -2,6 +2,12 @@
 
 1) Collections (Lists including add, remove, clear, sort and contains.)
 
+**ADD TO LIST** -- STORE LIST
+**REMOVE FROM LIST** -- STORE LIST
+**CLEAR LIST** -- STORE LIST
+**SORT LIST, alphabetical?** --STORE LIST
+**CONTAINS** -- STORE LIST
+
 HASH SET for the USER ID's as it can't contain duplicates. It also presents the items in no particular order.
 
 Dictionary (KEYS AND VALUES)

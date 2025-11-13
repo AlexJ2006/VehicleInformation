@@ -8,26 +8,41 @@ namespace VehicleInfo
         {
             Console.WriteLine("");
         }
+
         public static void invalidInput()
         {
+            errorRedWarning();
             Console.WriteLine("Input INVALID. Please retry.");
+            insertBreak();
         }
+
         public static void invaliInputDuringRental()
         {
+            errorYellowWarning();
             Console.WriteLine("Sorry, this vehicle could not be found.");
+            insertBreak();
         }
+
         public static void guestModeMessage()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("ENTERING GUEST MODE...");
+            Console.ResetColor();
+            
         }
+
         public static void loggingInMessage()
         {
-            Console.WriteLine("LOGGIN YOU IN...");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("LOGGING YOU IN...");
+            Console.ResetColor();
         }
+
         public static void newUserWelcomeMessage()
         {
             Console.WriteLine("WELCOME NEW USER");
         }
+
         public static void staffModeAlert()
         {
             Console.WriteLine("**************** USER ALERT ****************");
@@ -38,27 +53,29 @@ namespace VehicleInfo
             Console.WriteLine("**************** USER ALERT ****************");
             Utilities.insertBreak();
         }
+
         public static void getAndShowVersion()
         {
-            //Showing the user the version as per the "Version" tag within the VehicleInfo.csproj file.
             var version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown";
 
             insertBreak();
-            //Displaying the Version.
             insertBreak();
             Console.WriteLine($" ================ Version {version} ================");
             insertBreak();
         }
+
         public static void welcomeUser()
         {
             Console.WriteLine("WELCOME to CRS");
             insertBreak();
-            //The alert for the staff mode selection.
         }
+
         public static void userSelectMenu()
         {
             Utilities.insertBreak();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Loading MAIN FUNCTION...");
+            Console.ResetColor();
             insertBreak();
             Console.WriteLine("Please select one of the following choices:");
             insertBreak();
@@ -69,9 +86,10 @@ namespace VehicleInfo
             Console.WriteLine("L) to LOG IN to an EXISTING ACCOUNT");
             insertBreak();
         }
+
         public static void getUserCommand()
         {
-            Console.WriteLine("To enter as STAFF or ADMIN. PLease enter your credentials. ");
+            Console.WriteLine("To enter as STAFF or ADMIN. Please enter your credentials. ");
             Utilities.insertBreak();
             Console.WriteLine("OR");
             Utilities.insertBreak();
@@ -81,13 +99,31 @@ namespace VehicleInfo
             string enterStaff = Console.ReadLine()!;
             string[] staffArgs = enterStaff.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         }
+
         public static void invalidPasswordEntry()
         {
+            errorYellowWarning();
             Console.WriteLine("Your password MUST NOT exceed 16 characters");
         }
+
         public static void invalidUserIDEntry()
         {
+            errorRedWarning();
             Console.WriteLine("Your USER ID MUST NOT exceed 5 characters and MUST only contain numbers");
+        }
+
+        public static void errorYellowWarning()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("WARNING: ");
+            Console.ResetColor();
+        }
+
+        public static void errorRedWarning()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("WARNING: ");
+            Console.ResetColor();
         }
     }
 }

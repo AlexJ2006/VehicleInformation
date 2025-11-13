@@ -4,8 +4,6 @@ using System.Reflection;
 using UserData;
 using VehicleInfo;
 
-UserDatabaseManager.InitializeDatabase();
-
 //Showing the user the version as per the "Version" tag within the VehicleInfo.csproj file.
 var version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown";
 

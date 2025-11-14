@@ -1,5 +1,5 @@
 using CarInfo;
-
+using VehicleInfo;
 namespace VehicleInfo
 {
     public static class UserType
@@ -232,6 +232,19 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.Write("UserID: ");
             string stringUserID = Console.ReadLine()!;
+            int intUserID;
+
+            try
+            {
+                intUserID = Convert.ToInt32(stringUserID);
+            }
+            catch (FormatException)
+            {
+                Utilities.errorYellowWarning();
+                Console.Write("Cannot convert '" + stringUserID + "'to a number");
+                return;
+            }
+
             Utilities.insertBreak();
             Console.WriteLine("Please note, the password MUST NOT exceed the length of 16 characters.");
             Console.Write("Password:");
@@ -249,17 +262,17 @@ namespace VehicleInfo
             Console.Write("Contact Number: ");
             string stringContactNumber = Console.ReadLine()!;
             int contactNumber;
-                        try
-                        {
-                            contactNumber = Convert.ToInt32(stringContactNumber);
-                        }
-                        catch (FormatException)
-                        {
-                            Utilities.errorYellowWarning();
-                            Console.Write("Cannot convert '" + stringContactNumber + "'to a number");
-                            return;
-                        }
 
+            try
+            {
+                contactNumber = Convert.ToInt32(stringContactNumber);
+            }
+            catch (FormatException)
+            {
+                Utilities.errorYellowWarning();
+                Console.Write("Cannot convert '" + stringContactNumber + "'to a number");
+                return;
+            }
             if (stringUserID.Length > 5)
             {
                 Utilities.invalidUserIDEntry();
@@ -272,9 +285,21 @@ namespace VehicleInfo
             }
             else
             {
-                UserData.UserDatabaseManager.RegisteredUser(stringUserID, stringUserPassword, firstName, lastName, stringDoB, stringContactNumber);
-            }            
+                Customer newCustomer = new Customer();
+                newCustomer.SetUserID(intUserID);
+                newCustomer.SetFirstName(firstName);
+                newCustomer.SetLastName(lastName);
+                newCustomer.SetDoB(stringDoB);
+                newCustomer.SetContactNumber(contactNumber);
+                newCustomer.SetPassword(stringUserPassword);
+
+                CustomerData.customerDict.Add(intUserID, newCustomer);
+
+                CustomerData.SaveToJson();
+                Console.WriteLine("ACCOUNT CREATED");
+            }
         }
+
         public static void AdminFunction()
         {
             Console.WriteLine("Please select a function from the following");
@@ -346,3 +371,5 @@ namespace VehicleInfo
     }
 }
 
+//Using a HashSet for the userInformation is much faster than a list, you can find an item within the list much quicker.
+//The reason for using encapsulation is for futureproofing.

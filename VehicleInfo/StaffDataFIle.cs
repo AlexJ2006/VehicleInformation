@@ -23,7 +23,7 @@ namespace VehicleInfo
             {
                 string json = File.ReadAllText(filepath);
                 staffDict = JsonSerializer.Deserialize<Dictionary<int, Staff>>(json)
-                           ?? new Dictionary<int, Staff>();
+                ?? new Dictionary<int, Staff>();
             }
         }
     }

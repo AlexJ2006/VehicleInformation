@@ -1,5 +1,7 @@
 ## Topics to include in assessment
 
+**ITEMS DISPLAYED LIKE THIS ARE COMPLETE**
+
 1) Collections (Lists including add, remove, clear, sort and contains.)
 
 **ADD TO LIST** -- STORE LIST
@@ -8,6 +10,7 @@
 **SORT LIST, alphabetical?** --STORE LIST
 **CONTAINS** -- STORE LIST
 
+**HASH SET** --USER ID's
 HASH SET for the USER ID's as it can't contain duplicates. It also presents the items in no particular order.
 
 Dictionary (KEYS AND VALUES)

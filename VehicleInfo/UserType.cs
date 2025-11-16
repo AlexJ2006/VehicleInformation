@@ -1,12 +1,13 @@
+using System.ComponentModel;
 using CarInfo;
 using VehicleInfo;
+using storeList;
 namespace VehicleInfo
 {
     public static class UserType
     {
         public static void staffArgsMenu(string[] args)
         {
-
             Utilities.getUserCommand();
             if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
             {
@@ -94,7 +95,7 @@ namespace VehicleInfo
                             VehicleManagement.addCar();
 
                         }
-                        }
+                    }
                     else
                     {
                         VehicleManagement.addCar();
@@ -182,15 +183,21 @@ namespace VehicleInfo
             else if (staffMenuChoice == "E" || staffMenuChoice == "e")
             {
                 Console.WriteLine("The current list of stores will be displayed below: ");
+                Console.WriteLine("The list will be automatically sorted, alphabetically");
                 Utilities.insertBreak();
 
                 StoreFunctions.storeListSort();
                 StoreFunctions.storeListDisplay();
 
                 Utilities.insertBreak();
-                Console.Write("Would you like to Add a new store to the list?: ");
+                Console.WriteLine("Please select one of the following functions: ");
+                Console.WriteLine("A) ADD STORE(S)");
+                Console.WriteLine("R) REMOVE STORE(S)");
+                Console.WriteLine("V) VIEW STORE LIST");
+                Console.WriteLine("C) CLEAR STORE LIST");
                 string decision = Console.ReadLine()!;
-                if (decision == "Yes" || decision == "yes")
+
+                if (decision == "A" || decision == "a")
                 {
                     StoreFunctions.storeAdd();
                     Console.WriteLine("Would you like to add another store?: ");
@@ -205,21 +212,71 @@ namespace VehicleInfo
                         Console.WriteLine("You will now be logged out, THANK YOU.");
                     }
                 }
-                else if (decision == "No" || decision == "no")
+                else if (decision == "R" || decision == "r")
                 {
-                    Console.WriteLine("Would you like to remove a store from the list?: ");
-                    string removeStore = Console.ReadLine()!;
+                    StoreFunctions.storeRemove();
+                    Console.WriteLine("Would you like to remove another store?: ");
+                    string removeMoreStores = Console.ReadLine()!;
 
-                    if (removeStore == "Yes" || removeStore == "yes")
+                    if (removeMoreStores == "Yes" || removeMoreStores == "yes")
                     {
                         StoreFunctions.storeRemove();
                     }
+                    else
+                    {
+                        Console.WriteLine("You will now be logged out, THANK YOU.");
+                    }
                 }
-                else
+                else if (decision == "V" || decision == "v")
                 {
-                    //Provide Error Message
-                    Utilities.invalidInput();
-                    Console.WriteLine("WRONG SECTION");
+                    StoreFunctions.storeListDisplay();
+
+                    Console.WriteLine("Would you like to view the entire list?");
+                    Console.WriteLine("If so, please press V again when prompted");
+                    Console.WriteLine("OR");
+                    Console.WriteLine("Enter the number of items you wish to view from the list");
+                    string displayNumberOfItems = Console.ReadLine()!;
+                    int intdisplayNumberOfItems;
+
+                    intdisplayNumberOfItems = Convert.ToInt32(displayNumberOfItems);
+                    try
+                    {
+                        intdisplayNumberOfItems = Convert.ToInt32(displayNumberOfItems);
+                        for (int i = 0; i < intdisplayNumberOfItems; i++)
+                        {
+                            Console.WriteLine(StoreFunctions.storeList[i]);
+                        }
+
+
+                    }
+                    catch (FormatException)
+                    {
+                        Utilities.errorYellowWarning();
+                        Console.Write("Cannot convert '" + displayNumberOfItems + "'to a number");
+                        return;
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        if (displayNumberOfItems.Length > 1000)
+                        {
+                            Utilities.errorYellowWarning();
+                            Console.WriteLine("INPUT TOO LARGE");
+                            return;
+                        }
+                    }
+                }
+                else if(decision == "C" || decision == "c")
+                {
+                    Console.WriteLine("Are you sure you wish to CLEAR the STORE LIST? ");
+                    Console.WriteLine("Y OR N");
+                    Utilities.errorRedWarning();
+                    Console.WriteLine("THIS ACTION CANNOT BE UNDONE");
+                    string continueWithClearance = Console.ReadLine()!;
+
+                    if(continueWithClearance == "Y" || continueWithClearance == "y")
+                    {
+                        StoreFunctions.storeListClear();   
+                    }
                 }
             }
         }
@@ -348,7 +405,6 @@ namespace VehicleInfo
                 //Saving the Cars to the JSON file.
                 CarData.SaveToJson();
                 Console.WriteLine("CAR ADDED");
-
             }
             else if (adminFunctionChoice == "R" || adminFunctionChoice == "r")
             {
@@ -370,6 +426,5 @@ namespace VehicleInfo
         }
     }
 }
-
 //Using a HashSet for the userInformation is much faster than a list, you can find an item within the list much quicker.
 //The reason for using encapsulation is for futureproofing.

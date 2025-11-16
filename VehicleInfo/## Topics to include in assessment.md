@@ -27,6 +27,10 @@ You can also use IEnumerable to select number using the select function.
 
 You can also use OrderBy();
 
+COULD CREATE A SORT BY FUNCTION TO PROVIDE THE USER WITH MORE SPECIFIC RESULTS.
+
+COULD ALSO ASK THE USER HOW MANY ITEMS THEY WANT TO DISPLAY.
+
 3) assessment information
 
 4) Command line arguments.

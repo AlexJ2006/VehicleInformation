@@ -364,4 +364,4 @@ namespace VehicleInfo
 //Using a HashSet for the userInformation is much faster than a list, you can find an item within the list much quicker. 
 //The reason for using encapsulation is for futureproofing.
 //Can't use that here as it means the entire field need to be unique, not only the password. 
-//This can't happen as multiple users may haev the same name or DoB for example.
+//This can't happen as multiple users may have the same name or DoB for example.

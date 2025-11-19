@@ -60,8 +60,9 @@ namespace VehicleInfo
                 CarData.carDict
                 .Where(car =>
                     car.Value.pricePerDay <= maxPriceInt &&
-                    car.Value.category.Equals(categoryChoice, StringComparison.OrdinalIgnoreCase))
+                    string.Equals(car.Value.category, categoryChoice, StringComparison.OrdinalIgnoreCase))
                 .Select(car => new { car.Value.make, car.Value.model, car.Value.pricePerDay });
+
 
                 foreach (var Car in carList)
                 {
@@ -102,9 +103,10 @@ namespace VehicleInfo
 
                 if (continueWithRental == "Y" || continueWithRental == "y")
                 {
-                    var userCarSelection = CarData.carDict.Values.FirstOrDefault(Car =>
-                        Car.make.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-                        Car.model.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
+                    var userCarSelection = CarData.carDict.Values.FirstOrDefault(car =>
+                    string.Equals(car.make, userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(car.model, userCarModelSelection, StringComparison.OrdinalIgnoreCase));
+
 
                     if (userCarSelection != null)
                     {
@@ -199,9 +201,10 @@ namespace VehicleInfo
 
                 if (continueWithRental == "Y" || continueWithRental == "y")
                 {
-                    var userMotorbikeSelection = MotorbikeData.motorbikeDict.Values.FirstOrDefault(Motorbike =>
-                        Motorbike.make.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-                        Motorbike.model.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
+                    var userMotorbikeSelection = MotorbikeData.motorbikeDict.Values.FirstOrDefault(motorbike =>
+                    string.Equals(motorbike.make, userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(motorbike.model, userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
+
 
                     if (userMotorbikeSelection != null)
                     {
@@ -251,11 +254,13 @@ namespace VehicleInfo
                 Utilities.insertBreak();
 
                 var vanList =
-                    VanData.vanDict
-                        .Where(van =>
-                            van.Value.pricePerDay <= maxVanPriceInt &&
-                            van.Value.category.Equals(categoryChoice, StringComparison.OrdinalIgnoreCase))
-                        .Select(van => new { van.Value.make, van.Value.model, van.Value.pricePerDay });
+                VanData.vanDict
+                    .Where(van =>
+                        van.Value.pricePerDay <= maxVanPriceInt &&
+                        !string.IsNullOrEmpty(van.Value.category) &&
+                        van.Value.category.Equals(categoryChoice, StringComparison.OrdinalIgnoreCase))
+                    .Select(van => new { van.Value.make, van.Value.model, van.Value.pricePerDay });
+
 
                 foreach (var van in vanList)
                 {
@@ -296,9 +301,12 @@ namespace VehicleInfo
 
                 if (continueWithVanRental == "Y" || continueWithVanRental == "y")
                 {
-                    var userVanSelection = VanData.vanDict.Values.FirstOrDefault(Van =>
-                        Van.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-                        Van.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
+                    var userVanSelection = VanData.vanDict.Values.FirstOrDefault(v =>
+                    !string.IsNullOrEmpty(v.make) &&
+                    !string.IsNullOrEmpty(v.model) &&
+                    v.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                    v.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
+
 
                     if (userVanSelection != null)
                     {
@@ -624,8 +632,11 @@ namespace VehicleInfo
             LoadCars();
 
             var car = CarData.carDict.FirstOrDefault(c =>
-                c.Value.make.Equals(make, StringComparison.OrdinalIgnoreCase) &&
-                c.Value.model.Equals(model, StringComparison.OrdinalIgnoreCase));
+            !string.IsNullOrEmpty(c.Value.make) &&
+            !string.IsNullOrEmpty(c.Value.model) &&
+            c.Value.make.Equals(make, StringComparison.OrdinalIgnoreCase) &&
+            c.Value.model.Equals(model, StringComparison.OrdinalIgnoreCase));
+
 
             if (!string.IsNullOrEmpty(car.Key))
             {
@@ -643,9 +654,12 @@ namespace VehicleInfo
         {
             LoadVans();
 
-            var van = VanData.vanDict.FirstOrDefault(v =>
-                v.Value.make.Equals(make, StringComparison.OrdinalIgnoreCase) &&
-                v.Value.model.Equals(model, StringComparison.OrdinalIgnoreCase));
+           var van = VanData.vanDict.FirstOrDefault(v =>
+            !string.IsNullOrEmpty(v.Value.make) &&
+            !string.IsNullOrEmpty(v.Value.model) &&
+            v.Value.make.Equals(make, StringComparison.OrdinalIgnoreCase) &&
+            v.Value.model.Equals(model, StringComparison.OrdinalIgnoreCase));
+
 
             if (!string.IsNullOrEmpty(van.Key))
             {
@@ -664,8 +678,11 @@ namespace VehicleInfo
             LoadMotorbikes();
 
             var motorbike = MotorbikeData.motorbikeDict.FirstOrDefault(m =>
-                m.Value.make.Equals(make, StringComparison.OrdinalIgnoreCase) &&
-                m.Value.model.Equals(model, StringComparison.OrdinalIgnoreCase));
+            !string.IsNullOrEmpty(m.Value.make) &&
+            !string.IsNullOrEmpty(m.Value.model) &&
+            m.Value.make.Equals(make, StringComparison.OrdinalIgnoreCase) &&
+            m.Value.model.Equals(model, StringComparison.OrdinalIgnoreCase));
+
 
             if (!string.IsNullOrEmpty(motorbike.Key))
             {

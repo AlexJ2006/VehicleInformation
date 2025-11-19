@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Drawing; 
 
 namespace VehicleInfo
 {
@@ -28,7 +29,6 @@ namespace VehicleInfo
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("ENTERING GUEST MODE...");
             Console.ResetColor();
-            
         }
 
         public static void loggingInMessage()
@@ -45,12 +45,16 @@ namespace VehicleInfo
 
         public static void staffModeAlert()
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("**************** USER ALERT ****************");
+            Console.ResetColor();
             Console.WriteLine("To enter STAFF MODE please enter the following when prompted");
             Console.WriteLine("--staff staffUsername staffPassword");
             Console.WriteLine("ELSE");
             Console.WriteLine("Enter E to enter the guest/customer menus");
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("**************** USER ALERT ****************");
+            Console.ResetColor();
             Utilities.insertBreak();
         }
 
@@ -68,7 +72,7 @@ namespace VehicleInfo
 
         public static void welcomeUser()
         {
-            Console.WriteLine("WELCOME to CRS");
+            Console.WriteLine("WELCOME to VRS");
             insertBreak();
         }
 
@@ -91,15 +95,21 @@ namespace VehicleInfo
 
         public static void getUserCommand()
         {
-            Console.WriteLine("To enter as STAFF or ADMIN. Please enter your credentials. ");
+            Console.WriteLine("To enter as STAFF or ADMIN. Please enter your credentials in the following format:. ");
             Utilities.insertBreak();
+            Utilities.staffModeAlert();
             Console.WriteLine("OR");
             Utilities.insertBreak();
-            Console.WriteLine("Press E to enter the main program now");
+            Console.WriteLine("Press E to enter the main program.");
             Utilities.insertBreak();
             Console.Write("ENTER COMMAND: ");
             string enterStaff = Console.ReadLine()!;
             string[] staffArgs = enterStaff.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            // if(enterStaff == "E")
+            // {
+                
+            // }
         }
 
         public static void invalidPasswordEntry()
@@ -127,5 +137,6 @@ namespace VehicleInfo
             Console.WriteLine("WARNING: ");
             Console.ResetColor();
         }
+
     }
 }

@@ -40,3 +40,8 @@
 /Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.pdb
 /Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/VehicleInfo.genruntimeconfig.cache
 /Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/obj/Debug/net8.0/ref/VehicleInfo.dll
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/bin/Debug/net8.0/System.Drawing.Common.dll
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/bin/Debug/net8.0/System.Private.Windows.Core.dll
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/bin/Debug/net8.0/System.Private.Windows.GdiPlus.dll
+/Users/alexjakeman/Desktop/Lab 3/VehicleInformation/VehicleInfo/bin/Debug/net8.0/runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll

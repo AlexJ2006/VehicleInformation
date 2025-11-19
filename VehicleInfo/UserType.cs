@@ -9,6 +9,7 @@ namespace VehicleInfo
         public static void staffArgsMenu(string[] args)
         {
             Utilities.getUserCommand();
+            
             if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
             {
                 if (!int.TryParse(args[1], out int id))
@@ -16,10 +17,10 @@ namespace VehicleInfo
                     Console.WriteLine("Invalid staff ID format.");
                     return;
                 }
-                string lastName = args[2];
+                string lastName = args[2] ?? "";
 
                 if (StaffData.staffDict.TryGetValue(id, out Staff staff) &&
-                    staff.lastName.Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                    staff.lastName?.Equals(lastName, StringComparison.OrdinalIgnoreCase) == true)
                 {
                     Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
                     UserType.staffMember();
@@ -46,10 +47,10 @@ namespace VehicleInfo
             Console.WriteLine("E) EDIT STORE LIST");
             Utilities.insertBreak();
             Console.Write("Please Enter Your Choice: ");
-            string? staffMenuChoice = Console.ReadLine();
+            string staffMenuChoice = Console.ReadLine() ?? "";
             Utilities.insertBreak();
 
-            if (staffMenuChoice == "A" || staffMenuChoice == "a")
+            if (staffMenuChoice.Equals("A", StringComparison.OrdinalIgnoreCase))
             {
                 Console.WriteLine("Would you like to add");
                 Utilities.insertBreak();
@@ -62,29 +63,24 @@ namespace VehicleInfo
                 Console.WriteLine("V) VAN");
                 Utilities.insertBreak();
                 Console.Write("PLEASE ENTER YOUR CHOICE: ");
-                string addVehicleType = Console.ReadLine()!;
+                string addVehicleType = Console.ReadLine() ?? "";
                 Utilities.insertBreak();
 
-                if (addVehicleType == "C" || addVehicleType == "c")
+                if (addVehicleType.Equals("C", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.Write("Would you like to ADD MULTIPLE CARS?: ");
-                    string addMultipleCars = Console.ReadLine()!;
+                    string addMultipleCars = Console.ReadLine() ?? "";
                     Utilities.insertBreak();
 
-                    if (addMultipleCars == "Yes" || addMultipleCars == "yes" || addMultipleCars == "Y" || addMultipleCars == "y")
+                    if (addMultipleCars.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
+                        addMultipleCars.Equals("Y", StringComparison.OrdinalIgnoreCase))
                     {
                         Console.Write("How many cars would you like to add?: ");
-                        string stringHowManyCars = Console.ReadLine()!;
-                        int intHowManyCars;
-
-                        try
-                        {
-                            intHowManyCars = Convert.ToInt32(stringHowManyCars);
-                        }
-                        catch (FormatException)
+                        string stringHowManyCars = Console.ReadLine() ?? "";
+                        if (!int.TryParse(stringHowManyCars, out int intHowManyCars))
                         {
                             Utilities.errorYellowWarning();
-                            Console.Write("Cannot convert '" + stringHowManyCars + "'to a number");
+                            Console.WriteLine($"Cannot convert '{stringHowManyCars}' to a number");
                             return;
                         }
                         Utilities.insertBreak();
@@ -93,7 +89,6 @@ namespace VehicleInfo
                         {
                             intHowManyCars--;
                             VehicleManagement.addCar();
-
                         }
                     }
                     else
@@ -101,24 +96,20 @@ namespace VehicleInfo
                         VehicleManagement.addCar();
                     }
                 }
-                else if (addVehicleType == "M" || addVehicleType == "m")
+                else if (addVehicleType.Equals("M", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.Write("Would you like to ADD MULTIPLE MOTORBIKES?: ");
-                    string addMultipleMotorbikes = Console.ReadLine()!;
+                    string addMultipleMotorbikes = Console.ReadLine() ?? "";
 
-                    if (addMultipleMotorbikes == "Yes" || addMultipleMotorbikes == "yes" || addMultipleMotorbikes == "Y" || addMultipleMotorbikes == "y")
+                    if (addMultipleMotorbikes.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
+                        addMultipleMotorbikes.Equals("Y", StringComparison.OrdinalIgnoreCase))
                     {
                         Console.Write("How many motorbikes would you like to add?: ");
-                        string stringHowManyMotorbikes = Console.ReadLine()!;
-                        int intHowManyMotorbikes;
-                        try
-                        {
-                            intHowManyMotorbikes = Convert.ToInt32(stringHowManyMotorbikes);
-                        }
-                        catch (FormatException)
+                        string stringHowManyMotorbikes = Console.ReadLine() ?? "";
+                        if (!int.TryParse(stringHowManyMotorbikes, out int intHowManyMotorbikes))
                         {
                             Utilities.errorYellowWarning();
-                            Console.Write("Cannot convert '" + stringHowManyMotorbikes + "'to a number");
+                            Console.WriteLine($"Cannot convert '{stringHowManyMotorbikes}' to a number");
                             return;
                         }
 
@@ -130,30 +121,24 @@ namespace VehicleInfo
                     }
                     else
                     {
-                        //One instance of the Add Motorbike class occurs rather than multiple
                         Utilities.insertBreak();
-
                         VehicleManagement.addMotorbike();
                     }
                 }
-                else if (addVehicleType == "V" || addVehicleType == "v")
+                else if (addVehicleType.Equals("V", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.Write("Would you like to ADD MULTIPLE VANS?: ");
-                    string addMultipleVans = Console.ReadLine()!;
+                    string addMultipleVans = Console.ReadLine() ?? "";
 
-                    if (addMultipleVans == "Yes" || addMultipleVans == "yes" || addMultipleVans == "Y" || addMultipleVans == "y")
+                    if (addMultipleVans.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
+                        addMultipleVans.Equals("Y", StringComparison.OrdinalIgnoreCase))
                     {
                         Console.Write("How many vans would you like to add?: ");
-                        string stringHowManyVans = Console.ReadLine()!;
-                        int intHowManyVans;
-                        try
-                        {
-                            intHowManyVans = Convert.ToInt32(stringHowManyVans);
-                        }
-                        catch (FormatException)
+                        string stringHowManyVans = Console.ReadLine() ?? "";
+                        if (!int.TryParse(stringHowManyVans, out int intHowManyVans))
                         {
                             Utilities.errorYellowWarning();
-                            Console.Write("Cannot convert '" + stringHowManyVans + "'to a number");
+                            Console.WriteLine($"Cannot convert '{stringHowManyVans}' to a number");
                             return;
                         }
 
@@ -171,16 +156,15 @@ namespace VehicleInfo
                 }
                 else
                 {
-                    //Provide Error Message
                     Utilities.invalidInput();
                     Console.WriteLine("WRONG SECTION");
                 }
             }
-            else if (staffMenuChoice == "R" || staffMenuChoice == "r")
+            else if (staffMenuChoice.Equals("R", StringComparison.OrdinalIgnoreCase))
             {
                 //Remove Vehicle from list section
             }
-            else if (staffMenuChoice == "E" || staffMenuChoice == "e")
+            else if (staffMenuChoice.Equals("E", StringComparison.OrdinalIgnoreCase))
             {
                 Console.WriteLine("The current list of stores will be displayed below: ");
                 Console.WriteLine("The list will be automatically sorted, alphabetically");
@@ -195,15 +179,15 @@ namespace VehicleInfo
                 Console.WriteLine("R) REMOVE STORE(S)");
                 Console.WriteLine("V) VIEW STORE LIST");
                 Console.WriteLine("C) CLEAR STORE LIST");
-                string decision = Console.ReadLine()!;
+                string decision = Console.ReadLine() ?? "";
 
-                if (decision == "A" || decision == "a")
+                if (decision.Equals("A", StringComparison.OrdinalIgnoreCase))
                 {
                     StoreFunctions.storeAdd();
                     Console.WriteLine("Would you like to add another store?: ");
-                    string addMoreStores = Console.ReadLine()!;
+                    string addMoreStores = Console.ReadLine() ?? "";
 
-                    if (addMoreStores == "Yes" || addMoreStores == "yes")
+                    if (addMoreStores.Equals("Yes", StringComparison.OrdinalIgnoreCase))
                     {
                         StoreFunctions.storeAdd();
                     }
@@ -212,13 +196,13 @@ namespace VehicleInfo
                         Console.WriteLine("You will now be logged out, THANK YOU.");
                     }
                 }
-                else if (decision == "R" || decision == "r")
+                else if (decision.Equals("R", StringComparison.OrdinalIgnoreCase))
                 {
                     StoreFunctions.storeRemove();
                     Console.WriteLine("Would you like to remove another store?: ");
-                    string removeMoreStores = Console.ReadLine()!;
+                    string removeMoreStores = Console.ReadLine() ?? "";
 
-                    if (removeMoreStores == "Yes" || removeMoreStores == "yes")
+                    if (removeMoreStores.Equals("Yes", StringComparison.OrdinalIgnoreCase))
                     {
                         StoreFunctions.storeRemove();
                     }
@@ -227,59 +211,33 @@ namespace VehicleInfo
                         Console.WriteLine("You will now be logged out, THANK YOU.");
                     }
                 }
-                else if (decision == "V" || decision == "v")
+                else if (decision.Equals("V", StringComparison.OrdinalIgnoreCase))
                 {
-                    StoreFunctions.storeListDisplay();
+                    string displayNumberOfItems = Console.ReadLine() ?? "";
+                    if (!int.TryParse(displayNumberOfItems, out int intdisplayNumberOfItems))
+                        intdisplayNumberOfItems = StoreInfo.stores.Count;
 
-                    Console.WriteLine("Would you like to view the entire list?");
-                    Console.WriteLine("If so, please press V again when prompted");
-                    Console.WriteLine("OR");
-                    Console.WriteLine("Enter the number of items you wish to view from the list");
-                    string displayNumberOfItems = Console.ReadLine()!;
-                    int intdisplayNumberOfItems;
-
-                    intdisplayNumberOfItems = Convert.ToInt32(displayNumberOfItems);
-                    try
+                    for (int i = 0; i < Math.Min(intdisplayNumberOfItems, StoreInfo.stores.Count); i++)
                     {
-                        intdisplayNumberOfItems = Convert.ToInt32(displayNumberOfItems);
-                        for (int i = 0; i < intdisplayNumberOfItems; i++)
-                        {
-                            Console.WriteLine(StoreFunctions.storeList[i]);
-                        }
-
-
-                    }
-                    catch (FormatException)
-                    {
-                        Utilities.errorYellowWarning();
-                        Console.Write("Cannot convert '" + displayNumberOfItems + "'to a number");
-                        return;
-                    }
-                    catch (ArgumentOutOfRangeException)
-                    {
-                        if (displayNumberOfItems.Length > 1000)
-                        {
-                            Utilities.errorYellowWarning();
-                            Console.WriteLine("INPUT TOO LARGE");
-                            return;
-                        }
+                        Console.WriteLine(StoreInfo.stores[i]);
                     }
                 }
-                else if(decision == "C" || decision == "c")
+                else if (decision.Equals("C", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine("Are you sure you wish to CLEAR the STORE LIST? ");
                     Console.WriteLine("Y OR N");
                     Utilities.errorRedWarning();
                     Console.WriteLine("THIS ACTION CANNOT BE UNDONE");
-                    string continueWithClearance = Console.ReadLine()!;
+                    string continueWithClearance = Console.ReadLine() ?? "";
 
-                    if(continueWithClearance == "Y" || continueWithClearance == "y")
+                    if (continueWithClearance.Equals("Y", StringComparison.OrdinalIgnoreCase))
                     {
-                        StoreFunctions.storeListClear();   
+                        StoreFunctions.storeListClear();
                     }
                 }
             }
         }
+
         public static void RegisterNewUser()
         {
             Utilities.insertBreak();
@@ -288,48 +246,37 @@ namespace VehicleInfo
             Console.WriteLine("Please note, the USER ID must ONLY contain NUMBERS and must not contain more than 5 characters");
             Utilities.insertBreak();
             Console.Write("UserID: ");
-            string stringUserID = Console.ReadLine()!;
-            int intUserID;
-
-            try
-            {
-                intUserID = Convert.ToInt32(stringUserID);
-            }
-            catch (FormatException)
+            string stringUserID = Console.ReadLine() ?? "";
+            if (!int.TryParse(stringUserID, out int intUserID))
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringUserID + "'to a number");
+                Console.WriteLine($"Cannot convert '{stringUserID}' to a number");
                 return;
             }
 
             Utilities.insertBreak();
             Console.WriteLine("Please note, the password MUST NOT exceed the length of 16 characters.");
             Console.Write("Password:");
-            string stringUserPassword = Console.ReadLine()!;
+            string stringUserPassword = Console.ReadLine() ?? "";
             Utilities.insertBreak();
             Console.Write("First Name: ");
-            string firstName = Console.ReadLine()!;
+            string firstName = Console.ReadLine() ?? "";
             Utilities.insertBreak();
             Console.Write("Last Name: ");
-            string lastName = Console.ReadLine()!;
+            string lastName = Console.ReadLine() ?? "";
             Utilities.insertBreak();
             Console.WriteLine("DoB: ");
-            string stringDoB = Console.ReadLine()!;
+            string stringDoB = Console.ReadLine() ?? "";
             Utilities.insertBreak();
             Console.Write("Contact Number: ");
-            string stringContactNumber = Console.ReadLine()!;
-            int contactNumber;
-
-            try
-            {
-                contactNumber = Convert.ToInt32(stringContactNumber);
-            }
-            catch (FormatException)
+            string stringContactNumber = Console.ReadLine() ?? "";
+            if (!int.TryParse(stringContactNumber, out int contactNumber))
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringContactNumber + "'to a number");
+                Console.WriteLine($"Cannot convert '{stringContactNumber}' to a number");
                 return;
             }
+
             if (stringUserID.Length > 5)
             {
                 Utilities.invalidUserIDEntry();
@@ -340,21 +287,18 @@ namespace VehicleInfo
                 Utilities.invalidPasswordEntry();
                 return;
             }
-            else
-            {
-                Customer newCustomer = new Customer();
-                newCustomer.SetUserID(intUserID);
-                newCustomer.SetFirstName(firstName);
-                newCustomer.SetLastName(lastName);
-                newCustomer.SetDoB(stringDoB);
-                newCustomer.SetContactNumber(contactNumber);
-                newCustomer.SetPassword(stringUserPassword);
 
-                CustomerData.customerDict.Add(intUserID, newCustomer);
+            Customer newCustomer = new Customer();
+            newCustomer.SetUserID(intUserID);
+            newCustomer.SetFirstName(firstName);
+            newCustomer.SetLastName(lastName);
+            newCustomer.SetDoB(stringDoB);
+            newCustomer.SetContactNumber(contactNumber);
+            newCustomer.SetPassword(stringUserPassword);
 
-                CustomerData.SaveToJson();
-                Console.WriteLine("ACCOUNT CREATED");
-            }
+            CustomerData.customerDict[intUserID] = newCustomer;
+            CustomerData.SaveToJson();
+            Console.WriteLine("ACCOUNT CREATED");
         }
 
         public static void AdminFunction()
@@ -368,30 +312,24 @@ namespace VehicleInfo
             Console.WriteLine("V) VIEW staff member lsit");
             Utilities.insertBreak();
             Console.Write("ENTER YOUR CHOICE:");
-            string adminFunctionChoice = Console.ReadLine()!;
+            string adminFunctionChoice = Console.ReadLine() ?? "";
 
-            if (adminFunctionChoice == "A" || adminFunctionChoice == "a")
+            if (adminFunctionChoice.Equals("A", StringComparison.OrdinalIgnoreCase))
             {
                 Utilities.insertBreak();
                 Console.Write("STAFF ID: ");
-                string stringStaffID = Console.ReadLine()!;
-                int staffID;
-
-                try
-                {
-                    staffID = Convert.ToInt32(stringStaffID);
-                }
-                catch (FormatException)
+                string stringStaffID = Console.ReadLine() ?? "";
+                if (!int.TryParse(stringStaffID, out int staffID))
                 {
                     Utilities.errorYellowWarning();
-                    Console.Write("Cannot convert '" + stringStaffID + "'to a number");
+                    Console.WriteLine($"Cannot convert '{stringStaffID}' to a number");
                     return;
                 }
 
                 Console.Write("FIRST NAME: ");
-                string firstName = Console.ReadLine()!;
+                string firstName = Console.ReadLine() ?? "";
                 Console.Write("LAST NAME: ");
-                string lastName = Console.ReadLine()!;
+                string lastName = Console.ReadLine() ?? "";
 
                 Staff newStaff = new Staff
                 {
@@ -399,20 +337,17 @@ namespace VehicleInfo
                     firstName = firstName,
                     lastName = lastName
                 };
-                //Adding the car to the dictionary.
-                StaffData.staffDict.Add(newStaff.staffID, newStaff);
-
-                //Saving the Cars to the JSON file.
+                StaffData.staffDict[staffID] = newStaff;
                 CarData.SaveToJson();
-                Console.WriteLine("CAR ADDED");
+                Console.WriteLine("STAFF ADDED");
             }
-            else if (adminFunctionChoice == "R" || adminFunctionChoice == "r")
+            else if (adminFunctionChoice.Equals("R", StringComparison.OrdinalIgnoreCase))
             {
-
+                // Remove staff logic
             }
-            else if (adminFunctionChoice == "V" || adminFunctionChoice == "v")
+            else if (adminFunctionChoice.Equals("V", StringComparison.OrdinalIgnoreCase))
             {
-
+                // View staff logic
             }
             else
             {
@@ -426,5 +361,7 @@ namespace VehicleInfo
         }
     }
 }
-//Using a HashSet for the userInformation is much faster than a list, you can find an item within the list much quicker.
+//Using a HashSet for the userInformation is much faster than a list, you can find an item within the list much quicker. 
 //The reason for using encapsulation is for futureproofing.
+//Can't use that here as it means the entire field need to be unique, not only the password. 
+//This can't happen as multiple users may haev the same name or DoB for example.

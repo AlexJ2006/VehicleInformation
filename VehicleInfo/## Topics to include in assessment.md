@@ -11,15 +11,17 @@
 **CONTAINS** -- STORE LIST
 
 **HASH SET** --USER ID's
+**N/A as using the hashset means that the entire item has to be unique, not just the userID**
+
 HASH SET for the USER ID's as it can't contain duplicates. It also presents the items in no particular order.
 
 Dictionary (KEYS AND VALUES)
 
 2) using System.Linq;
 
-List.Take(n)
+**List.Take(n)** -STORE LIST, asking the user how many items they wish to view.
 
-for example with cars, you can display the first(n) number of variables in a list.
+Could use an IEnumerable list to create a "save" for the recently viewed cars by the user. Making the list clear once the user has used it. somehow????
 
 you can also use IEnumerable to create a short "lazy" list to loop over.
 
@@ -31,9 +33,9 @@ COULD CREATE A SORT BY FUNCTION TO PROVIDE THE USER WITH MORE SPECIFIC RESULTS.
 
 COULD ALSO ASK THE USER HOW MANY ITEMS THEY WANT TO DISPLAY.
 
-3) assessment information
+3) **N/A** --assessment information 
 
-4) Command line arguments.
+4) **Command line arguments** --staff and admin commands to access alternative menus
 
 5) Robustness
 
@@ -48,21 +50,11 @@ Alternative to returning the user, you can simply inform them that you are going
 You should hover over the section of the code that could throw an exception. For example, the ReadAllText or Convert.ToInt32 section. You should then handle the exceptions that could potentially be thrown by the system.
 
 To make things such as error messages a bit "nicer" or stand out more to the user, you can use colours. Using 
-
-Console.ForegroundColor = ConsoleColor.Red;
-
-for example
-
-and then resetting the colour by saying.
-
-Console.ResetColor;
-
-You could potentially use different colour for different things. For example, you could use yellow, red and green. 
-
-I could potentially use green for the situtations in which the user input has been accepted and a message validating their acceptance has been displayed. For example, "LOGGING YOU IN..." OR 
-"CONTINUING AS A GUEST..." etc. 
-
-The main thing with this is to try and keep it professional and consistent throughout the code.
+**Console.ForegroundColor = Console.Red, yellow and green**
+**Console.ResetColor;**
+**Using different colours for different messages of varying severity**
+**GREEN when the user has successfully logged in etc**
+**Kept consistent throughought the code using functions**
 
 6) Encapsulation and Constructors
 
@@ -80,4 +72,6 @@ Continuation of OOP.
 
 8) Serialisation and Binary Files. 
 
-JSON Serialization and DeSerialization
+**JSON Serialization and DeSerialization** --Various vehicle JSON files have been created (one each for cars, motorbikes and vans). These are edited by both the staff members and the customers. The customers rent vehicles which removes them from the JSON file. The staff members add vehicles to the JSON file so that they can be seen/rented by the customer.
+
+**Binary files** --Not included yet, need to understand the benefits of these over using JSON

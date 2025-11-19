@@ -43,3 +43,5 @@
 ==the reason why we need abstract classes is as later we might decide to add functionality only for one of the members (either the base class or the subclass) if you add it to one it may automatically add it to the other. this is why we need abstract classes. the abstract class 
 
 IS THERE A BIG DIFFERENCE BETWEEN USING JSON AND BINARY FILES 
+WILL I LOSE OUT ON MARKS IF I JUST USE JSON?
+

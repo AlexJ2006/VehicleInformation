@@ -1,9 +1,6 @@
-using VehicleInfo;
 using CarInfo;
 using VanInfo;
 using MotorbikeInfo;
-using System.Text.Json;
-using System.Security.Cryptography;
 
 namespace VehicleInfo
 {
@@ -654,7 +651,7 @@ namespace VehicleInfo
         {
             LoadVans();
 
-           var van = VanData.vanDict.FirstOrDefault(v =>
+            var van = VanData.vanDict.FirstOrDefault(v =>
             !string.IsNullOrEmpty(v.Value.make) &&
             !string.IsNullOrEmpty(v.Value.model) &&
             v.Value.make.Equals(make, StringComparison.OrdinalIgnoreCase) &&

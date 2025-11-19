@@ -1,6 +1,4 @@
-using System.ComponentModel;
 using CarInfo;
-using VehicleInfo;
 using storeList;
 namespace VehicleInfo
 {

@@ -9,7 +9,7 @@ namespace VehicleInfo
         public static void staffArgsMenu(string[] args)
         {
             Utilities.getUserCommand();
-            
+
             if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
             {
                 if (!int.TryParse(args[1], out int id))
@@ -17,21 +17,24 @@ namespace VehicleInfo
                     Console.WriteLine("Invalid staff ID format.");
                     return;
                 }
+
                 string lastName = args[2] ?? "";
 
-                if (StaffData.staffDict.TryGetValue(id, out Staff staff) &&
-                    staff.lastName?.Equals(lastName, StringComparison.OrdinalIgnoreCase) == true)
+                if (StaffData.staffDict.TryGetValue(id, out Staff? staff) &&
+                    staff != null &&
+                    !string.IsNullOrEmpty(staff.lastName) &&
+                    staff.lastName.Equals(lastName, StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
-                    UserType.staffMember();
+                    staffMember();
                 }
                 else
                 {
                     Console.WriteLine("ACCESS DENIED");
                 }
-                return;
             }
         }
+
 
         public static void staffMember()
         {

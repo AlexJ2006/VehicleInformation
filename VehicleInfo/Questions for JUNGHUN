@@ -18,7 +18,9 @@
 //What is meant by interfaces?? EXTRA MARKS
 
 == encapsulation and construction relates to a single class
+
 == as your classes get bigger and you can see relationships between classes, you can use inheritance and polymorphism to bind them together.
+
 ==you can "beautifully" design one class and then instead of repeating the same thing, you can use that class to relate it to the other one and allow it to inherit the information (properties) from the other class.
 
 ==for example, Junghun created a softwareEngineer class and then a seniorEngineer class that inherited things from the "base" software engineer.
@@ -45,3 +47,4 @@
 IS THERE A BIG DIFFERENCE BETWEEN USING JSON AND BINARY FILES 
 WILL I LOSE OUT ON MARKS IF I JUST USE JSON?
 
+EACH TIME I RUN THE CODE I HAVE 9 new changes to commit, why and is this okay?

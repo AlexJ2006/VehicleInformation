@@ -60,7 +60,6 @@ namespace VehicleInfo
                     string.Equals(car.Value.category, categoryChoice, StringComparison.OrdinalIgnoreCase))
                 .Select(car => new { car.Value.make, car.Value.model, car.Value.pricePerDay });
 
-
                 foreach (var Car in carList)
                 {
                     Console.WriteLine($"{Car.make} - {Car.model} - £{Car.pricePerDay}/day");

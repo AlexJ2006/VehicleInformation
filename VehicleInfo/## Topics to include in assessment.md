@@ -56,6 +56,8 @@ To make things such as error messages a bit "nicer" or stand out more to the use
 **GREEN when the user has successfully logged in etc**
 **Kept consistent throughought the code using functions**
 
+**MORE TRY/CATCH EXPECTION HANDLING FOR JSON AND THROUGHOUT THE PROGRAM**
+
 6) Encapsulation and Constructors
 
 OOP, Object Oriented Programming. 
@@ -75,3 +77,12 @@ Continuation of OOP.
 **JSON Serialization and DeSerialization** --Various vehicle JSON files have been created (one each for cars, motorbikes and vans). These are edited by both the staff members and the customers. The customers rent vehicles which removes them from the JSON file. The staff members add vehicles to the JSON file so that they can be seen/rented by the customer.
 
 **Binary files** --Not included yet, need to understand the benefits of these over using JSON
+
+Usually recommends using a binary file instead of JSON due to the size of the file and security. Security is very important. I can change this. HOPEFULLY EASILY????
+
+Will definitely need to check the lecture again.
+
+
+
+Can implement OOP (inheritance) with the vehicle classes, re-watch the lecture and adapt it to my needs.
+JungHun worried about time - Bring work in each week to ask him questions.

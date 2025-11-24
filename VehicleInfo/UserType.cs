@@ -1,5 +1,5 @@
-using CarInfo;
 using storeList;
+
 namespace VehicleInfo
 {
     public static class UserType

@@ -1,4 +1,3 @@
-using CarInfo;
 using VanInfo;
 using MotorbikeInfo;
 
@@ -53,16 +52,20 @@ namespace VehicleInfo
                 Console.WriteLine("The options meeting your criteria are: ");
                 Utilities.insertBreak();
 
-                var carList =
-                CarData.carDict
-                .Where(car =>
-                    car.Value.pricePerDay <= maxPriceInt &&
-                    string.Equals(car.Value.category, categoryChoice, StringComparison.OrdinalIgnoreCase))
-                .Select(car => new { car.Value.make, car.Value.model, car.Value.pricePerDay });
+                var carList = CarData.carDict
+                    .Where(car =>
+                        car.Value.GetPricePerDay() <= maxPriceInt &&
+                        string.Equals(car.Value.GetCategory(), categoryChoice, StringComparison.OrdinalIgnoreCase))
+                    .Select(car => new 
+                    {
+                        Make = car.Value.GetMake(),
+                        Model = car.Value.GetModel(),
+                        PricePerDay = car.Value.GetPricePerDay()
+                    });
 
                 foreach (var Car in carList)
                 {
-                    Console.WriteLine($"{Car.make} - {Car.model} - £{Car.pricePerDay}/day");
+                    Console.WriteLine($"{Car.Make} - {Car.Model} - £{Car.PricePerDay}/day");
                     Utilities.insertBreak();
                 }
 
@@ -97,16 +100,15 @@ namespace VehicleInfo
                 string continueWithRental = Console.ReadLine()!;
                 Utilities.insertBreak();
 
-                if (continueWithRental == "Y" || continueWithRental == "y")
+                if (continueWithRental.Equals("Y", StringComparison.OrdinalIgnoreCase))
                 {
                     var userCarSelection = CarData.carDict.Values.FirstOrDefault(car =>
-                    string.Equals(car.make, userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(car.model, userCarModelSelection, StringComparison.OrdinalIgnoreCase));
-
+                        car.GetMake().Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                        car.GetModel().Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
 
                     if (userCarSelection != null)
                     {
-                        int totalPrice = userCarSelection.pricePerDay * numberOfDaysRental;
+                        int totalPrice = userCarSelection.GetPricePerDay() * numberOfDaysRental;
                         Console.WriteLine($"Your total will be £{totalPrice}");
 
                         removeCar(userCarMakeSelection, userCarModelSelection);
@@ -117,7 +119,7 @@ namespace VehicleInfo
                         Console.WriteLine("CAR NOT FOUND.");
                     }
                 }
-                else if (continueWithRental == "N" || continueWithRental == "n")
+                else if (continueWithRental.Equals("N", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine("Thank you.");
                     Console.WriteLine("The program will now TERMINATE.");
@@ -128,6 +130,7 @@ namespace VehicleInfo
                     Utilities.invaliInputDuringRental();
                 }
             }
+
 
             else if (vehicleType == "M" || vehicleType == "m")
             {
@@ -385,7 +388,7 @@ namespace VehicleInfo
 
             Utilities.insertBreak();
             Console.Write("CATEGORY: ");
-            string carCategory = Console.ReadLine()!.Trim().ToLower();
+            string carCategory = Console.ReadLine()!.Trim();
             Utilities.insertBreak();
             Console.Write("PRICE PER DAY: ");
             string stringPricePerDay = Console.ReadLine()!;
@@ -422,21 +425,20 @@ namespace VehicleInfo
                 return;
             }
 
-            Car newCar = new Car
-            {
-                make = carMake,
-                model = carModel,
-                yearOfManufacture = intCarYearOfManufacture,
-                mileage = intCarMileage,
-                category = carCategory,
-                pricePerDay = intPricePerDay,
-                numberPlate = carPlate
-            };
+            Car newCar = new Car();
+            newCar.SetMake(carMake);
+            newCar.SetModel(carModel);
+            newCar.SetYear(intCarYearOfManufacture);
+            newCar.SetMileage(intCarMileage);
+            newCar.SetCategory(carCategory);
+            newCar.SetPricePerDay(intPricePerDay);
+            newCar.SetNumberPlate(carPlate);
 
-            CarData.carDict.Add(newCar.numberPlate, newCar);
+            CarData.carDict.Add(newCar.GetNumberPlate()!, newCar);
             CarData.SaveToJson();
             Console.WriteLine("CAR ADDED");
         }
+
 
         public static void addVan()
         {
@@ -628,13 +630,12 @@ namespace VehicleInfo
             LoadCars();
 
             var car = CarData.carDict.FirstOrDefault(c =>
-            !string.IsNullOrEmpty(c.Value.make) &&
-            !string.IsNullOrEmpty(c.Value.model) &&
-            c.Value.make.Equals(make, StringComparison.OrdinalIgnoreCase) &&
-            c.Value.model.Equals(model, StringComparison.OrdinalIgnoreCase));
+                !string.IsNullOrEmpty(c.Value.GetMake()) &&
+                !string.IsNullOrEmpty(c.Value.GetModel()) &&
+                c.Value.GetMake()!.Equals(make, StringComparison.OrdinalIgnoreCase) &&
+                c.Value.GetModel()!.Equals(model, StringComparison.OrdinalIgnoreCase));
 
-
-            if (!string.IsNullOrEmpty(car.Key))
+            if (car.Key != null)
             {
                 CarData.carDict.Remove(car.Key);
                 CarData.SaveToJson();
@@ -644,6 +645,7 @@ namespace VehicleInfo
                 Utilities.errorRedWarning();
                 Console.WriteLine("Could not find the car within the list");
             }
+
         }
 
         public static void removeVan(string make, string model)

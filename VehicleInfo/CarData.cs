@@ -1,15 +1,28 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
+using System.Text.Json.Serialization;
 
-namespace CarInfo
+namespace VehicleInfo
 {
     public static class CarData
     {
-        public static Dictionary<string, Car> carDict = new();
+        public static Dictionary<string, Car> carDict = new Dictionary<string, Car>();
         private static readonly string filepath = "cars.json";
 
-        // Save cars to the JSON file.
+        static CarData()
+        {
+            if (File.Exists(filepath))
+            {
+                LoadJsonData();
+            }
+            else
+            {
+                AddInitialCars();
+                SaveToJson();
+            }
+        }
+
         public static void SaveToJson()
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -17,34 +30,106 @@ namespace CarInfo
             File.WriteAllText(filepath, json);
         }
 
-        // Load cars from JSON file into memory
         public static void LoadJsonData()
         {
             if (File.Exists(filepath))
             {
                 string json = File.ReadAllText(filepath);
                 carDict = JsonSerializer.Deserialize<Dictionary<string, Car>>(json)
-                          ?? new Dictionary<string, Car>();
+                    ?? new Dictionary<string, Car>();
             }
             else
             {
                 carDict = new Dictionary<string, Car>();
             }
         }
+
+        private static void AddInitialCars()
+        {
+            Car c1 = new Car();
+            c1.SetMake("Ford");
+            c1.SetModel("Focus");
+            c1.SetYear(2019);
+            c1.SetMileage(45000);
+            c1.SetCategory("Small");
+            c1.SetPricePerDay(50);
+            c1.SetNumberPlate("FD19FCS");
+            carDict.Add(c1.GetNumberPlate()!, c1);
+
+            Car c2 = new Car();
+            c2.SetMake("Volkswagen");
+            c2.SetModel("Golf");
+            c2.SetYear(2021);
+            c2.SetMileage(30000);
+            c2.SetCategory("Medium");
+            c2.SetPricePerDay(70);
+            c2.SetNumberPlate("VW21GLF");
+            carDict.Add(c2.GetNumberPlate()!, c2);
+
+            Car c3 = new Car();
+            c3.SetMake("BMW");
+            c3.SetModel("3 Series");
+            c3.SetYear(2020);
+            c3.SetMileage(20000);
+            c3.SetCategory("Large");
+            c3.SetPricePerDay(100);
+            c3.SetNumberPlate("BM20SER");
+            carDict.Add(c3.GetNumberPlate()!, c3);
+        }
     }
 
     public class Car
     {
-        public string? make { get; set; }
-        public string? model { get; set; }
-        public int yearOfManufacture { get; set; }
-        public int mileage { get; set; }
-        public string? category { get; set; }
-        public int pricePerDay { get; set; }
-        public string? numberPlate { get; set; }
+        [JsonInclude]
+        protected string? make;
+        [JsonInclude] 
+        protected string? model;
+        [JsonInclude] 
+        protected int yearOfManufacture;
+        [JsonInclude] 
+        protected int mileage;
+        [JsonInclude] 
+        protected string? category;
+        [JsonInclude] 
+        protected int pricePerDay;
+        [JsonInclude] 
+        protected string? numberPlate;
+
+        public string? GetMake() => make;
+        public void SetMake(string make) => this.make = make;
+
+        public string? GetModel() => model;
+        public void SetModel(string model) => this.model = model;
+
+        public int GetYear() => yearOfManufacture;
+        public void SetYear(int year) => yearOfManufacture = year;
+
+        public int GetMileage() => mileage;
+        public void SetMileage(int mileage) => this.mileage = mileage;
+
+        public string? GetCategory() => category;
+        public void SetCategory(string category) => this.category = category;
+
+        public int GetPricePerDay() => pricePerDay;
+        public void SetPricePerDay(int price) => pricePerDay = price;
+
+        public string? GetNumberPlate() => numberPlate;
+        public void SetNumberPlate(string plate) => numberPlate = plate;
+
+        public Car() { }
+
+        public Car(string make, string model, int year, int mileage, string category, int price, string plate)
+        {
+            this.make = make;
+            this.model = model;
+            this.yearOfManufacture = year;
+            this.mileage = mileage;
+            this.category = category;
+            this.pricePerDay = price;
+            this.numberPlate = plate;
+        }
     }
 }
-
 
 
 //INITIAL FORMATTING FOR THE CAR ITEMS

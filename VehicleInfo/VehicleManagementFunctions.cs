@@ -158,14 +158,20 @@ namespace VehicleInfo
 
                 var motorbikeList =
                     MotorbikeData.motorbikeDict
-                        .Where(motorbike => motorbike.Value.pricePerDay <= maxPriceInt)
-                        .Select(motorbike => new { motorbike.Value.make, motorbike.Value.model, motorbike.Value.pricePerDay });
+                        .Where(motorbike => motorbike.Value.GetPricePerDay() <= maxPriceInt)
+                        .Select(motorbike => new
+                        {
+                            Make = motorbike.Value.GetMake(),
+                            Model = motorbike.Value.GetModel(),
+                            PricePerDay = motorbike.Value.GetPricePerDay()
+                        });
 
                 foreach (var motorbike in motorbikeList)
                 {
-                    Console.WriteLine($"{motorbike.make} - {motorbike.model} - £{motorbike.pricePerDay}/day");
+                    Console.WriteLine($"{motorbike.Make} - {motorbike.Model} - £{motorbike.PricePerDay}/day");
                     Utilities.insertBreak();
                 }
+
 
                 Console.WriteLine("Please fill out the following fields for the MOTORBIKE you wish to RENT");
                 Utilities.insertBreak();
@@ -200,23 +206,24 @@ namespace VehicleInfo
 
                 if (continueWithRental == "Y" || continueWithRental == "y")
                 {
-                    var userMotorbikeSelection = MotorbikeData.motorbikeDict.Values.FirstOrDefault(motorbike =>
-                    string.Equals(motorbike.make, userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(motorbike.model, userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
+                   var userMotorbikeSelection = MotorbikeData.motorbikeDict.Values.FirstOrDefault(motorbike =>
+                !string.IsNullOrEmpty(motorbike.GetMake()) &&
+                !string.IsNullOrEmpty(motorbike.GetModel()) &&
+                motorbike.GetMake()!.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                motorbike.GetModel()!.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
 
+                if (userMotorbikeSelection != null)
+                {
+                    int totalPrice = userMotorbikeSelection.GetPricePerDay() * numberOfDaysRental;
+                    Console.WriteLine($"Your total will be £{totalPrice}");
 
-                    if (userMotorbikeSelection != null)
-                    {
-                        int totalPrice = userMotorbikeSelection.pricePerDay * numberOfDaysRental;
-                        Console.WriteLine($"Your total will be £{totalPrice}");
-
-                        removeMotorbike(userMotorbikeMakeSelection, userMotorbikeModelSelection);
-                        Console.WriteLine($"Thank you, you have rented the {userMotorbikeMakeSelection} {userMotorbikeModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("MOTORBIKE NOT FOUND.");
-                    }
+                    removeMotorbike(userMotorbikeMakeSelection, userMotorbikeModelSelection);
+                    Console.WriteLine($"Thank you, you have rented the {userMotorbikeMakeSelection} {userMotorbikeModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}");
+                }
+                else
+                {
+                    Console.WriteLine("MOTORBIKE NOT FOUND.");
+                }
                 }
             }
 
@@ -252,20 +259,23 @@ namespace VehicleInfo
                 Console.WriteLine("Your Options are: ");
                 Utilities.insertBreak();
 
-                var vanList =
-                VanData.vanDict
+                var vanList = VanData.vanDict
                     .Where(van =>
-                        van.Value.pricePerDay <= maxVanPriceInt &&
-                        !string.IsNullOrEmpty(van.Value.category) &&
-                        van.Value.category.Equals(categoryChoice, StringComparison.OrdinalIgnoreCase))
-                    .Select(van => new { van.Value.make, van.Value.model, van.Value.pricePerDay });
-
+                        van.Value.GetPricePerDay() <= maxVanPriceInt &&
+                        string.Equals(van.Value.GetCategory(), categoryChoice, StringComparison.OrdinalIgnoreCase))
+                    .Select(van => new 
+                    {
+                        Make = van.Value.GetMake(),
+                        Model = van.Value.GetModel(),
+                        PricePerDay = van.Value.GetPricePerDay()
+                    });
 
                 foreach (var van in vanList)
                 {
-                    Console.WriteLine($"{van.make} - {van.model} - £{van.pricePerDay}/day");
+                    Console.WriteLine($"{van.Make} - {van.Model} - £{van.PricePerDay}/day");
                     Utilities.insertBreak();
                 }
+
 
                 Console.WriteLine("Please fill out the following fields for the VAN you wish to RENT");
                 Utilities.insertBreak();
@@ -298,18 +308,17 @@ namespace VehicleInfo
                 string continueWithVanRental = Console.ReadLine()!;
                 Utilities.insertBreak();
 
-                if (continueWithVanRental == "Y" || continueWithVanRental == "y")
+                if (continueWithVanRental.Equals("Y", StringComparison.OrdinalIgnoreCase))
                 {
                     var userVanSelection = VanData.vanDict.Values.FirstOrDefault(v =>
-                    !string.IsNullOrEmpty(v.make) &&
-                    !string.IsNullOrEmpty(v.model) &&
-                    v.make.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-                    v.model.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
-
+                        !string.IsNullOrEmpty(v.GetMake()) &&
+                        !string.IsNullOrEmpty(v.GetModel()) &&
+                        v.GetMake()!.Equals(userVanMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                        v.GetModel()!.Equals(userVanModelSelection, StringComparison.OrdinalIgnoreCase));
 
                     if (userVanSelection != null)
                     {
-                        int totalPrice = userVanSelection.pricePerDay * numberOfDaysVanRental;
+                        int totalPrice = userVanSelection.GetPricePerDay() * numberOfDaysVanRental;
                         Console.WriteLine($"Your total will be £{totalPrice}");
 
                         removeVan(userVanMakeSelection, userVanModelSelection);
@@ -324,6 +333,7 @@ namespace VehicleInfo
                 {
                     Utilities.invalidInput();
                 }
+
             }
         }
 
@@ -446,6 +456,7 @@ namespace VehicleInfo
 
             Utilities.insertBreak();
             Console.WriteLine("Please complete the following fields for the VAN you wish to add");
+            Utilities.insertBreak();
             Console.Write("MAKE: ");
             string vanMake = Console.ReadLine()!;
             Utilities.insertBreak();
@@ -522,22 +533,21 @@ namespace VehicleInfo
                 return;
             }
 
-            Van newVan = new Van
-            {
-                make = vanMake,
-                model = vanModel,
-                yearOfManufacture = intVanYearOfManufacture,
-                mileage = intVanMileage,
-                category = vanCategory,
-                pricePerDay = intPricePerDay,
-                numberPlate = vanPlate
-            };
+            Van newVan = new Van();
+            newVan.SetMake(vanMake);
+            newVan.SetModel(vanModel);
+            newVan.SetYear(intVanYearOfManufacture);
+            newVan.SetMileage(intVanMileage);
+            newVan.SetCategory(vanCategory);
+            newVan.SetPricePerDay(intPricePerDay);
+            newVan.SetNumberPlate(vanPlate);
 
-            VanData.vanDict.Add(newVan.numberPlate, newVan);
+            VanData.vanDict.Add(newVan.GetNumberPlate()!, newVan);
             VanData.SaveToJson();
             Utilities.insertBreak();
             Console.WriteLine("VAN ADDED");
         }
+
 
         public static void addMotorbike()
         {
@@ -545,16 +555,18 @@ namespace VehicleInfo
 
             Utilities.insertBreak();
             Console.WriteLine("Please complete the following fields for the MOTORBIKE you wish to add");
+
             Console.Write("MAKE: ");
             string motorbikeMake = Console.ReadLine()!;
             Utilities.insertBreak();
+
             Console.Write("MODEL: ");
             string motorbikeModel = Console.ReadLine()!;
             Utilities.insertBreak();
+
             Console.Write("YEAR OF MANUFACTURE: ");
             string stringYearOfManufacture = Console.ReadLine()!;
             int intYearOfManufacture;
-
             try
             {
                 intYearOfManufacture = Convert.ToInt32(stringYearOfManufacture);
@@ -570,7 +582,6 @@ namespace VehicleInfo
             Console.Write("MILEAGE: ");
             string stringMotorbikeMileage = Console.ReadLine()!;
             int intMotorbikeMileage;
-
             try
             {
                 intMotorbikeMileage = Convert.ToInt32(stringMotorbikeMileage);
@@ -586,7 +597,6 @@ namespace VehicleInfo
             Console.Write("PRICE PER DAY: ");
             string stringPricePerDay = Console.ReadLine()!;
             int intPricePerDay;
-
             try
             {
                 intPricePerDay = Convert.ToInt32(stringPricePerDay);
@@ -609,18 +619,17 @@ namespace VehicleInfo
                 return;
             }
 
-            Motorbike newMotorbike = new Motorbike
-            {
-                make = motorbikeMake,
-                model = motorbikeModel,
-                yearOfManufacture = intYearOfManufacture,
-                mileage = intMotorbikeMileage,
-                pricePerDay = intPricePerDay,
-                numberPlate = motorbikePlate
-            };
+            Motorbike newMotorbike = new Motorbike();
+            newMotorbike.SetMake(motorbikeMake);
+            newMotorbike.SetModel(motorbikeModel);
+            newMotorbike.SetYear(intYearOfManufacture);
+            newMotorbike.SetMileage(intMotorbikeMileage);
+            newMotorbike.SetPricePerDay(intPricePerDay);
+            newMotorbike.SetNumberPlate(motorbikePlate);
 
-            MotorbikeData.motorbikeDict.Add(newMotorbike.numberPlate, newMotorbike);
+            MotorbikeData.motorbikeDict.Add(newMotorbike.GetNumberPlate()!, newMotorbike);
             MotorbikeData.SaveToJson();
+
             Utilities.insertBreak();
             Console.WriteLine("MOTORBIKE ADDED");
         }
@@ -653,11 +662,11 @@ namespace VehicleInfo
             LoadVans();
 
             var van = VanData.vanDict.FirstOrDefault(v =>
-            !string.IsNullOrEmpty(v.Value.make) &&
-            !string.IsNullOrEmpty(v.Value.model) &&
-            v.Value.make.Equals(make, StringComparison.OrdinalIgnoreCase) &&
-            v.Value.model.Equals(model, StringComparison.OrdinalIgnoreCase));
-
+                !string.IsNullOrEmpty(v.Value.GetMake()) &&
+                !string.IsNullOrEmpty(v.Value.GetModel()) &&
+                v.Value.GetMake()!.Equals(make, StringComparison.OrdinalIgnoreCase) &&
+                v.Value.GetModel()!.Equals(model, StringComparison.OrdinalIgnoreCase)
+            );
 
             if (!string.IsNullOrEmpty(van.Key))
             {
@@ -675,12 +684,12 @@ namespace VehicleInfo
         {
             LoadMotorbikes();
 
-            var motorbike = MotorbikeData.motorbikeDict.FirstOrDefault(m =>
-            !string.IsNullOrEmpty(m.Value.make) &&
-            !string.IsNullOrEmpty(m.Value.model) &&
-            m.Value.make.Equals(make, StringComparison.OrdinalIgnoreCase) &&
-            m.Value.model.Equals(model, StringComparison.OrdinalIgnoreCase));
-
+            var motorbike = MotorbikeData.motorbikeDict
+                .FirstOrDefault(m =>
+                    !string.IsNullOrEmpty(m.Value.GetMake()) &&
+                    !string.IsNullOrEmpty(m.Value.GetModel()) &&
+                    m.Value.GetMake()!.Equals(make, StringComparison.OrdinalIgnoreCase) &&
+                    m.Value.GetModel()!.Equals(model, StringComparison.OrdinalIgnoreCase));
 
             if (!string.IsNullOrEmpty(motorbike.Key))
             {
@@ -695,3 +704,5 @@ namespace VehicleInfo
         }
     }
 }
+
+

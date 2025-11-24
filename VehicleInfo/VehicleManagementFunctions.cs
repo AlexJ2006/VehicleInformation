@@ -103,8 +103,10 @@ namespace VehicleInfo
                 if (continueWithRental.Equals("Y", StringComparison.OrdinalIgnoreCase))
                 {
                     var userCarSelection = CarData.carDict.Values.FirstOrDefault(car =>
-                        car.GetMake().Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-                        car.GetModel().Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
+                    !string.IsNullOrEmpty(car.GetMake()) &&
+                    !string.IsNullOrEmpty(car.GetModel()) &&
+                    car.GetMake()!.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                    car.GetModel()!.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
 
                     if (userCarSelection != null)
                     {

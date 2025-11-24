@@ -538,7 +538,7 @@ namespace VehicleInfo
             Van newVan = new Van();
             newVan.SetMake(vanMake);
             newVan.SetModel(vanModel);
-            newVan.SetYear(intVanYearOfManufacture);
+            newVan.SetYearOfManufacture(intVanYearOfManufacture);
             newVan.SetMileage(intVanMileage);
             newVan.SetCategory(vanCategory);
             newVan.SetPricePerDay(intPricePerDay);
@@ -624,7 +624,7 @@ namespace VehicleInfo
             Motorbike newMotorbike = new Motorbike();
             newMotorbike.SetMake(motorbikeMake);
             newMotorbike.SetModel(motorbikeModel);
-            newMotorbike.SetYear(intYearOfManufacture);
+            newMotorbike.SetYearOfManufacture(intYearOfManufacture);
             newMotorbike.SetMileage(intMotorbikeMileage);
             newMotorbike.SetPricePerDay(intPricePerDay);
             newMotorbike.SetNumberPlate(motorbikePlate);
@@ -706,5 +706,3 @@ namespace VehicleInfo
         }
     }
 }
-
-

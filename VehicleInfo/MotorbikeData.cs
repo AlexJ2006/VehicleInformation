@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
 using System.Text.Json.Serialization;
+using VehicleInfo;
 
 namespace MotorbikeInfo
 {
@@ -43,91 +44,32 @@ namespace MotorbikeInfo
                 motorbikeDict = new Dictionary<string, Motorbike>();
             }
         }
-
+    
         private static void AddInitialMotorbikes()
         {
-            Motorbike b1 = new Motorbike();
-            b1.SetMake("Harley Davidson");
-            b1.SetModel("RoadGlide");
-            b1.SetYear(2023);
-            b1.SetMileage(25856);
-            b1.SetPricePerDay(200);
-            b1.SetNumberPlate("HD23LOW");
+            Motorbike b1 = new Motorbike("Harley Davidson", "RoadGlide", 2023, 25856, 200, "HD23LOW");
             motorbikeDict.Add(b1.GetNumberPlate()!, b1);
 
-            Motorbike b2 = new Motorbike();
-            b2.SetMake("BMW");
-            b2.SetModel("F900 GS");
-            b2.SetYear(2025);
-            b2.SetMileage(1298);
-            b2.SetPricePerDay(180);
-            b2.SetNumberPlate("BM25SPD");
+            Motorbike b2 = new Motorbike("BMW", "F900 GS", 2025, 1298, 180, "BM25SPD");
             motorbikeDict.Add(b2.GetNumberPlate()!, b2);
 
-            Motorbike b3 = new Motorbike();
-            b3.SetMake("BMW");
-            b3.SetModel("R1300 GS Adventure");
-            b3.SetYear(2024);
-            b3.SetMileage(11092);
-            b3.SetPricePerDay(200);
-            b3.SetNumberPlate("SP24LOR");
+            Motorbike b3 = new Motorbike("BMW", "R1300 GS Adventure", 2024, 11092, 200, "SP24LOR");
             motorbikeDict.Add(b3.GetNumberPlate()!, b3);
 
-            Motorbike b4 = new Motorbike();
-            b4.SetMake("Honda");
-            b4.SetModel("RoadGlide");
-            b4.SetYear(2019);
-            b4.SetMileage(28933);
-            b4.SetPricePerDay(200);
-            b4.SetNumberPlate("HN19DAR");
+            Motorbike b4 = new Motorbike("Honda", "RoadGlide", 2019, 28933, 200, "HN19DAR");
             motorbikeDict.Add(b4.GetNumberPlate()!, b4);
         }
     }
 
-    public class Motorbike
+    public class Motorbike : Vehicle
     {
-        [JsonInclude]
-        protected string? make;
-        [JsonInclude]
-        protected string? model;
-        [JsonInclude]
-        protected int yearOfManufacture;
-        [JsonInclude]
-        protected int mileage;
-        [JsonInclude]
-        protected int pricePerDay;
-        [JsonInclude]
-        protected string? numberPlate;
-
-        public string? GetMake() => make;
-        public void SetMake(string make) => this.make = make;
-
-        public string? GetModel() => model;
-        public void SetModel(string model) => this.model = model;
-
-        public int GetYear() => yearOfManufacture;
-        public void SetYear(int year) => yearOfManufacture = year;
-
-        public int GetMileage() => mileage;
-        public void SetMileage(int mileage) => this.mileage = mileage;
-
-        public int GetPricePerDay() => pricePerDay;
-        public void SetPricePerDay(int price) => pricePerDay = price;
-
-        public string? GetNumberPlate() => numberPlate;
-        public void SetNumberPlate(string plate) => numberPlate = plate;
+        public Motorbike(string make, string model, int yearOfManufacture, int mileage, int pricePerDay, string numberPlate)
+            : base(make, model, yearOfManufacture, mileage, pricePerDay, numberPlate)
+        {
+            //Don't need the category class as I didn't include it for the motorbikes (they're not as easy to categorise)
+        }
 
         public Motorbike() { }
-
-        public Motorbike(string make, string model, int year, int mileage, int price, string plate)
-        {
-            this.make = make;
-            this.model = model;
-            this.yearOfManufacture = year;
-            this.mileage = mileage;
-            this.pricePerDay = price;
-            this.numberPlate = plate;
-        }
     }
 }
 

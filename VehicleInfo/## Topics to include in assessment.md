@@ -71,7 +71,10 @@ You can then use getter and setter functions to obtain the information from the 
 7) Inheritance and Polymorphism
 
 **Inheritance and Polymorphism** --Vehicle base class, car, motorbike and van subclasses.
-Taking the ENTIRE vehicle class and re-using it 
+Taking the ENTIRE vehicle class and re-using it.
+Adding "Category" field to cars and vans (as it wasn't included within the base class)
+The Motorbike subclass doesn't need a category but still inherits the whole of the base class.
+(motorbikes aren't as easy to categorise into small, medium or large so I didn't include them)
 
 Continuation of OOP.
 
@@ -80,6 +83,7 @@ Continuation of OOP.
 **JSON Serialization and DeSerialization** --Various vehicle JSON files have been created (one each for cars, motorbikes and vans). These are edited by both the staff members and the customers. The customers rent vehicles which removes them from the JSON file. The staff members add vehicles to the JSON file so that they can be seen/rented by the customer.
 
 **Binary files** --Not included yet, need to understand the benefits of these over using JSON
+WILL NEED TO CHANGE THE FILES TO BINARY HOPEFULLY NOT A DIFFICULT TASK
 
 Usually recommends using a binary file instead of JSON due to the size of the file and security. Security is very important. I can change this. HOPEFULLY EASILY????
 

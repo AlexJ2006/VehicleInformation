@@ -70,6 +70,9 @@ You can then use getter and setter functions to obtain the information from the 
 
 7) Inheritance and Polymorphism
 
+**Inheritance and Polymorphism** --Vehicle base class, car, motorbike and van subclasses.
+Taking the ENTIRE vehicle class and re-using it 
+
 Continuation of OOP.
 
 8) Serialisation and Binary Files. 
@@ -81,8 +84,6 @@ Continuation of OOP.
 Usually recommends using a binary file instead of JSON due to the size of the file and security. Security is very important. I can change this. HOPEFULLY EASILY????
 
 Will definitely need to check the lecture again.
-
-
 
 Can implement OOP (inheritance) with the vehicle classes, re-watch the lecture and adapt it to my needs.
 JungHun worried about time - Bring work in each week to ask him questions.

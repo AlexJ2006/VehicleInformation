@@ -440,7 +440,7 @@ namespace VehicleInfo
             Car newCar = new Car();
             newCar.SetMake(carMake);
             newCar.SetModel(carModel);
-            newCar.SetYear(intCarYearOfManufacture);
+            newCar.SetYearOfManufacture(intCarYearOfManufacture);
             newCar.SetMileage(intCarMileage);
             newCar.SetCategory(carCategory);
             newCar.SetPricePerDay(intPricePerDay);

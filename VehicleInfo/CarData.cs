@@ -46,90 +46,36 @@ namespace VehicleInfo
 
         private static void AddInitialCars()
         {
-            Car c1 = new Car();
-            c1.SetMake("Ford");
-            c1.SetModel("Focus");
-            c1.SetYear(2019);
-            c1.SetMileage(45000);
-            c1.SetCategory("Small");
-            c1.SetPricePerDay(50);
-            c1.SetNumberPlate("FD19FCS");
+            Car c1 = new Car("Ford", "Focus", 2019, 45000, "Small", 50, "FD19FCS");
             carDict.Add(c1.GetNumberPlate()!, c1);
 
-            Car c2 = new Car();
-            c2.SetMake("Volkswagen");
-            c2.SetModel("Golf");
-            c2.SetYear(2021);
-            c2.SetMileage(30000);
-            c2.SetCategory("Medium");
-            c2.SetPricePerDay(70);
-            c2.SetNumberPlate("VW21GLF");
+            Car c2 = new Car("Volkswagen", "Golf", 2021, 30000, "Medium", 70, "VW21GLF");
             carDict.Add(c2.GetNumberPlate()!, c2);
 
-            Car c3 = new Car();
-            c3.SetMake("BMW");
-            c3.SetModel("3 Series");
-            c3.SetYear(2020);
-            c3.SetMileage(20000);
-            c3.SetCategory("Large");
-            c3.SetPricePerDay(100);
-            c3.SetNumberPlate("BM20SER");
+            Car c3 = new Car("BMW", "3 Series", 2020, 20000, "Large", 100, "BM20SER");
             carDict.Add(c3.GetNumberPlate()!, c3);
         }
     }
 
-    public class Car
+    public class Car : Vehicle
     {
         [JsonInclude]
-        protected string? make;
-        [JsonInclude] 
-        protected string? model;
-        [JsonInclude] 
-        protected int yearOfManufacture;
-        [JsonInclude] 
-        protected int mileage;
-        [JsonInclude] 
-        protected string? category;
-        [JsonInclude] 
-        protected int pricePerDay;
-        [JsonInclude] 
-        protected string? numberPlate;
-
-        public string? GetMake() => make;
-        public void SetMake(string make) => this.make = make;
-
-        public string? GetModel() => model;
-        public void SetModel(string model) => this.model = model;
-
-        public int GetYear() => yearOfManufacture;
-        public void SetYear(int year) => yearOfManufacture = year;
-
-        public int GetMileage() => mileage;
-        public void SetMileage(int mileage) => this.mileage = mileage;
+        private string? category;
 
         public string? GetCategory() => category;
         public void SetCategory(string category) => this.category = category;
 
-        public int GetPricePerDay() => pricePerDay;
-        public void SetPricePerDay(int price) => pricePerDay = price;
-
-        public string? GetNumberPlate() => numberPlate;
-        public void SetNumberPlate(string plate) => numberPlate = plate;
+        public Car(string make, string model, int yearOfManufacture, int mileage,
+                   string category, int pricePerDay, string numberPlate)
+            : base(make, model, yearOfManufacture, mileage, pricePerDay, numberPlate)
+        {
+            this.category = category;
+        }
 
         public Car() { }
-
-        public Car(string make, string model, int year, int mileage, string category, int price, string plate)
-        {
-            this.make = make;
-            this.model = model;
-            this.yearOfManufacture = year;
-            this.mileage = mileage;
-            this.category = category;
-            this.pricePerDay = price;
-            this.numberPlate = plate;
-        }
     }
 }
+
 
 
 //INITIAL FORMATTING FOR THE CAR ITEMS

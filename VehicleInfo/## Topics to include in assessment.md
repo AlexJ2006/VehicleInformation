@@ -76,6 +76,9 @@ Adding "Category" field to cars and vans (as it wasn't included within the base 
 The Motorbike subclass doesn't need a category but still inherits the whole of the base class.
 (motorbikes aren't as easy to categorise into small, medium or large so I didn't include them)
 
+Inheritance is also used for the bianry files. 
+
+Within my mainVehicleFunction file (containing my base class), I have added my 
 Continuation of OOP.
 
 8) Serialisation and Binary Files. 

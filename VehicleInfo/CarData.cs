@@ -15,8 +15,7 @@ namespace VehicleInfo
         {
             FileStream carFile = File.Open("car.dat", FileMode.Create);
             BinaryWriter bw = new BinaryWriter(carFile);
-
-            foreach(Vehicle car in DynamicInterfa)
+            
             if (File.Exists(carFile))
             {
                 LoadJsonData();

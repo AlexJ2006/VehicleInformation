@@ -1,11 +1,5 @@
-using System.Collections.Generic;
-using System.Text.Json;
-using System.IO;
-using System.Text.Json.Serialization;
+using System.Reflection.Metadata;
 using VehicleInfo;
-using System.Formats.Asn1;
-using System.Threading.Tasks.Dataflow;
-using System.Runtime.InteropServices;
 
 namespace MotorbikeInfo
 {
@@ -42,6 +36,8 @@ namespace MotorbikeInfo
                 bw.Write(numberPlate.Key);
                 numberPlate.Value.SaveBinary(bw);
             }
+            bw.Close();
+            motorbikeFile.Close();
         }
 
         public static void LoadFromBinary()
@@ -62,8 +58,13 @@ namespace MotorbikeInfo
 
                 motorbikeDict[key] = m;
             }
+
+            br.Close();
+            motorbikeFile.Close();
         }
-    
+
+        
+
         private static void AddInitialMotorbikes()
         {
             Motorbike b1 = new Motorbike("Harley Davidson", "RoadGlide", 2023, 25856, 200, "HD23LOW");
@@ -82,26 +83,15 @@ namespace MotorbikeInfo
 
     public class Motorbike : Vehicle
     {
+        public Motorbike() { }
+
         public Motorbike(string make, string model, int yearOfManufacture, int mileage, int pricePerDay, string numberPlate)
             : base(make, model, yearOfManufacture, mileage, pricePerDay, numberPlate)
         {
             //Don't need the category class as I didn't include it for the motorbikes (they're not as easy to categorise)
         }
-
-        public Motorbike() { }
-
-        public override void SaveBinary(BinaryWriter bw)
-        {
-            base.SaveBinary(bw);
-        }
-
-        public override void LoadBinary(BinaryReader br)
-        {
-            base.LoadBinary(br);
-        }
     }
 }
-
 
 //Motorbike List as taken directly from program.cs during implementation
 

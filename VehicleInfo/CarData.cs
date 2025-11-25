@@ -1,52 +1,70 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.IO;
 
 namespace VehicleInfo
 {
     public static class CarData
     {
+        // Dictionary to store all the cars using their number plate as the key
         public static Dictionary<string, Car> carDict = new Dictionary<string, Car>();
-        private static readonly string filepath = "cars.json";
+        private static readonly string filepath = "cars.bin";
 
         static CarData()
         {
-            FileStream carFile = File.Open("car.dat", FileMode.Create);
-            BinaryWriter bw = new BinaryWriter(carFile);
-            
-            if (File.Exists(carFile))
-            {
-                LoadJsonData();
-            }
-            else
-            {
-                AddInitialCars();
-                SaveToJson();
-            }
-        }
-
-        public static void SaveToJson()
-        {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string json = JsonSerializer.Serialize(carDict, options);
-            File.WriteAllText(filepath, json);
-        }
-
-        public static void LoadJsonData()
-        {
+            // If the binary file exists, load data from it
             if (File.Exists(filepath))
             {
-                string json = File.ReadAllText(filepath);
-                carDict = JsonSerializer.Deserialize<Dictionary<string, Car>>(json)
-                    ?? new Dictionary<string, Car>();
+                LoadFromBinary();
             }
             else
             {
-                carDict = new Dictionary<string, Car>();
+                // Otherwise, add initial cars and save to binary
+                AddInitialCars();
+                SaveToBinary();
             }
         }
 
-        //Adding in some initial cars for testing purposes (going to keep these here)
-        //These WOULD be removed at a later date if the system was bought by someone else
+        public static void SaveToBinary()
+        {
+            // Using "using" statements ensures files are closed properly
+            using FileStream fs = File.Open(filepath, FileMode.Create);
+            using BinaryWriter bw = new BinaryWriter(fs);
+
+            // Write how many cars exist in the dictionary
+            bw.Write(carDict.Count);
+
+            // Loop over each car and save its data
+            foreach (var pair in carDict)
+            {
+                bw.Write(pair.Key);          // Write the dictionary key (number plate)
+                pair.Value.SaveBinary(bw);   // Save the car object
+            }
+        }
+
+        public static void LoadFromBinary()
+        {
+            // Reset the dictionary before loading
+            carDict = new Dictionary<string, Car>();
+
+            using FileStream fs = File.Open(filepath, FileMode.Open);
+            using BinaryReader br = new BinaryReader(fs);
+
+            // Read the number of cars stored in the file
+            int count = br.ReadInt32();
+
+            // Loop to load each car
+            for (int i = 0; i < count; i++)
+            {
+                string numberPlate = br.ReadString(); // Read the dictionary key
+
+                Car c = new Car();   // Create a new Car object
+                c.LoadBinary(br);    // Load its data from the binary file
+
+                carDict[numberPlate] = c; // Add the car to the dictionary
+            }
+        }
+
+        // Adding in some initial cars for testing purposes (going to keep these here)
+        // These WOULD be removed at a later date if the system was bought by someone else
         private static void AddInitialCars()
         {
             Car c1 = new Car("Ford", "Focus", 2019, 45000, "Small", 50, "FD19FCS");
@@ -64,26 +82,40 @@ namespace VehicleInfo
     // On top of this, the Car class has its own new property of Category.
     public class Car : Vehicle
     {
-        //Category is added to the class here. 
-        [JsonInclude]
+        // Category is added to the class here.
         private string? category;
 
-        //With its own getters and setters
+        // With its own getters and setters
         public string? GetCategory() => category;
         public void SetCategory(string category) => this.category = category;
 
-        //Detailiing everthing that is being inherited from the base class.
+        // Detailing everything that is being inherited from the base class.
         public Car(string make, string model, int yearOfManufacture, int mileage,
                    string category, int pricePerDay, string numberPlate)
             : base(make, model, yearOfManufacture, mileage, pricePerDay, numberPlate)
         {
-            // Specifying that cetagory in this instance is the category from this file.
+            // Specifying that category in this instance is the category from this file.
             this.category = category;
         }
 
         public Car() { }
+
+        // Overriding SaveBinary to include the category field
+        public override void SaveBinary(BinaryWriter bw)
+        {
+            base.SaveBinary(bw);      // Save all base class fields
+            bw.Write(category ?? "");  // Save Car-specific field
+        }
+
+        // Overriding LoadBinary to include the category field
+        public override void LoadBinary(BinaryReader br)
+        {
+            base.LoadBinary(br);      // Load all base class fields
+            category = br.ReadString(); // Load Car-specific field
+        }
     }
 }
+
 
 //INITIAL FORMATTING FOR THE CAR ITEMS
 //Taken directly from program.cs during implementation

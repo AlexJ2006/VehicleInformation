@@ -1,4 +1,3 @@
-using System.Reflection.Metadata;
 using VehicleInfo;
 
 namespace MotorbikeInfo
@@ -23,33 +22,28 @@ namespace MotorbikeInfo
 
         public static void SaveToBinary()
         {
-            FileStream motorbikeFile = File.Open(filepath, FileMode.Create);
-            BinaryWriter bw = new BinaryWriter(motorbikeFile);
+            using FileStream fs = File.Open(filepath, FileMode.Create);
+            using BinaryWriter bw = new BinaryWriter(fs);
 
-            //Checking how many motorbikes exist in the file
-            //So that the integer ccan be used to loop over them
-            //Within the foreach loop
             bw.Write(motorbikeDict.Count);
 
-            foreach(var numberPlate in motorbikeDict)
+            foreach (var pair in motorbikeDict)
             {
-                bw.Write(numberPlate.Key);
-                numberPlate.Value.SaveBinary(bw);
+                bw.Write(pair.Key);
+                pair.Value.SaveBinary(bw);
             }
-            bw.Close();
-            motorbikeFile.Close();
         }
 
         public static void LoadFromBinary()
         {
             motorbikeDict = new Dictionary<string, Motorbike>();
 
-            FileStream motorbikeFile = File.Open(filepath, FileMode.Open);
-            BinaryReader br = new BinaryReader(motorbikeFile);
+            using FileStream fs = File.Open(filepath, FileMode.Open);
+            using BinaryReader br = new BinaryReader(fs);
 
             int count = br.ReadInt32();
 
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 string key = br.ReadString();
 
@@ -58,12 +52,7 @@ namespace MotorbikeInfo
 
                 motorbikeDict[key] = m;
             }
-
-            br.Close();
-            motorbikeFile.Close();
         }
-
-        
 
         private static void AddInitialMotorbikes()
         {

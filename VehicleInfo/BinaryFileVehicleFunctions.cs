@@ -1,13 +1,15 @@
-
 using System.Runtime.CompilerServices;
 
 namespace VehicleInfo
 {
+    //Base class for the changing of JSON files to binary files (replacign the JSON logic currently in place)
     public static class BinaryVehicleFunctions
     {
+        //Create a new dictionary instance
         public static void SaverDictionary<T>(string filepath, Dictionary<string, T> dict)
         where T : Vehicle
         {
+            //Attempt to open the file, if not (it doesn't exist) create a new file under the filepath.
             FileStream file = File.Open(filepath, FileMode.Create);
             BinaryWriter bw = new BinaryWriter(file);
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
 using System.Text.Json.Serialization;
+using System.Runtime.InteropServices;
 
 namespace VehicleInfo
 {
@@ -12,7 +13,11 @@ namespace VehicleInfo
 
         static CarData()
         {
-            if (File.Exists(filepath))
+            FileStream carFile = File.Open("car.dat", FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(carFile);
+
+            foreach(Vehicle car in DynamicInterfa)
+            if (File.Exists(carFile))
             {
                 LoadJsonData();
             }

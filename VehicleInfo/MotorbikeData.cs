@@ -3,45 +3,64 @@ using System.Text.Json;
 using System.IO;
 using System.Text.Json.Serialization;
 using VehicleInfo;
+using System.Formats.Asn1;
+using System.Threading.Tasks.Dataflow;
+using System.Runtime.InteropServices;
 
 namespace MotorbikeInfo
 {
     public static class MotorbikeData
     {
         public static Dictionary<string, Motorbike> motorbikeDict = new Dictionary<string, Motorbike>();
-        private static readonly string filepath = "motorbikes.json";
+        private static readonly string filepath = "motorbikes.bin";
 
         static MotorbikeData()
         {
             if (File.Exists(filepath))
             {
-                LoadJsonData();
+                LoadFromBinary();
             }
             else
             {
                 AddInitialMotorbikes();
-                SaveToJson();
+                SaveToBinary();
             }
         }
 
-        public static void SaveToJson()
+        public static void SaveToBinary()
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string json = JsonSerializer.Serialize(motorbikeDict, options);
-            File.WriteAllText(filepath, json);
+            FileStream motorbikeFile = File.Open(filepath, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(motorbikeFile);
+
+            //Checking how many motorbikes exist in the file
+            //So that the integer ccan be used to loop over them
+            //Within the foreach loop
+            bw.Write(motorbikeDict.Count);
+
+            foreach(var numberPlate in motorbikeDict)
+            {
+                bw.Write(numberPlate.Key);
+                numberPlate.Value.SaveBinary(bw);
+            }
         }
 
-        public static void LoadJsonData()
+        public static void LoadFromBinary()
         {
-            if (File.Exists(filepath))
+            motorbikeDict = new Dictionary<string, Motorbike>();
+
+            FileStream motorbikeFile = File.Open(filepath, FileMode.Open);
+            BinaryReader br = new BinaryReader(motorbikeFile);
+
+            int count = br.ReadInt32();
+
+            for(int i = 0; i < count; i++)
             {
-                string json = File.ReadAllText(filepath);
-                motorbikeDict = JsonSerializer.Deserialize<Dictionary<string, Motorbike>>(json)
-                    ?? new Dictionary<string, Motorbike>();
-            }
-            else
-            {
-                motorbikeDict = new Dictionary<string, Motorbike>();
+                string key = br.ReadString();
+
+                Motorbike m = new Motorbike();
+                m.LoadBinary(br);
+
+                motorbikeDict[key] = m;
             }
         }
     
@@ -70,6 +89,16 @@ namespace MotorbikeInfo
         }
 
         public Motorbike() { }
+
+        public override void SaveBinary(BinaryWriter bw)
+        {
+            base.SaveBinary(bw);
+        }
+
+        public override void LoadBinary(BinaryReader br)
+        {
+            base.LoadBinary(br);
+        }
     }
 }
 

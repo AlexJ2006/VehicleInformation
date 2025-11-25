@@ -48,5 +48,25 @@ namespace VehicleInfo
         }
 
         public Vehicle() { }
+
+        public virtual void SaveBinary(BinaryWriter bw)
+        {
+            bw.Write(make ?? "");
+            bw.Write(model ?? "");
+            bw.Write(yearOfManufacture);
+            bw.Write(mileage);
+            bw.Write(pricePerDay);
+            bw.Write(numberPlate ?? "");
+        }
+
+        public virtual void LoadBinary(BinaryReader br)
+        {
+            make = br.ReadString();
+            model = br.ReadString();
+            yearOfManufacture = br.ReadInt32();
+            mileage = br.ReadInt32();
+            pricePerDay = br.ReadInt32();
+            numberPlate = br.ReadString();
+        }
     }
 }

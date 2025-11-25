@@ -278,7 +278,6 @@ namespace VehicleInfo
                     Utilities.insertBreak();
                 }
 
-
                 Console.WriteLine("Please fill out the following fields for the VAN you wish to RENT");
                 Utilities.insertBreak();
                 Console.Write("MAKE: ");

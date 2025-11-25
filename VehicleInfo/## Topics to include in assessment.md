@@ -84,6 +84,7 @@ Continuation of OOP.
 
 **Binary files** --Not included yet, need to understand the benefits of these over using JSON
 WILL NEED TO CHANGE THE FILES TO BINARY HOPEFULLY NOT A DIFFICULT TASK
+COULD POTENTIALLY CHANGE ALL THE FILES TO BINARY APART FROM THE STORELIST WHICH I COULD KEEP AS A JSON AS IT DOESN'T NEED TO BE PARTICULARLY PRIAVATE AND IT WON'T BE TOO LONG IN THE FUTURE (I WOULDN'T IMAGINE)
 
 Usually recommends using a binary file instead of JSON due to the size of the file and security. Security is very important. I can change this. HOPEFULLY EASILY????
 

@@ -450,7 +450,6 @@ namespace VehicleInfo
             Console.WriteLine("CAR ADDED");
         }
 
-
         public static void addVan()
         {
             LoadVans();

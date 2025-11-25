@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using System.Text.Json;
-using System.IO;
 using System.Text.Json.Serialization;
-using System.Runtime.InteropServices;
 
 namespace VehicleInfo
 {
@@ -48,6 +45,8 @@ namespace VehicleInfo
             }
         }
 
+        //Adding in some initial cars for testing purposes (going to keep these here)
+        //These WOULD be removed at a later date if the system was bought by someone else
         private static void AddInitialCars()
         {
             Car c1 = new Car("Ford", "Focus", 2019, 45000, "Small", 50, "FD19FCS");
@@ -61,26 +60,30 @@ namespace VehicleInfo
         }
     }
 
+    // Creating a Car class here that inherits all of the properties from Vehicle.
+    // On top of this, the Car class has its own new property of Category.
     public class Car : Vehicle
     {
+        //Category is added to the class here. 
         [JsonInclude]
         private string? category;
 
+        //With its own getters and setters
         public string? GetCategory() => category;
         public void SetCategory(string category) => this.category = category;
 
+        //Detailiing everthing that is being inherited from the base class.
         public Car(string make, string model, int yearOfManufacture, int mileage,
                    string category, int pricePerDay, string numberPlate)
             : base(make, model, yearOfManufacture, mileage, pricePerDay, numberPlate)
         {
+            // Specifying that cetagory in this instance is the category from this file.
             this.category = category;
         }
 
         public Car() { }
     }
 }
-
-
 
 //INITIAL FORMATTING FOR THE CAR ITEMS
 //Taken directly from program.cs during implementation

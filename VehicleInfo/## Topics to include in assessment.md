@@ -85,7 +85,10 @@ Continuation of OOP.
 
 **JSON Serialization and DeSerialization** --Various vehicle JSON files have been created (one each for cars, motorbikes and vans). These are edited by both the staff members and the customers. The customers rent vehicles which removes them from the JSON file. The staff members add vehicles to the JSON file so that they can be seen/rented by the customer.
 
-**Binary files** --Not included yet, need to understand the benefits of these over using JSON
+**Binary files** --Staff Data, Customer Data. Car data, Motorcycle Data and Van Data.
+Cars, Motorcycles and Vans use inheritance.
+
+Not included yet, need to understand the benefits of these over using JSON
 WILL NEED TO CHANGE THE FILES TO BINARY HOPEFULLY NOT A DIFFICULT TASK
 COULD POTENTIALLY CHANGE ALL THE FILES TO BINARY APART FROM THE STORELIST WHICH I COULD KEEP AS A JSON AS IT DOESN'T NEED TO BE PARTICULARLY PRIAVATE AND IT WON'T BE TOO LONG IN THE FUTURE (I WOULDN'T IMAGINE)
 

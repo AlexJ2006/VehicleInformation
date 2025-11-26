@@ -548,7 +548,6 @@ namespace VehicleInfo
             Console.WriteLine("VAN ADDED");
         }
 
-
         public static void addMotorbike()
         {
             LoadMotorbikes();
@@ -701,16 +700,6 @@ namespace VehicleInfo
                 Utilities.errorRedWarning();
                 Console.WriteLine("Could not find the motorbike within the list");
             }
-        }
-
-        internal static void removeCar()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static void removeMotorbike()
-        {
-            throw new NotImplementedException();
         }
     }
 }

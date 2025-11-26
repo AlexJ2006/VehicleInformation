@@ -105,11 +105,7 @@ namespace VehicleInfo
             Console.Write("ENTER COMMAND: ");
             string enterStaff = Console.ReadLine()!;
             string[] staffArgs = enterStaff.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            // if(enterStaff == "E")
-            // {
-                
-            // }
+            
         }
 
         public static void invalidPasswordEntry()

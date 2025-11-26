@@ -182,43 +182,6 @@ namespace VehicleInfo
                     Console.WriteLine("WRONG SECTION");
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             //If, in the first menu, the user selects to REMOVE a vehicle from the list.
             else if (staffMenuChoice.Equals("R", StringComparison.OrdinalIgnoreCase))
             {
@@ -242,7 +205,6 @@ namespace VehicleInfo
                     string removeMultipleCars = Console.ReadLine() ?? "";
                     Utilities.insertBreak();
 
-                    
                     if (removeMultipleCars.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
                         removeMultipleCars.Equals("Y", StringComparison.OrdinalIgnoreCase))
                     {
@@ -256,19 +218,30 @@ namespace VehicleInfo
                         }
                         Utilities.insertBreak();
 
-                        //Add cars until the number of cars that have been specified by the user, meets 0
                         while (intHowManyCars > 0)
                         {
-                            //Taking 1 from the number that the user has selected, each time the loop runs.
                             intHowManyCars--;
-                            VehicleManagement.removeCar(); //REMOVE CAR
+
+                            Console.Write("Enter the car make to remove: ");
+                            string CarMake = Console.ReadLine() ?? "";
+
+                            Console.Write("Enter the car model to remove: ");
+                            string CarModel = Console.ReadLine() ?? "";
+
+                            VehicleManagement.removeCar(CarMake, CarModel);
                         }
                     }
                     else
                     {
-                        //If the user did not want to add multiple cars
-                        Utilities.insertBreak(); //Adding a break to enhance the UX (improve design)
-                        VehicleManagement.removeCar(); //Just run the function once (for one car)
+                        Utilities.insertBreak();
+
+                        Console.Write("Enter the car make to remove: ");
+                        string CarMake = Console.ReadLine() ?? "";
+
+                        Console.Write("Enter the car model to remove: ");
+                        string CarModel = Console.ReadLine() ?? "";
+
+                        VehicleManagement.removeCar(CarMake, CarModel);
                     }
                 }
                 //Else, if the user selects M to remove a Motorcycle
@@ -280,7 +253,6 @@ namespace VehicleInfo
                     if (removeMultipleMotorbikes.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
                         removeMultipleMotorbikes.Equals("Y", StringComparison.OrdinalIgnoreCase))
                     {
-                        //The user selects the number of motorcycles they wish to remove
                         Console.Write("How many motorbikes would you like to remove?: ");
                         string stringHowManyMotorbikes = Console.ReadLine() ?? "";
                         if (!int.TryParse(stringHowManyMotorbikes, out int intHowManyMotorbikes))
@@ -290,22 +262,34 @@ namespace VehicleInfo
                             return;
                         }
 
-                        //Same logic as for the CAR section here.
                         while (intHowManyMotorbikes > 0)
                         {
                             intHowManyMotorbikes--;
-                            VehicleManagement.removeMotorbike();
+
+                            Console.Write("Enter the motorbike make to remove: ");
+                            string MotorbikeMake = Console.ReadLine() ?? "";
+
+                            Console.Write("Enter the motorbike model to remove: ");
+                            string MotorbikeModel = Console.ReadLine() ?? "";
+
+                            VehicleManagement.removeMotorbike(MotorbikeMake, MotorbikeModel);
                         }
                     }
                     else
                     {
-                        //If they don't wish to add multiple cars...
                         Utilities.insertBreak();
-                        VehicleManagement.removeMotorbike();
+
+                        Console.Write("Enter the motorbike make to remove: ");
+                        string MotorbikekMake = Console.ReadLine() ?? "";
+
+                        Console.Write("Enter the motorbike model to remove: ");
+                        string MotorbikeModel = Console.ReadLine() ?? "";
+
+                        VehicleManagement.removeMotorbike(MotorbikekMake, MotorbikeModel);
                     }
                 }
                 //Repeating the same logic for VANS as for CARS and MOTORCYCLES
-                else if (removeVehicleType.Equals("V", StringComparison.OrdinalIgnoreCase))
+               else if (removeVehicleType.Equals("V", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.Write("Would you like to REMOVE MULTIPLE VANS?: ");
                     string removeMultipleVans = Console.ReadLine() ?? "";
@@ -321,60 +305,33 @@ namespace VehicleInfo
                             Console.WriteLine($"Cannot convert '{stringHowManyVans}' to a number");
                             return;
                         }
-                        //If they wish to add multiple vans...
+
                         while (intHowManyVans > 0)
                         {
                             intHowManyVans--;
-                            VehicleManagement.removeVan();
+
+                            Console.Write("Enter van make to remove: ");
+                            string VanMake = Console.ReadLine() ?? "";
+
+                            Console.Write("Enter van model to remove: ");
+                            string VanModel = Console.ReadLine() ?? "";
+
+                            VehicleManagement.removeVan(VanMake, VanModel);
                         }
                     }
                     else
                     {
-                        //For the addition of just one van
                         Utilities.insertBreak();
-                        VehicleManagement.removeVan();
+
+                        Console.Write("Enter van make to remove: ");
+                        string VanMake = Console.ReadLine() ?? "";
+
+                        Console.Write("Enter van model to remove: ");
+                        string VanModel = Console.ReadLine() ?? "";
+
+                        VehicleManagement.removeVan(VanMake, VanModel);
                     }
                 }
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             //else, if the user has selected to EDIT the STORE LIST
             else if (staffMenuChoice.Equals("E", StringComparison.OrdinalIgnoreCase))
             {
@@ -469,6 +426,8 @@ namespace VehicleInfo
                 }
             }
         }
+        }
+    
 
         //Registering the new user.
         public static void RegisterNewUser()

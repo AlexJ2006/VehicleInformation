@@ -98,3 +98,10 @@ Will definitely need to check the lecture again.
 
 Can implement OOP (inheritance) with the vehicle classes, re-watch the lecture and adapt it to my needs.
 JungHun worried about time - Bring work in each week to ask him questions.
+
+9) Using multiple processors
+
+Difficult to decide where to fit this.
+Will I lose out on marks if I don't use this? If so, I will put this in somehwere to show I can use it.
+
+10) Profiling and Performance

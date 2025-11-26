@@ -590,7 +590,7 @@ namespace VehicleInfo
         }
         internal static void staffArgsMenu(object staffArgs)
         {
-            throw new NotImplementedException();
+           
         }    
     }
 }

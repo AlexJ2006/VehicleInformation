@@ -1,29 +1,47 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace VehicleInfo
 {
     public static class StaffData
     {
         public static Dictionary<int, Staff> staffDict = new();
-        private static readonly string filepath = "staff.json";
+        private static readonly string filepath = "staff.bin";
 
-        public static void SaveToJson()
+        public static void SaveToBinary()
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string json = JsonSerializer.Serialize(staffDict, options);
-            File.WriteAllText(filepath, json);
+            using FileStream fs = File.Open(filepath, FileMode.Create);
+            using BinaryWriter bw = new BinaryWriter(fs);
+
+            bw.Write(staffDict.Count);
+
+            foreach (var pair in staffDict)
+            {
+                bw.Write(pair.Key);
+                pair.Value.SaveBinary(bw);
+            }
         }
 
-        public static void LoadJsonData()
+        public static void LoadFromBinary()
         {
-            if (File.Exists(filepath))
+            if (!File.Exists(filepath))
             {
-                string json = File.ReadAllText(filepath);
-                staffDict = JsonSerializer.Deserialize<Dictionary<int, Staff>>(json)
-                ?? new Dictionary<int, Staff>();
+                staffDict = new Dictionary<int, Staff>();
+                return;
+            }
+
+            using FileStream fs = File.Open(filepath, FileMode.Open);
+            using BinaryReader br = new BinaryReader(fs);
+
+            int count = br.ReadInt32();
+            staffDict = new Dictionary<int, Staff>();
+
+            for (int i = 0; i < count; i++)
+            {
+                int staffID = br.ReadInt32();
+                Staff staff = Staff.LoadBinary(br);
+                staffDict[staffID] = staff;
             }
         }
     }
@@ -33,9 +51,26 @@ namespace VehicleInfo
         public int staffID { get; set; }
         public string firstName { get; set; } = "";
         public string lastName { get; set; } = "";
-
         public string password { get; set; } = "";
 
         public string GetName() => $"{firstName} {lastName}";
+
+        public void SaveBinary(BinaryWriter bw)
+        {
+            bw.Write(firstName);
+            bw.Write(lastName);
+            bw.Write(password);
+        }
+
+        public static Staff LoadBinary(BinaryReader br)
+        {
+            Staff staff = new Staff
+            {
+                firstName = br.ReadString(),
+                lastName = br.ReadString(),
+                password = br.ReadString()
+            };
+            return staff;
+        }
     }
 }

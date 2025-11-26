@@ -23,14 +23,7 @@ namespace VehicleInfo
             Console.WriteLine("Sorry, this vehicle could not be found.");
             insertBreak();
         }
-
-        public static void guestModeMessage()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("ENTERING GUEST MODE...");
-            Console.ResetColor();
-        }
-
+        
         public static void loggingInMessage()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -48,8 +41,9 @@ namespace VehicleInfo
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("**************** USER ALERT ****************");
             Console.ResetColor();
-            Console.WriteLine("To enter STAFF MODE please enter the following when prompted");
-            Console.WriteLine("--staff staffUsername staffPassword");
+            Console.WriteLine("To enter STAFF or ADMIN MODE please enter the following when prompted");
+            Console.WriteLine("  --staff <username> <password>");
+            Console.WriteLine("  --admin <username> <password>");
             Console.WriteLine("ELSE");
             Console.WriteLine("Enter E to enter the guest/customer menus");
             Console.ForegroundColor = ConsoleColor.Red;
@@ -93,19 +87,23 @@ namespace VehicleInfo
             insertBreak();
         }
 
-        public static void getUserCommand()
+        public static string[] getUserCommand()
         {
-            Console.WriteLine("To enter as STAFF or ADMIN. Please enter your credentials in the following format:. ");
+            Console.WriteLine("To enter as STAFF or ADMIN. Please enter your credentials in the following format:");
             Utilities.insertBreak();
             Utilities.staffModeAlert();
             Console.WriteLine("OR");
             Utilities.insertBreak();
             Console.WriteLine("Press E to enter the main program.");
             Utilities.insertBreak();
+
             Console.Write("ENTER COMMAND: ");
-            string enterStaff = Console.ReadLine()!;
+            string enterStaff = Console.ReadLine() ?? "";
+
+            // Split the string into arguments
             string[] staffArgs = enterStaff.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            
+
+            return staffArgs;
         }
 
         public static void invalidPasswordEntry()
@@ -133,6 +131,17 @@ namespace VehicleInfo
             Console.WriteLine("WARNING: ");
             Console.ResetColor();
         }
-
+        public static void guestModeMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("ENTERING GUEST MODE...");
+            Console.ResetColor();
+        }
+        public static void nonStaffMenuMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("ENTERING NORMAL MENU...");
+            Console.ResetColor();
+        }
     }
 }

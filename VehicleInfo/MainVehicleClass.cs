@@ -1,25 +1,18 @@
-using System.Text.Json.Serialization;
 
 namespace VehicleInfo
 {
     public class Vehicle
     {
-        [JsonInclude]
         private string? make;
 
-        [JsonInclude]
         private string? model;
 
-        [JsonInclude]
         private int yearOfManufacture;
 
-        [JsonInclude]
         private int mileage;
 
-        [JsonInclude]
         private int pricePerDay;
 
-        [JsonInclude]
         private string? numberPlate;
 
         public string? GetMake() => make;

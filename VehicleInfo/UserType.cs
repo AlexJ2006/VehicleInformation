@@ -5,37 +5,53 @@ namespace VehicleInfo
     public static class UserType
     {
         //Getting the args from the user that allow them to LOG IN as STAFF or ADMIN. 
-        public static void staffArgsMenu(string[] args)
+        public static void staffArgsMenu()
         {
-            //Getting the command from the user.
-            Utilities.getUserCommand();
+            string[] args = Utilities.getUserCommand();
 
-            //If the arguments provided by the user (through getUserCommand, found in the utilities folder), match the necessary criteria.
+            //If the user wishes to enter the normal menu/mode
+            if (args.Length == 1 && args[0].Equals("E", StringComparison.OrdinalIgnoreCase))
+            {
+                //Displaying a message to the user from utilities.
+                Utilities.nonStaffMenuMessage();
+                return;
+            }
+
+            //If the user has attempted to log in as a member of staff 
             if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
             {
-                
+                //ensuring that the first argument (second but it's first as they begin at 0)
+                //Can be converted to an integer.
                 if (!int.TryParse(args[1], out int id))
                 {
-                    Console.WriteLine("Invalid staff ID format.");
+                    //If not...
+                    Console.WriteLine("Invalid staff ID format."); //This error message will be shown
                     return;
                 }
-
-                string lastName = args[2] ?? "";
-
+               
+                string lastName = args[2]; //The second (third) argument should be the surname of the staff member
                 if (StaffData.staffDict.TryGetValue(id, out Staff? staff) &&
-                    staff != null &&
-                    !string.IsNullOrEmpty(staff.lastName) &&
                     staff.lastName.Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                    //If the id and surname are matching within the staff Dictionary...
                 {
+                    //The staff member is logged in.
                     Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
                     staffMember();
+                    return;
                 }
-                else
-                {
-                    //If the arguments provided by the user do not meet the requirements above.
-                    Console.WriteLine("ACCESS DENIED"); //They will not have access to the system under STAFF or ADMIN.
-                }
+                //Else, if all of these fail, the following message is displayed.
+                Console.WriteLine("ACCESS DENIED");
+                return;
             }
+
+            // If the user wishes to log in as a member of admin staff...
+            if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("Admin detected (not implemented yet).");
+                return;
+            }
+
+            Console.WriteLine("Invalid command.");
         }
 
         //If the user logs in as a staff member
@@ -80,7 +96,6 @@ namespace VehicleInfo
                     Console.Write("Would you like to ADD MULTIPLE CARS?: ");
                     string addMultipleCars = Console.ReadLine() ?? "";
                     Utilities.insertBreak();
-
                     
                     if (addMultipleCars.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
                         addMultipleCars.Equals("Y", StringComparison.OrdinalIgnoreCase))

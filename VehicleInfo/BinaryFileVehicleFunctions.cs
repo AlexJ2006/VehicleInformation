@@ -15,35 +15,43 @@ namespace VehicleInfo
 
             bw.Write(dict.Count);
 
+            //For each variabel (key), (unique part of each item) within the dictionary 
             foreach(var kvp in dict)
             {
+                //Write the value of the key into the file.
                 bw.Write(kvp.Key);
+                //Save the Key Value to the binary file
                 kvp.Value.SaveBinary(bw);
             }
+            //Closing the file
+            bw.Close();
         }
 
         public static Dictionary<string , T> LoaderDictionary <T>(string filepath)
         where T : Vehicle, new()
         {
             Dictionary<string, T> dict = new Dictionary<string, T>();
-
-            using FileStream fs = File.Open(filepath, FileMode.Open);
-            using BinaryReader br = new BinaryReader(fs);
+            
+            FileStream fs = File.Open(filepath, FileMode.Open);
+            BinaryReader br =  new BinaryReader(fs);
 
             int count = br.ReadInt32();
 
             int i = 0;
 
+            //While "count" is larger than i...
             while (i < count)
             {
-                i++;
-                string key = br.ReadString();
+                i++; //first, increase i by 1 each time the loop runs.
+                string key = br.ReadString(); //Read they key from the binary file.
 
-                T vehicle = new T();
-                vehicle.LoadBinary(br);
+                T vehicle = new T(); //Create a new instance of the vehicle
+                vehicle.LoadBinary(br); //Load the vehicle into the binary file.
 
                 dict[key] = vehicle;
             }
+            //Closing the file.
+            fs.Close();
             return dict;
         }
     }

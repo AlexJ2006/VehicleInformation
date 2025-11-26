@@ -1,50 +1,69 @@
-using System.Collections.Generic;
-using System.Text.Json;
 using System.IO;
-using System.Text.Json.Serialization;
 using VehicleInfo;
 
 namespace VanInfo
 {
     public static class VanData
     {
+        // Dictionary to store all the vans using their number plate as the key
         public static Dictionary<string, Van> vanDict = new Dictionary<string, Van>();
-        private static readonly string filepath = "vans.json";
+        private static readonly string filepath = "vans.bin";
 
         static VanData()
         {
+            // If the binary file exists, load data from it
             if (File.Exists(filepath))
             {
-                LoadJsonData();
+                LoadFromBinary();
             }
             else
             {
+                // Otherwise, add initial vans and save to binary
                 AddInitialVans();
-                SaveToJson();
+                SaveToBinary();
             }
         }
 
-        public static void SaveToJson()
+        public static void SaveToBinary()
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string json = JsonSerializer.Serialize(vanDict, options);
-            File.WriteAllText(filepath, json);
+            using FileStream fs = File.Open(filepath, FileMode.Create);
+            using BinaryWriter bw = new BinaryWriter(fs);
+
+            // Write how many vans exist in the dictionary
+            bw.Write(vanDict.Count);
+
+            // Loop over each van and save its data
+            foreach (var pair in vanDict)
+            {
+                bw.Write(pair.Key);          // Write the dictionary key (number plate)
+                pair.Value.SaveBinary(bw);   // Save the van object
+            }
         }
 
-        public static void LoadJsonData()
+        public static void LoadFromBinary()
         {
-            if (File.Exists(filepath))
+            // Reset the dictionary before loading
+            vanDict = new Dictionary<string, Van>();
+
+            using FileStream fs = File.Open(filepath, FileMode.Open);
+            using BinaryReader br = new BinaryReader(fs);
+
+            // Read the number of vans stored in the file
+            int count = br.ReadInt32();
+
+            // Loop to load each van
+            for (int i = 0; i < count; i++)
             {
-                string json = File.ReadAllText(filepath);
-                vanDict = JsonSerializer.Deserialize<Dictionary<string, Van>>(json)
-                    ?? new Dictionary<string, Van>();
-            }
-            else
-            {
-                vanDict = new Dictionary<string, Van>();
+                string numberPlate = br.ReadString(); // Read the dictionary key
+
+                Van v = new Van();     // Create a new Van object
+                v.LoadBinary(br);      // Load its data from the binary file
+
+                vanDict[numberPlate] = v; // Add the van to the dictionary
             }
         }
 
+        // Adding in some initial vans for testing purposes
         private static void AddInitialVans()
         {
             Van v1 = new Van("Mercedes", "Sprinter", 2019, 125927, "Large", 200, "MD69SPR");
@@ -61,13 +80,16 @@ namespace VanInfo
         }
     }
 
+    // Creating a Van class here that inherits all of the properties from Vehicle.
+    // On top of this, the Van class has its own new property of Category.
     public class Van : Vehicle
     {
-        [JsonInclude]
+        // Category is added to the class here.
         private string? category;
 
+        // With its own getters and setters
         public string? GetCategory() => category;
-        public void SetCategory(string category) => this.category = category;
+        public void SetCategory(string cat) => category = cat;
 
         public Van() { }
 
@@ -76,10 +98,22 @@ namespace VanInfo
         {
             this.category = category;
         }
+
+        // Overriding SaveBinary to include the category field
+        public override void SaveBinary(BinaryWriter bw)
+        {
+            base.SaveBinary(bw);      // Save all base class fields
+            bw.Write(category ?? "");  // Save Van-specific field
+        }
+
+        // Overriding LoadBinary to include the category field
+        public override void LoadBinary(BinaryReader br)
+        {
+            base.LoadBinary(br);      // Load all base class fields
+            category = br.ReadString(); // Load Van-specific field
+        }
     }
 }
-
-
 
 //VanList as taken directly from program.cs during implementation
 //Vans

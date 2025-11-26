@@ -77,7 +77,6 @@ namespace VehicleInfo
             carDict.Add(c3.GetNumberPlate()!, c3);
         }
     }
-
     // Creating a Car class here that inherits all of the properties from Vehicle.
     // On top of this, the Car class has its own new property of Category.
     public class Car : Vehicle

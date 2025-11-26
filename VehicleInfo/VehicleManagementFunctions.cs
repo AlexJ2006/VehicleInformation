@@ -340,17 +340,17 @@ namespace VehicleInfo
 
         public static void LoadCars()
         {
-            CarData.LoadJsonData();
+            CarData.LoadFromBinary();
         }
 
         public static void LoadMotorbikes()
         {
-            MotorbikeData.LoadJsonData();
+            MotorbikeData.LoadFromBinary();
         }
 
         public static void LoadVans()
         {
-            VanData.LoadJsonData();
+            VanData.LoadFromBinary();
         }
 
         public static void addCar()
@@ -446,7 +446,7 @@ namespace VehicleInfo
             newCar.SetNumberPlate(carPlate);
 
             CarData.carDict.Add(newCar.GetNumberPlate()!, newCar);
-            CarData.SaveToJson();
+            CarData.SaveToBinary();
             Console.WriteLine("CAR ADDED");
         }
 
@@ -543,7 +543,7 @@ namespace VehicleInfo
             newVan.SetNumberPlate(vanPlate);
 
             VanData.vanDict.Add(newVan.GetNumberPlate()!, newVan);
-            VanData.SaveToJson();
+            VanData.SaveToBinary();
             Utilities.insertBreak();
             Console.WriteLine("VAN ADDED");
         }
@@ -628,7 +628,7 @@ namespace VehicleInfo
             newMotorbike.SetNumberPlate(motorbikePlate);
 
             MotorbikeData.motorbikeDict.Add(newMotorbike.GetNumberPlate()!, newMotorbike);
-            MotorbikeData.SaveToJson();
+            MotorbikeData.SaveToBinary();
 
             Utilities.insertBreak();
             Console.WriteLine("MOTORBIKE ADDED");
@@ -647,7 +647,7 @@ namespace VehicleInfo
             if (car.Key != null)
             {
                 CarData.carDict.Remove(car.Key);
-                CarData.SaveToJson();
+                CarData.SaveToBinary();
             }
             else
             {
@@ -671,7 +671,7 @@ namespace VehicleInfo
             if (!string.IsNullOrEmpty(van.Key))
             {
                 VanData.vanDict.Remove(van.Key);
-                VanData.SaveToJson();
+                VanData.SaveToBinary();
             }
             else
             {
@@ -694,13 +694,23 @@ namespace VehicleInfo
             if (!string.IsNullOrEmpty(motorbike.Key))
             {
                 MotorbikeData.motorbikeDict.Remove(motorbike.Key);
-                MotorbikeData.SaveToJson();
+                MotorbikeData.SaveToBinary();
             }
             else
             {
                 Utilities.errorRedWarning();
                 Console.WriteLine("Could not find the motorbike within the list");
             }
+        }
+
+        internal static void removeCar()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void removeMotorbike()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -182,13 +182,199 @@ namespace VehicleInfo
                     Console.WriteLine("WRONG SECTION");
                 }
             }
-            //If, in the first menu, the user selects to REMOVE a vehicle from the list.
-            THIS NEEDS TO BE ADDED
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //If, in the first menu, the user selects to REMOVE a vehicle from the list.
             else if (staffMenuChoice.Equals("R", StringComparison.OrdinalIgnoreCase))
             {
-                //Remove Vehicle from list section
+                Console.WriteLine("Would you like to remove?");
+                Utilities.insertBreak();
+                Console.WriteLine("C) CAR");
+                Utilities.insertBreak();
+                Console.WriteLine("M) MOTORBIKE");
+                Utilities.insertBreak();
+                Console.WriteLine("OR");
+                Utilities.insertBreak();
+                Console.WriteLine("V) VAN");
+                Utilities.insertBreak();
+                Console.Write("PLEASE ENTER YOUR CHOICE: ");
+                string removeVehicleType = Console.ReadLine() ?? "";
+                Utilities.insertBreak();
+               
+                if (removeVehicleType.Equals("C", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.Write("Would you like to REMOVE MULTIPLE CARS?: ");
+                    string removeMultipleCars = Console.ReadLine() ?? "";
+                    Utilities.insertBreak();
+
+                    
+                    if (removeMultipleCars.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
+                        removeMultipleCars.Equals("Y", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.Write("How many cars would you like to remove?: ");
+                        string stringHowManyCars = Console.ReadLine() ?? "";
+                        if (!int.TryParse(stringHowManyCars, out int intHowManyCars))
+                        {
+                            Utilities.errorYellowWarning();
+                            Console.WriteLine($"Cannot convert '{stringHowManyCars}' to a number");
+                            return;
+                        }
+                        Utilities.insertBreak();
+
+                        //Add cars until the number of cars that have been specified by the user, meets 0
+                        while (intHowManyCars > 0)
+                        {
+                            //Taking 1 from the number that the user has selected, each time the loop runs.
+                            intHowManyCars--;
+                            VehicleManagement.removeCar(); //REMOVE CAR
+                        }
+                    }
+                    else
+                    {
+                        //If the user did not want to add multiple cars
+                        Utilities.insertBreak(); //Adding a break to enhance the UX (improve design)
+                        VehicleManagement.removeCar(); //Just run the function once (for one car)
+                    }
+                }
+                //Else, if the user selects M to remove a Motorcycle
+                else if (removeVehicleType.Equals("M", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.Write("Would you like to REMOVE MULTIPLE MOTORBIKES?: ");
+                    string removeMultipleMotorbikes = Console.ReadLine() ?? "";
+
+                    if (removeMultipleMotorbikes.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
+                        removeMultipleMotorbikes.Equals("Y", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //The user selects the number of motorcycles they wish to remove
+                        Console.Write("How many motorbikes would you like to remove?: ");
+                        string stringHowManyMotorbikes = Console.ReadLine() ?? "";
+                        if (!int.TryParse(stringHowManyMotorbikes, out int intHowManyMotorbikes))
+                        {
+                            Utilities.errorYellowWarning();
+                            Console.WriteLine($"Cannot convert '{stringHowManyMotorbikes}' to a number");
+                            return;
+                        }
+
+                        //Same logic as for the CAR section here.
+                        while (intHowManyMotorbikes > 0)
+                        {
+                            intHowManyMotorbikes--;
+                            VehicleManagement.removeMotorbike();
+                        }
+                    }
+                    else
+                    {
+                        //If they don't wish to add multiple cars...
+                        Utilities.insertBreak();
+                        VehicleManagement.removeMotorbike();
+                    }
+                }
+                //Repeating the same logic for VANS as for CARS and MOTORCYCLES
+                else if (removeVehicleType.Equals("V", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.Write("Would you like to REMOVE MULTIPLE VANS?: ");
+                    string removeMultipleVans = Console.ReadLine() ?? "";
+
+                    if (removeMultipleVans.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
+                        removeMultipleVans.Equals("Y", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.Write("How many vans would you like to remove?: ");
+                        string stringHowManyVans = Console.ReadLine() ?? "";
+                        if (!int.TryParse(stringHowManyVans, out int intHowManyVans))
+                        {
+                            Utilities.errorYellowWarning();
+                            Console.WriteLine($"Cannot convert '{stringHowManyVans}' to a number");
+                            return;
+                        }
+                        //If they wish to add multiple vans...
+                        while (intHowManyVans > 0)
+                        {
+                            intHowManyVans--;
+                            VehicleManagement.removeVan();
+                        }
+                    }
+                    else
+                    {
+                        //For the addition of just one van
+                        Utilities.insertBreak();
+                        VehicleManagement.removeVan();
+                    }
+                }
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             //else, if the user has selected to EDIT the STORE LIST
             else if (staffMenuChoice.Equals("E", StringComparison.OrdinalIgnoreCase))
             {
@@ -348,11 +534,9 @@ namespace VehicleInfo
             newCustomer.SetContactNumber(contactNumber);
             newCustomer.SetPassword(stringUserPassword);
 
-            //Then, write the customers' information to the JSON FILE.
-            WILL NEED TO BE CHANGED TO BINARY FILE
-
+            //Then, write the customers' information to the Binary File.
             CustomerData.customerDict[intUserID] = newCustomer;
-            CustomerData.SaveToJson();
+            CustomerData.SaveToBinary();
             Console.WriteLine("ACCOUNT CREATED");
         }
 
@@ -403,11 +587,9 @@ namespace VehicleInfo
                     firstName = firstName,
                     lastName = lastName
                 };
-                //Then add these to the JSON file.
-                THIS NEEDS TO BE BINARY TOO
-
+                //Then add these to the Binary File
                 StaffData.staffDict[staffID] = newStaff;
-                CarData.SaveToJson();
+                CarData.SaveToBinary();
                 Console.WriteLine("STAFF ADDED");
             }
             else if (adminFunctionChoice.Equals("R", StringComparison.OrdinalIgnoreCase))
@@ -423,7 +605,6 @@ namespace VehicleInfo
                 Utilities.invalidInput();
             }
         }
-        COULD REMOVE NOW?
         internal static void staffArgsMenu(object staffArgs)
         {
             throw new NotImplementedException();

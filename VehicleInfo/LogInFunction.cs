@@ -21,7 +21,7 @@ namespace VehicleInfo
                 Console.Write("PASSWORD: ");
                 string password = Console.ReadLine()!;
 
-                CustomerData.LoadJsonData();
+                CustomerData.LoadFromBinary();
                 var user = CustomerData.customerDict.Values
                     .FirstOrDefault(c => c.GetUserID() == userID);
 

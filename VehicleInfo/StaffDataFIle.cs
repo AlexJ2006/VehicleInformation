@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace VehicleInfo
 {
@@ -54,6 +55,13 @@ namespace VehicleInfo
         protected string password { get; set; } = "";
 
         public string GetName() => $"{firstName} {lastName}";
+
+        public string GetFirstName() => $"{firstName}";
+        public string GetLastName() => $"{lastName}";
+
+        public void SetID(int id) => staffID = staffID;
+        public void SetFirstName(string fName) => firstName = fName;
+        public void SetLastName(string lName) => lastName = lName;
 
         public void SaveBinary(BinaryWriter bw)
         {

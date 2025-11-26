@@ -1,5 +1,4 @@
 using storeList;
-
 namespace VehicleInfo
 {
     public static class UserType
@@ -7,6 +6,9 @@ namespace VehicleInfo
         //Getting the args from the user that allow them to LOG IN as STAFF or ADMIN. 
         public static void staffArgsMenu()
         {
+            // Load staff data from binary before accessing dictionary
+            StaffData.LoadFromBinary();
+
             string[] args = Utilities.getUserCommand();
 
             //If the user wishes to enter the normal menu/mode
@@ -30,8 +32,9 @@ namespace VehicleInfo
                 }
                
                 string lastName = args[2]; //The second (third) argument should be the surname of the staff member
+
                 if (StaffData.staffDict.TryGetValue(id, out Staff? staff) &&
-                    staff.lastName.Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                    staff.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
                     //If the id and surname are matching within the staff Dictionary...
                 {
                     //The staff member is logged in.
@@ -39,6 +42,7 @@ namespace VehicleInfo
                     staffMember();
                     return;
                 }
+
                 //Else, if all of these fail, the following message is displayed.
                 Console.WriteLine("ACCESS DENIED");
                 return;
@@ -346,7 +350,7 @@ namespace VehicleInfo
 
                         VehicleManagement.removeVan(VanMake, VanModel);
                     }
-                }
+            }
             //else, if the user has selected to EDIT the STORE LIST
             else if (staffMenuChoice.Equals("E", StringComparison.OrdinalIgnoreCase))
             {
@@ -440,9 +444,16 @@ namespace VehicleInfo
                     }
                 }
             }
+        
+        
+            }
+            else
+            {
+                //Else, if the user has not selected one of the options provided.
+                //THey are provided with a simple error message.
+                Utilities.invalidInput();
+            }
         }
-        }
-    
 
         //Registering the new user.
         public static void RegisterNewUser()
@@ -464,7 +475,7 @@ namespace VehicleInfo
 
             Utilities.insertBreak();
             Console.WriteLine("Please note, the password MUST NOT exceed the length of 16 characters.");
-            Console.Write("Password:");
+            Console.Write("Password: ");
             string stringUserPassword = Console.ReadLine() ?? "";
             Utilities.insertBreak();
             Console.Write("First Name: ");
@@ -473,7 +484,7 @@ namespace VehicleInfo
             Console.Write("Last Name: ");
             string lastName = Console.ReadLine() ?? "";
             Utilities.insertBreak();
-            Console.WriteLine("DoB: ");
+            Console.Write("DoB: ");
             string stringDoB = Console.ReadLine() ?? "";
             Utilities.insertBreak();
             Console.Write("Contact Number: ");
@@ -484,7 +495,7 @@ namespace VehicleInfo
                 Console.WriteLine($"Cannot convert '{stringContactNumber}' to a number");
                 return;
             }
-            //If the UserID that teh user has provided has an invalid length (larger than 5 characters)
+            //If the UserID that the user has provided has an invalid length (larger than 5 characters)
             if (stringUserID.Length > 5)
             {
                 //Provide error (preset within the Utilities file)
@@ -494,7 +505,7 @@ namespace VehicleInfo
             //If the password has a length that exceeds the maximum limit (16 characters)
             else if (stringUserPassword.Length > 16)
             {
-                //Provide this preset error message (from utiltities again)
+                //Provide this preset error message (from utilities again)
                 Utilities.invalidPasswordEntry();
                 return;
             }
@@ -525,7 +536,7 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.WriteLine("R) REMOVE staff member");
             Utilities.insertBreak();
-            Console.WriteLine("V) VIEW staff member lsit");
+            Console.WriteLine("V) VIEW staff member list");
             Utilities.insertBreak();
             Console.Write("ENTER YOUR CHOICE:");
             string adminFunctionChoice = Console.ReadLine() ?? "";
@@ -548,31 +559,29 @@ namespace VehicleInfo
 
                 //If they have met the requirements above with no errors.
                 Console.Write("FIRST NAME: "); //Provide the first name.
-                string firstName = Console.ReadLine() ?? ""; //Read the first name that has been inputted (with ??"" before ; to show that the value cannot be null)
+                string firstName = Console.ReadLine() ?? ""; //Read the first name that has been inputted
                 Console.Write("LAST NAME: "); //Provide the last name.
                 string lastName = Console.ReadLine() ?? "";
 
                 //Then, with the details provided
                 //Create a new instance of the staff class
-                Staff newStaff = new Staff
-                {
-                    //And take the following sections
-                    staffID = staffID,
-                    firstName = firstName,
-                    lastName = lastName
-                };
+                Staff newStaff = new Staff();
+                newStaff.SetID(staffID);
+                newStaff.SetFirstName(firstName);
+                newStaff.SetLastName(lastName);
+
                 //Then add these to the Binary File
                 StaffData.staffDict[staffID] = newStaff;
-                CarData.SaveToBinary();
+                StaffData.SaveToBinary();
                 Console.WriteLine("STAFF ADDED");
             }
             else if (adminFunctionChoice.Equals("R", StringComparison.OrdinalIgnoreCase))
             {
-                // Remove staff logic
+                // Remove staff logic (not implemented yet)
             }
             else if (adminFunctionChoice.Equals("V", StringComparison.OrdinalIgnoreCase))
             {
-                // View staff logic
+                // View staff logic (not implemented yet)
             }
             else
             {
@@ -582,7 +591,7 @@ namespace VehicleInfo
         internal static void staffArgsMenu(object staffArgs)
         {
             throw new NotImplementedException();
-        }
+        }    
     }
 }
 //Using a HashSet for the userInformation is much faster than a list, you can find an item within the list much quicker. 

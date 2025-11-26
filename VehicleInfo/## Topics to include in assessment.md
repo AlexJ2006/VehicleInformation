@@ -105,3 +105,21 @@ Difficult to decide where to fit this.
 Will I lose out on marks if I don't use this? If so, I will put this in somehwere to show I can use it.
 
 10) Profiling and Performance
+
+NEED TO DO...
+
+Check that the color scheme has been used in the same way across the whole program (changing the colour of certain texts)
+Add some staff and admin users to their respective data sets
+Ensure that the command line arguments work properly
+
+Use Parallel execution
+When we use the single core we can use the cache.
+If you have a large number of data, the parallel execution is definitely much faster than the single core.
+
+Storing and loading the binary file takes less time 
+Furthermore, it is much more secure
+At the start of the program, we read the data.
+When the program is terminated, we write all the data.
+Video Presentation, can mention.
+
+

@@ -45,45 +45,70 @@ namespace VehicleInfo
                 staffDict[staffID] = staff;
             }
         }
+        
+        private static void AddInitialStaff()
+        {
+            Staff s1 = new Staff(1001, "Alex", "Jakeman");
+            staffDict.Add(s1.GetUserID()!, s1);
+
+            Staff s2 = new Staff(1002, "Freya", "Jakeman");
+            staffDict.Add(s2.GetUserID()!, s2);
+
+            Staff s3 = new Staff(1003, "Isaac", "Jakeman");
+            staffDict.Add(s3.GetUserID()!, s3);
+
+            Staff s4 = new Staff(1004, "Sophie", "Jakeman");
+            staffDict.Add(s4.GetUserID()!, s4);
+        }
     }
 
     //Setting out the staff class
+  //Setting out the staff class
     public class Staff
     {
         //Using protected variables here, to maintain privacy and security
         protected int staffID { get; set; }
         protected string firstName { get; set; } = "";
         protected string lastName { get; set; } = "";
-        protected string password { get; set; } = "";
-
+    
         //Then, to allow the program to access the protected data whilst keeping it secure
         //Using getter and setter functions
+        public int GetUserID() => staffID;
         public string GetName() => $"{firstName} {lastName}";
-
         public string GetFirstName() => $"{firstName}";
         public string GetLastName() => $"{lastName}";
 
-        public void SetID(int id) => staffID = staffID;
+        public void SetID(int id) => staffID = id;
         public void SetFirstName(string fName) => firstName = fName;
         public void SetLastName(string lName) => lastName = lName;
 
         //Saving the inputted staff information to binary (writing)
         public void SaveBinary(BinaryWriter bw)
         {
+            bw.Write(staffID);
             bw.Write(firstName);
             bw.Write(lastName);
-            bw.Write(password);
         }
+
         //Reading from the binary file of current staff
         public static Staff LoadBinary(BinaryReader br)
         {
-            Staff staff = new Staff
-            {
-                firstName = br.ReadString(),
-                lastName = br.ReadString(),
-                password = br.ReadString()
-            };
+            Staff staff = new Staff(
+                br.ReadInt32(),
+                br.ReadString(),
+                br.ReadString()
+            );
+
             return staff;
         }
+
+        public Staff(int id, string fName, string lName)
+        {
+            staffID = id;
+            firstName = fName;
+            lastName = lName;
+        }
+
+        public Staff() { }
     }
 }

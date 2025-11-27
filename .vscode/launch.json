@@ -2,7 +2,7 @@
     "configurations": [
         {
             "name": ".NET Core Launch (console)",
-            "args": ["--staff staffID staffPassword", "--admin adminID adminPassword"], 
+            "args": ["--staff staffID lastName", "--admin adminID lastName"], 
         }
     ]
 }

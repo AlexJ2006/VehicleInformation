@@ -4,12 +4,14 @@ namespace VehicleInfo
     public static class UserType
     {
         //Getting the args from the user that allow them to LOG IN as STAFF or ADMIN. 
-        public static void staffArgsMenu()
+        public static void staffArgsMenu(string[] args)
         {
             // Load staff data from binary before accessing the dictionary
             StaffData.LoadFromBinary();
 
-            string[] args = Utilities.getUserCommand(); //Getting the args from the user
+            //Getting the args from the user
+            if (args == null || args.Length == 0)
+                args = Utilities.getUserCommand();
 
             //If the user wishes to enter the normal menu/mode
             if (args.Length == 1 && args[0].Equals("E", StringComparison.OrdinalIgnoreCase))
@@ -31,7 +33,7 @@ namespace VehicleInfo
                     Console.WriteLine("Invalid staff ID format."); //This error message will be shown
                     return;
                 }
-               
+
                 string lastName = args[2]; //The second (third) argument should be the surname of the staff member
 
                 if (StaffData.staffDict.TryGetValue(id, out Staff? staff) &&
@@ -55,8 +57,10 @@ namespace VehicleInfo
                 AdminFunction();
                 return;
             }
+
             Console.WriteLine("Invalid command.");
         }
+
 
         //If the user logs in as a staff member
         public static void staffMember()

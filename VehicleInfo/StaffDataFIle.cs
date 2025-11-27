@@ -5,12 +5,13 @@ using System.Runtime.CompilerServices;
 
 namespace VehicleInfo
 {
+    //Adding the staff data so that staff can be separately logged in (and access different functions)
     public static class StaffData
     {
-        public static Dictionary<int, Staff> staffDict = new();
-        private static readonly string filepath = "staff.bin";
+        public static Dictionary<int, Staff> staffDict = new(); //Creating a staff dictionary using the ID as the key
+        private static readonly string filepath = "staff.bin"; //Specifying the name of the specific staff binary file
 
-        public static void SaveToBinary()
+        public static void SaveToBinary() //Saving the staff details to binary (writing)
         {
             using FileStream fs = File.Open(filepath, FileMode.Create);
             using BinaryWriter bw = new BinaryWriter(fs);
@@ -23,8 +24,7 @@ namespace VehicleInfo
                 pair.Value.SaveBinary(bw);
             }
         }
-
-        public static void LoadFromBinary()
+        public static void LoadFromBinary() //Loading the staff details from the binary file (reading)
         {
             if (!File.Exists(filepath))
             {
@@ -47,13 +47,17 @@ namespace VehicleInfo
         }
     }
 
+    //Setting out the staff class
     public class Staff
     {
+        //Using protected variables here, to maintain privacy and security
         protected int staffID { get; set; }
         protected string firstName { get; set; } = "";
         protected string lastName { get; set; } = "";
         protected string password { get; set; } = "";
 
+        //Then, to allow the program to access the protected data whilst keeping it secure
+        //Using getter and setter functions
         public string GetName() => $"{firstName} {lastName}";
 
         public string GetFirstName() => $"{firstName}";
@@ -63,13 +67,14 @@ namespace VehicleInfo
         public void SetFirstName(string fName) => firstName = fName;
         public void SetLastName(string lName) => lastName = lName;
 
+        //Saving the inputted staff information to binary (writing)
         public void SaveBinary(BinaryWriter bw)
         {
             bw.Write(firstName);
             bw.Write(lastName);
             bw.Write(password);
         }
-
+        //Reading from the binary file of current staff
         public static Staff LoadBinary(BinaryReader br)
         {
             Staff staff = new Staff

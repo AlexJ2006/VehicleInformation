@@ -6,16 +6,17 @@ namespace VehicleInfo
         //Getting the args from the user that allow them to LOG IN as STAFF or ADMIN. 
         public static void staffArgsMenu()
         {
-            // Load staff data from binary before accessing dictionary
+            // Load staff data from binary before accessing the dictionary
             StaffData.LoadFromBinary();
 
-            string[] args = Utilities.getUserCommand();
+            string[] args = Utilities.getUserCommand(); //Getting the args from the user
 
             //If the user wishes to enter the normal menu/mode
             if (args.Length == 1 && args[0].Equals("E", StringComparison.OrdinalIgnoreCase))
             {
                 //Displaying a message to the user from utilities.
                 Utilities.nonStaffMenuMessage();
+                VehicleManagement.guest();
                 return;
             }
 
@@ -444,8 +445,6 @@ namespace VehicleInfo
                     }
                 }
             }
-        
-        
             }
             else
             {

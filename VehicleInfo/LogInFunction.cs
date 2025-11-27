@@ -13,7 +13,7 @@ namespace VehicleInfo
             string userHasAnAccount = Console.ReadLine()!;
 
             //If they have an account...
-            if (userHasAnAccount == "Y" || userHasAnAccount == "y")
+            if (userHasAnAccount.Equals("Y", StringComparison.OrdinalIgnoreCase))
             {
                 Utilities.insertBreak();
                 Console.WriteLine("Please enter your credentials"); //They are requested to log in using their credetials
@@ -44,24 +44,24 @@ namespace VehicleInfo
                 }
             }
             //If they have selected that they do not have an account...
-            else if (userHasAnAccount == "N" || userHasAnAccount == "n")
+            else if (userHasAnAccount.Equals("N", StringComparison.OrdinalIgnoreCase))
             {
                 Utilities.insertBreak();
                 Console.Write("Would you like to CREATE an account?: "); //They are asked if they wish to create an account now
                 string createAccount = Console.ReadLine()!;
 
-                if (createAccount == "Y" || createAccount == "y") //If they would like to create an account
+                if (createAccount.Equals("Y", StringComparison.OrdinalIgnoreCase)) //If they would like to create an account
                 {
                     UserType.RegisterNewUser(); //The system begins to register a new user using the pre-set function
                 }
-                else if (createAccount == "N" || createAccount == "n") //If they don't wish to create an account
+                else if (createAccount.Equals("N", StringComparison.OrdinalIgnoreCase)) //If they don't wish to create an account
                 {
                     Console.Write("Would you like to continue as a GUEST?: "); //Would they like to continue as a guest?
                     string continueAsGuest = Console.ReadLine()!;
 
-                    if (continueAsGuest == "Y" || continueAsGuest == "y") //If yes, they are switched to the guest logic/menu
+                    if (continueAsGuest.Equals("Y", StringComparison.OrdinalIgnoreCase)) //If yes, they are switched to the guest logic/menu
                     {
-                        UserType.Guest();
+                        VehicleManagement.guestMenu(); //Starting the guest menu
                     }
                 }
             }

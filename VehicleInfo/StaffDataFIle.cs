@@ -27,7 +27,8 @@ namespace VehicleInfo
         public static void LoadFromBinary() //Loading the staff details from the binary file (reading)
         {
             if (!File.Exists(filepath))
-            {
+            {   
+                AddInitialStaff();
                 staffDict = new Dictionary<int, Staff>();
                 return;
             }
@@ -59,11 +60,13 @@ namespace VehicleInfo
 
             Staff s4 = new Staff(1004, "Sophie", "Jakeman");
             staffDict.Add(s4.GetUserID()!, s4);
+
+            SaveToBinary();
         }
     }
 
     //Setting out the staff class
-  //Setting out the staff class
+    //Setting out the staff class
     public class Staff
     {
         //Using protected variables here, to maintain privacy and security
@@ -101,14 +104,14 @@ namespace VehicleInfo
 
             return staff;
         }
-
+        //Adding a constructor
         public Staff(int id, string fName, string lName)
         {
             staffID = id;
             firstName = fName;
             lastName = lName;
         }
-
+        
         public Staff() { }
     }
 }

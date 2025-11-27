@@ -111,7 +111,5 @@ namespace VehicleInfo
             firstName = fName;
             lastName = lName;
         }
-        
-        public Admin() { }
     }
 }

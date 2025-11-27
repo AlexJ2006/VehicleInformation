@@ -49,7 +49,25 @@ namespace VehicleInfo
                 customerDict[key] = c;
             }
         }
+
+        private static void AddInitialCustomers()
+        {
+            Customer c1 = new Customer(2001, "Alex", "Jakeman");
+            customerDict.Add(c1.GetUserID()!, c1);
+
+            Customer c2 = new Customer(2002, "Freya", "Jakeman");
+            customerDict.Add(c2.GetUserID()!, c2);
+
+            Customer c3 = new Customer(2003, "Isaac", "Jakeman");
+            customerDict.Add(c3.GetUserID()!, c3);
+
+            Customer c4 = new Customer(2004, "Sophie", "Jakeman");
+            customerDict.Add(c4.GetUserID()!, c4);
+
+            SaveToBinary();
+        }
     }
+
     //Outlining the customer properties
     public class Customer
     {
@@ -63,7 +81,7 @@ namespace VehicleInfo
 
         //Then using public getters and setters to allow the program to access the data properly
         public string GetName() => $"{firstName} {lastName}";
-        public string GetUserID() => $"{userID}";
+        public int GetUserID() => userID;
         public string GetLastName() => $"{lastName}";
         public string GetPassword() => $"{password}";
 
@@ -92,5 +110,14 @@ namespace VehicleInfo
             contactNumber = br.ReadInt32();
             password = br.ReadString();
         }
+
+        public Customer(int id, string firstName, string lastName)
+        {
+            userID = id;
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+
+        public Customer() { }
     }
 }

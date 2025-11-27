@@ -4,7 +4,7 @@ namespace VehicleInfo
     public static class UserType
     {
         //Getting the args from the user that allow them to LOG IN as STAFF or ADMIN. 
-        public static void staffArgsMenu(string[] args)
+        public static void staffArgsMenu(string[]? args)
         {
             // Load staff data from binary before accessing the dictionary
             StaffData.LoadFromBinary();
@@ -53,6 +53,7 @@ namespace VehicleInfo
                         }
                         else
                         {
+                            Utilities.insertBreak();
                             Console.WriteLine("ACCESS DENIED");
                         }
                     }
@@ -81,6 +82,7 @@ namespace VehicleInfo
                         }
                         else
                         {
+                            Utilities.insertBreak();
                             Console.WriteLine("ACCESS DENIED");
                         }
                     }
@@ -109,6 +111,7 @@ namespace VehicleInfo
                         }
                         else
                         {
+                            Utilities.insertBreak();
                             Console.WriteLine("ACCESS DENIED");
                         }
                     }

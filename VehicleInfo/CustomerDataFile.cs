@@ -4,11 +4,14 @@ using System.IO;
 
 namespace VehicleInfo
 {
+    //Creating a class for the customer data
     public static class CustomerData
     {
+        //Creating a new dictionary full of customers, using int as they have an ID as their primary key
         public static Dictionary<int, Customer> customerDict = new();
         private static readonly string filepath = "customer.bin";
 
+        //Same Processa as for the vehicles
         public static void SaveToBinary()
         {
             using FileStream cfs = File.Open(filepath, FileMode.Create);
@@ -23,6 +26,7 @@ namespace VehicleInfo
             }
         }
 
+        //Same process as for the vehicles again here.
         public static void LoadFromBinary()
         {
             customerDict = new Dictionary<int, Customer>();
@@ -47,8 +51,10 @@ namespace VehicleInfo
         }
     }
 
+    //Outlining the customer properties
     public class Customer
     {
+        //First, setting them as private.
         private int userID;
         private string firstName = "";
         private string lastName = "";
@@ -56,6 +62,7 @@ namespace VehicleInfo
         private int contactNumber;
         private string password = "";
 
+        //Then using public getters and setters to allow the program to access the data properly
         public string GetName() => $"{firstName} {lastName}";
         public string GetUserID() => $"{userID}";
         public string GetDoB() => $"{DoB}";
@@ -69,6 +76,7 @@ namespace VehicleInfo
         public void SetContactNumber(int newContactNumber) => contactNumber = newContactNumber;
         public void SetPassword(string newPassword) => password = newPassword;
      
+        //Saving the customer information TO the binary file
         public void SaveBinary(BinaryWriter bw)
         {
             bw.Write(userID);
@@ -79,6 +87,7 @@ namespace VehicleInfo
             bw.Write(password);
         }
 
+        //Reading the cusomter information FROM the binary file
         public void LoadBinary(BinaryReader br)
         {
             userID = br.ReadInt32();

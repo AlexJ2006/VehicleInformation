@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace VehicleInfo
 {
-    //Base class for the changing of JSON files to binary files (replacign the JSON logic currently in place)
+    //Base class for the Binary files
     public static class BinaryVehicleFunctions
     {
         //Create a new dictionary instance

@@ -1,19 +1,22 @@
 namespace VehicleInfo
 {
+    //The log in function for the user
     public static class LogInFunction
     {
         public static void LogIn()
         {
+            //Asking the user whether they currently have an account
             Utilities.insertBreak();
             Console.WriteLine("Do you currently have an account?");
             Utilities.insertBreak();
             Console.Write("Y OR N: ");
             string userHasAnAccount = Console.ReadLine()!;
 
+            //If they have an account...
             if (userHasAnAccount == "Y" || userHasAnAccount == "y")
             {
                 Utilities.insertBreak();
-                Console.WriteLine("Please enter your credentials");
+                Console.WriteLine("Please enter your credentials"); //They are requested to log in using their credetials
                 Utilities.insertBreak();
                 Console.Write("USER ID: ");
                 string userID = Console.ReadLine()!;
@@ -23,37 +26,42 @@ namespace VehicleInfo
 
                 CustomerData.LoadFromBinary();
                 var user = CustomerData.customerDict.Values
-                    .FirstOrDefault(c => c.GetUserID() == userID);
+                    .FirstOrDefault(c => c.GetUserID() == userID); //Checking the userID against the customer dictionary
 
-                if (user != null && user.GetPassword() == password)
+                if (user != null && user.GetPassword() == password) //If everything seems in order
                 {
+                    Console.ForegroundColor = ConsoleColor.Green; //Changing the text to green, manually here rather than using a function.
                     Console.WriteLine("YOU HAVE BEEN LOGGED IN");
+                    Console.ResetColor();
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red; //Agaian, chanign the colour manually
                     Console.WriteLine("LOGIN UNSUCCESSFUL");
-                    Console.WriteLine("The Program will now terminate. PLEASE RETRY.");
-                    return;
+                    Console.WriteLine("The Program will now terminate. PLEASE RETRY."); //Warning the user that the program will terminate.
+                    Console.ResetColor();
+                    return; //Returning, terminating the program
                 }
             }
+            //If they have selected that they do not have an account...
             else if (userHasAnAccount == "N" || userHasAnAccount == "n")
             {
                 Utilities.insertBreak();
-                Console.Write("Would you like to CREATE an account?: ");
+                Console.Write("Would you like to CREATE an account?: "); //They are asked if they wish to create an account now
                 string createAccount = Console.ReadLine()!;
 
-                if (createAccount == "Y" || createAccount == "y")
+                if (createAccount == "Y" || createAccount == "y") //If they would like to create an account
                 {
-                    UserType.RegisterNewUser();
+                    UserType.RegisterNewUser(); //The system begins to register a new user using the pre-set function
                 }
-                else if (createAccount == "N" || createAccount == "n")
+                else if (createAccount == "N" || createAccount == "n") //If they don't wish to create an account
                 {
-                    Console.Write("Would you like to continue as a GUEST?: ");
+                    Console.Write("Would you like to continue as a GUEST?: "); //Would they like to continue as a guest?
                     string continueAsGuest = Console.ReadLine()!;
 
-                    if (continueAsGuest == "Y" || continueAsGuest == "y")
+                    if (continueAsGuest == "Y" || continueAsGuest == "y") //If yes, they are switched to the guest logic/menu
                     {
-                        // Continue as guest logic here
+                        UserType.Guest();
                     }
                 }
             }

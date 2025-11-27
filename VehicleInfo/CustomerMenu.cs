@@ -6,14 +6,10 @@ namespace VehicleInfo
 {
     public static class CustomerMenuFunctions
     {
-        //Creating the guest menu
+        //Creating the customer menu
         public static void CustomerMenu()
         {
             Utilities.insertBreak();
-            Console.Write("Please enter your NAME: "); //Asking the user for their name
-            string guestName = Console.ReadLine()!;
-            Utilities.insertBreak();
-            Console.WriteLine($"Welcome, {guestName}!"); //Welcoming them, by name
             Utilities.insertBreak();
             Console.WriteLine("Which type of vehicle would you like to RENT?:");
             Utilities.insertBreak();

@@ -50,7 +50,6 @@ namespace VehicleInfo
             }
         }
     }
-
     //Outlining the customer properties
     public class Customer
     {

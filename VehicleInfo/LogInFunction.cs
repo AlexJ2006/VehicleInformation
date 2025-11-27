@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+
 namespace VehicleInfo
 {
     //The log in function for the user
@@ -16,29 +19,41 @@ namespace VehicleInfo
             if (userHasAnAccount.Equals("Y", StringComparison.OrdinalIgnoreCase))
             {
                 Utilities.insertBreak();
-                Console.WriteLine("Please enter your credentials"); //They are requested to log in using their credetials
+                Console.WriteLine("Please enter your credentials"); //They are requested to log in using their credentials
                 Utilities.insertBreak();
                 Console.Write("USER ID: ");
-                string userID = Console.ReadLine()!;
+                string inputID = Console.ReadLine()!;
+
+                //Ensuring the user ID entered is numeric
+                if (!int.TryParse(inputID, out int userID))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid user ID format.");
+                    Console.ResetColor();
+                    return; //Terminating if invalid
+                }
+
                 Utilities.insertBreak();
                 Console.Write("PASSWORD: ");
                 string password = Console.ReadLine()!;
 
                 CustomerData.LoadFromBinary();
+
+                //Checking the userID against the customer dictionary
                 var user = CustomerData.customerDict.Values
-                    .FirstOrDefault(c => c.GetUserID() == userID); //Checking the userID against the customer dictionary
+                    .FirstOrDefault(c => c.GetUserID() == userID);
 
                 if (user != null && user.GetPassword() == password) //If everything seems in order
                 {
-                    Console.ForegroundColor = ConsoleColor.Green; //Changing the text to green, manually here rather than using a function.
+                    Console.ForegroundColor = ConsoleColor.Green; //Changing the text to green
                     Console.WriteLine("YOU HAVE BEEN LOGGED IN");
                     Console.ResetColor();
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red; //Agaian, chanign the colour manually
+                    Console.ForegroundColor = ConsoleColor.Red; //Changing the colour manually
                     Console.WriteLine("LOGIN UNSUCCESSFUL");
-                    Console.WriteLine("The Program will now terminate. PLEASE RETRY."); //Warning the user that the program will terminate.
+                    Console.WriteLine("The Program will now terminate. PLEASE RETRY."); //Warning the user that the program will terminate
                     Console.ResetColor();
                     return; //Returning, terminating the program
                 }

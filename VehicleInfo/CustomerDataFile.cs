@@ -11,6 +11,7 @@ namespace VehicleInfo
         public static Dictionary<int, Customer> customerDict = new();
         private static readonly string filepath = "customer.bin";
 
+
         //Same Processa as for the vehicles
         public static void SaveToBinary()
         {
@@ -32,8 +33,11 @@ namespace VehicleInfo
             customerDict = new Dictionary<int, Customer>();
 
             if (!File.Exists(filepath))
+            {
+                AddInitialCustomers();
                 return;
-
+            }
+                
             using FileStream cfs = File.Open(filepath, FileMode.Open);
             using BinaryReader cbr = new BinaryReader(cfs);
 
@@ -52,16 +56,16 @@ namespace VehicleInfo
 
         private static void AddInitialCustomers()
         {
-            Customer c1 = new Customer(2001, "Alex", "Jakeman");
+            Customer c1 = new Customer(3001, "Alex", "Jakeman");
             customerDict.Add(c1.GetUserID()!, c1);
 
-            Customer c2 = new Customer(2002, "Freya", "Jakeman");
+            Customer c2 = new Customer(3002, "Freya", "Jakeman");
             customerDict.Add(c2.GetUserID()!, c2);
 
-            Customer c3 = new Customer(2003, "Isaac", "Jakeman");
+            Customer c3 = new Customer(3003, "Isaac", "Jakeman");
             customerDict.Add(c3.GetUserID()!, c3);
 
-            Customer c4 = new Customer(2004, "Sophie", "Jakeman");
+            Customer c4 = new Customer(3004, "Sophie", "Jakeman");
             customerDict.Add(c4.GetUserID()!, c4);
 
             SaveToBinary();

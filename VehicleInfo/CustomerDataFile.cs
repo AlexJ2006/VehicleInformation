@@ -55,26 +55,22 @@ namespace VehicleInfo
     public class Customer
     {
         //First, setting them as private.
-        private int userID;
-        private string firstName = "";
-        private string lastName = "";
-        private string DoB = "";
-        private int contactNumber;
-        private string password = "";
+        protected int userID;
+        protected string firstName = "";
+        protected string lastName = "";
+        protected string DoB = "";
+        protected int contactNumber;
+        protected string password = "";
 
         //Then using public getters and setters to allow the program to access the data properly
         public string GetName() => $"{firstName} {lastName}";
         public string GetUserID() => $"{userID}";
-        public string GetDoB() => $"{DoB}";
-        public string GetContactNumber() => $"{contactNumber}";
+        public string GetLastName() => $"{lastName}";
         public string GetPassword() => $"{password}";
 
         public void SetUserID(int userID) => this.userID = userID;
         public void SetFirstName(string newFirstName) => firstName = newFirstName;
         public void SetLastName(string newLastName) => lastName = newLastName;
-        public void SetDoB(string newDoB) => DoB = newDoB;
-        public void SetContactNumber(int newContactNumber) => contactNumber = newContactNumber;
-        public void SetPassword(string newPassword) => password = newPassword;
      
         //Saving the customer information TO the binary file
         public void SaveBinary(BinaryWriter bw)

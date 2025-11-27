@@ -42,7 +42,8 @@ namespace VehicleInfo
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("**************** USER ALERT ****************");
             Console.ResetColor();
-            Console.WriteLine("To enter STAFF or ADMIN MODE please enter the following when prompted");
+            Console.WriteLine("To enter STAFF, ADMIN or CUSTOMER modes please enter the following when prompted");
+            Console.WriteLine("  --customer <userID> <surname>");
             Console.WriteLine("  --staff <userID> <surname>");
             Console.WriteLine("  --admin <userID> <surname>");
             Console.WriteLine("ELSE");

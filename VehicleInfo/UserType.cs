@@ -22,22 +22,22 @@ namespace VehicleInfo
                 return;
             }
 
-            //If the user has attempted to log in as a member of staff 
-            if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
+            //If the user has attempted to log in as a member of STAFF 
+            if (args.Length == 3 && args[0].Equals("--customer", StringComparison.OrdinalIgnoreCase))
             {
                 //ensuring that the first argument (second but it's first as they begin at 0)
                 //Can be converted to an integer.
                 if (!int.TryParse(args[1], out int id))
                 {
                     //If not...
-                    Console.WriteLine("Invalid staff ID format."); //This error message will be shown
+                    Console.WriteLine("Invalid userID format."); //This error message will be shown
                     return;
                 }
 
                 string lastName = args[2]; //The second (third) argument should be the surname of the staff member
 
-                if (StaffData.staffDict.TryGetValue(id, out Staff? staff) &&
-                    staff.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                if (CustomerData.customerDict.TryGetValue(id, out Customer? customer) &&
+                    customer.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
                     //If the id and surname are matching within the staff Dictionary...
                 {
                     //The staff member is logged in.
@@ -53,12 +53,67 @@ namespace VehicleInfo
                 Console.WriteLine("ACCESS DENIED");
                 return;
             }
+            //If the user has attempted to log in as a member of ADMIN 
+            else if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!int.TryParse(args[1], out int id))
+                {
+                    //If not...
+                    Console.WriteLine("Invalid admin ID format.");
+                    return;
+                }
+
+                string lastName = args[2];
+
+                if (AdminData.adminDict.TryGetValue(id, out Admin? admin) &&
+                    admin.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                {
+                    Utilities.insertBreak();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"WELCOME STAFF MEMBER {admin.GetName()}");
+                    Console.ResetColor();
+                    staffMember();
+                    return;
+                }
+                Console.WriteLine("ACCESS DENIED");
+                return;
+            }
+            //If the user has attempted to log in as a CUSTOMER
+            else if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!int.TryParse(args[1], out int id))
+                {
+                    //If not...
+                    Console.WriteLine("Invalid admin ID format.");
+                    return;
+                }
+
+                string lastName = args[2];
+
+                if (AdminData.adminDict.TryGetValue(id, out Admin? admin) &&
+                    admin.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                {
+                    Utilities.insertBreak();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"WELCOME STAFF MEMBER {admin.GetName()}");
+                    Console.ResetColor();
+                    staffMember();
+                    return;
+                }
+                Console.WriteLine("ACCESS DENIED");
+                return;
+            }
 
             // If the user wishes to log in as a member of admin staff...
-            if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
+            else if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
             {
                 AdminFunction();
                 return;
+            }
+
+            else if(args.Length == 3 && args[0].Equals("--customer", StringComparison.OrdinalIgnoreCase))
+            {
+                CustomerMenuFunctions.CustomerMenu();
             }
 
             Console.WriteLine("Invalid command.");

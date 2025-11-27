@@ -16,7 +16,7 @@ namespace VehicleInfo
             {
                 //Displaying a message to the user from utilities.
                 Utilities.nonStaffMenuMessage();
-                VehicleManagement.guest();
+                VehicleManagement.guestMenu();
                 return;
             }
 
@@ -52,6 +52,7 @@ namespace VehicleInfo
             // If the user wishes to log in as a member of admin staff...
             if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
             {
+                ''NEED TO IMPLEMENT ADMIN FUNCTIONS
                 Console.WriteLine("Admin detected (not implemented yet).");
                 return;
             }
@@ -105,7 +106,7 @@ namespace VehicleInfo
                     if (addMultipleCars.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
                         addMultipleCars.Equals("Y", StringComparison.OrdinalIgnoreCase))
                     {
-                        Console.Write("How many cars would you like to add?: ");
+                        Console.Write("How many cars would you like to add?: "); //Asking the user how many cars they wish to add
                         string stringHowManyCars = Console.ReadLine() ?? "";
                         if (!int.TryParse(stringHowManyCars, out int intHowManyCars))
                         {
@@ -265,6 +266,7 @@ namespace VehicleInfo
                     }
                 }
                 //Else, if the user selects M to remove a Motorcycle
+                //Repeating the same logic as for cars
                 else if (removeVehicleType.Equals("M", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.Write("Would you like to REMOVE MULTIPLE MOTORBIKES?: ");

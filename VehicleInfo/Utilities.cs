@@ -12,8 +12,9 @@ namespace VehicleInfo
 
         public static void invalidInput()
         {
-            errorRedWarning();
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Input INVALID. Please retry.");
+            Console.ResetColor();
             insertBreak();
         }
 

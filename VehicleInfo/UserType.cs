@@ -52,11 +52,9 @@ namespace VehicleInfo
             // If the user wishes to log in as a member of admin staff...
             if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
             {
-                ''NEED TO IMPLEMENT ADMIN FUNCTIONS
-                Console.WriteLine("Admin detected (not implemented yet).");
+                AdminFunction();
                 return;
             }
-
             Console.WriteLine("Invalid command.");
         }
 

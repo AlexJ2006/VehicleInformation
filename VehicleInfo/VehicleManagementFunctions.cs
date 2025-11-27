@@ -1,71 +1,78 @@
 using VanInfo;
 using MotorbikeInfo;
+using System.Drawing;
 
 namespace VehicleInfo
 {
     public static class VehicleManagement
     {
+        //Creating the guest menu
         public static void guestMenu()
         {
             Utilities.insertBreak();
-            Console.Write("Please enter your NAME: ");
+            Console.Write("Please enter your NAME: "); //Asking the user for their name
             string guestName = Console.ReadLine()!;
             Utilities.insertBreak();
-            Console.WriteLine($"Welcome, {guestName}!");
+            Console.WriteLine($"Welcome, {guestName}!"); //Welcoming them, by name
             Utilities.insertBreak();
-            Console.WriteLine("Please choose from ONE of the following options:");
+            Console.WriteLine("Which type of vehicle would you like to RENT?:");
             Utilities.insertBreak();
-            Console.Write("C for CAR, M for MOTORCYCLE, V for VAN: ");
+            Console.Write("C for CAR, M for MOTORCYCLE, V for VAN: "); //Showing them the options that they can choose from
             string vehicleType = Console.ReadLine()!;
 
-            if (vehicleType == "C" || vehicleType == "c")
+            if (vehicleType.Equals("C", StringComparison.OrdinalIgnoreCase)) //If they have chosen Car
             {
-                LoadCars();
+                LoadCars(); //Load the cars from the binary file
                 Utilities.insertBreak();
                 Console.WriteLine("You have chosen CAR");
                 Utilities.insertBreak();
 
-                Console.WriteLine("Which category of CAR would you like to rent?");
+                Console.WriteLine("Which category of CAR would you like to rent?"); //Asking the user which category of car they wish to rent
                 Utilities.insertBreak();
-                Console.Write("The options are SMALL, MEDIUM or LARGE: ");
+                Console.Write("The options are SMALL, MEDIUM or LARGE: "); //Displaying the category options
                 string categoryChoice = Console.ReadLine()!;
                 Utilities.insertBreak();
-                Console.WriteLine($"You have chosen {categoryChoice}");
+                Console.WriteLine($"You have chosen {categoryChoice}"); //Relaying their choice back to them, to ensure this is correct
                 Utilities.insertBreak();
 
-                Console.Write("What is your maximum Price Per Day?: ");
-                string maxPriceString = Console.ReadLine()!;
+                Console.Write("What is your maximum Price Per Day?: "); //Asking htem what their maximum price per day for the car is
+                string maxPriceString = Console.ReadLine()!; 
                 int maxPriceInt;
-
+                
                 try
                 {
-                    maxPriceInt = Convert.ToInt32(maxPriceString);
+                    maxPriceInt = Convert.ToInt32(maxPriceString); //Converting the string into an integer
                 }
-                catch (FormatException)
+                catch (FormatException) //Catching a format exception
                 {
                     Utilities.errorYellowWarning();
-                    Console.Write("Cannot convert '" + maxPriceString + "' to a number");
+                    Console.Write("Cannot convert '" + maxPriceString + "' to a number"); //Warning the user that they string cannot be converted into an integer
                     return;
                 }
 
+                //If everything goes smoothly...
                 Utilities.insertBreak();
                 Console.WriteLine("The options meeting your criteria are: ");
                 Utilities.insertBreak();
 
+                //Displaying the options to the user
                 var carList = CarData.carDict
                     .Where(car =>
-                        car.Value.GetPricePerDay() <= maxPriceInt &&
-                        string.Equals(car.Value.GetCategory(), categoryChoice, StringComparison.OrdinalIgnoreCase))
+                        car.Value.GetPricePerDay() <= maxPriceInt && //Based on their desired PricePerDay 
+                        string.Equals(car.Value.GetCategory(), categoryChoice, StringComparison.OrdinalIgnoreCase)) //And their category choice
                     .Select(car => new 
                     {
+                        //Fetching the details of the applicable cars (from the binary file)
                         Make = car.Value.GetMake(),
                         Model = car.Value.GetModel(),
-                        PricePerDay = car.Value.GetPricePerDay()
+                        PricePerDay = car.Value.GetPricePerDay(),
+                        NumberPlate = car.Value.GetNumberPlate()  //========================================================================================================================
                     });
 
+                //Looping over all of the applicable cars and displaying them in the following format.
                 foreach (var Car in carList)
                 {
-                    Console.WriteLine($"{Car.Make} - {Car.Model} - £{Car.PricePerDay}/day");
+                    Console.WriteLine($"{Car.Make} - {Car.Model} - {Car.NumberPlate} - £{Car.PricePerDay}/day");  //========================================================================================================================
                     Utilities.insertBreak();
                 }
 
@@ -77,21 +84,27 @@ namespace VehicleInfo
                 Console.Write("MODEL: ");
                 string userCarModelSelection = Console.ReadLine()!;
                 Utilities.insertBreak();
+                Console.Write("NUMBER PLATE: "); //========================================================================================================================
+                string userNumberPlateSelection = Console.ReadLine()!;  //========================================================================================================================
                 Console.Write("How many days would you like to rent the CAR for?: ");
                 string stringNumberOfDaysRental = Console.ReadLine()!;
                 int numberOfDaysRental;
 
+                //Same exception handling here as for the integer conversion above
+                //But for the number of days rental instead
                 try
                 {
                     numberOfDaysRental = Convert.ToInt32(stringNumberOfDaysRental);
                 }
                 catch (FormatException)
                 {
+                    //Warning the user that the string they have provided cannot be converted into an integer
                     Utilities.errorYellowWarning();
                     Console.Write("Cannot convert '" + stringNumberOfDaysRental + "' to a number");
                     return;
                 }
 
+                //Repeating the user's choices back to the user for confirmation that they are correct
                 Utilities.insertBreak();
                 Console.WriteLine($"You would like to rent the {userCarMakeSelection} {userCarModelSelection}");
                 Utilities.insertBreak();
@@ -100,6 +113,7 @@ namespace VehicleInfo
                 string continueWithRental = Console.ReadLine()!;
                 Utilities.insertBreak();
 
+                //If the user selects to continue with the rental...
                 if (continueWithRental.Equals("Y", StringComparison.OrdinalIgnoreCase))
                 {
                     var userCarSelection = CarData.carDict.Values.FirstOrDefault(car =>
@@ -108,32 +122,38 @@ namespace VehicleInfo
                     car.GetMake()!.Equals(userCarMakeSelection, StringComparison.OrdinalIgnoreCase) &&
                     car.GetModel()!.Equals(userCarModelSelection, StringComparison.OrdinalIgnoreCase));
 
-                    if (userCarSelection != null)
+                    if (userCarSelection != null) //If the car has been found
                     {
+                        //Calculating the total price for the rental (price per day multipplied by the number of days the user wished to rent the car for)
                         int totalPrice = userCarSelection.GetPricePerDay() * numberOfDaysRental;
-                        Console.WriteLine($"Your total will be £{totalPrice}");
+                        Console.WriteLine($"Your total will be £{totalPrice}"); //Displaying the total price to the user
 
-                        removeCar(userCarMakeSelection, userCarModelSelection);
-                        Console.WriteLine($"Thank you, you have rented the {userCarMakeSelection} {userCarModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}");
+                        removeCar(userCarMakeSelection, userCarModelSelection); //Removing the car from the list so someone else cannot also rent it (until it is re-added by a member of staff)
+                        Console.WriteLine($"Thank you, you have rented the {userCarMakeSelection} {userCarModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}"); //The final summary of the rental is displayed to the user
                     }
                     else
                     {
-                        Console.WriteLine("CAR NOT FOUND.");
+                        //If the car cannot be found, an error message is presented to the user
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("CAR NOT FOUND");
+                        Console.ResetColor();
                     }
                 }
+                //If the user decides not to continue with the rental
                 else if (continueWithRental.Equals("N", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine("Thank you.");
-                    Console.WriteLine("The program will now TERMINATE.");
+                    Console.WriteLine("The program will now TERMINATE."); //The program ends
                     return;
                 }
                 else
                 {
+                    //If the user has inputted something incorrectly during the rental, the error message will be taken from Utiltiies and displayed to them
                     Utilities.invaliInputDuringRental();
                 }
             }
 
-
+            //If the vehicle that the user wishes to rent is a motorbike, the same logic repeats as for the car section.
             else if (vehicleType == "M" || vehicleType == "m")
             {
                 LoadMotorbikes();
@@ -165,12 +185,13 @@ namespace VehicleInfo
                         {
                             Make = motorbike.Value.GetMake(),
                             Model = motorbike.Value.GetModel(),
-                            PricePerDay = motorbike.Value.GetPricePerDay()
+                            PricePerDay = motorbike.Value.GetPricePerDay(),
+                            NumberPlate = motorbike.Value.GetNumberPlate()
                         });
 
                 foreach (var motorbike in motorbikeList)
                 {
-                    Console.WriteLine($"{motorbike.Make} - {motorbike.Model} - £{motorbike.PricePerDay}/day");
+                    Console.WriteLine($"{motorbike.Make} - {motorbike.Model} - {motorbike.NumberPlate} - £{motorbike.PricePerDay}/day");
                     Utilities.insertBreak();
                 }
 
@@ -182,6 +203,8 @@ namespace VehicleInfo
                 Utilities.insertBreak();
                 Console.Write("MODEL: ");
                 string userMotorbikeModelSelection = Console.ReadLine()!;
+                Console.Write("NUMBER PLATE: ");
+                string userNumberPlateSelection = Console.ReadLine()!; 
                 Utilities.insertBreak();
                 Console.Write("How many days would you like to rent the MOTORBIKE for?: ");
                 string stringNumberOfDaysRental = Console.ReadLine()!;
@@ -229,6 +252,7 @@ namespace VehicleInfo
                 }
             }
 
+            //Finally, for the vans the same logic repeats again
             else if (vehicleType == "V" || vehicleType == "v")
             {
                 LoadVans();
@@ -269,12 +293,13 @@ namespace VehicleInfo
                     {
                         Make = van.Value.GetMake(),
                         Model = van.Value.GetModel(),
-                        PricePerDay = van.Value.GetPricePerDay()
+                        PricePerDay = van.Value.GetPricePerDay(),
+                        NumberPlate = van.Value.GetNumberPlate()
                     });
 
                 foreach (var van in vanList)
                 {
-                    Console.WriteLine($"{van.Make} - {van.Model} - £{van.PricePerDay}/day");
+                    Console.WriteLine($"{van.Make} - {van.Model} - {van.NumberPlate} - £{van.PricePerDay}/day");
                     Utilities.insertBreak();
                 }
 
@@ -285,6 +310,8 @@ namespace VehicleInfo
                 Utilities.insertBreak();
                 Console.Write("MODEL: ");
                 string userVanModelSelection = Console.ReadLine()!;
+                Console.Write("NUMBER PLATE: ");
+                string userNumberPlateSelection = Console.ReadLine()!; 
                 Utilities.insertBreak();
                 Console.Write("How many days would you like to rent the VAN for?: ");
                 string stringNumberOfDaysVanRental = Console.ReadLine()!;
@@ -337,26 +364,28 @@ namespace VehicleInfo
 
             }
         }
-
-        public static void LoadCars()
+        //The function for loading the cars from the binary file (used in various places)
+         public static void LoadCars()
         {
             CarData.LoadFromBinary();
         }
-
+        //The function for loading the motorbikes from the binary file (used in various places)
         public static void LoadMotorbikes()
         {
             MotorbikeData.LoadFromBinary();
         }
-
+        //The function for loading the vans from the binary file (used in various places)
         public static void LoadVans()
         {
             VanData.LoadFromBinary();
         }
 
+        //The function that allows the staff members to add cars 
         public static void addCar()
         {
-            LoadCars();
+            LoadCars(); //Loading the cars in from the binary file
 
+            //Getting the details of the car from the user
             Utilities.insertBreak();
             Console.WriteLine("Please complete the following fields for the CAR you wish to add");
             Utilities.insertBreak();
@@ -370,11 +399,12 @@ namespace VehicleInfo
             string stringCarYearOfManufacture = Console.ReadLine()!;
             int intCarYearOfManufacture;
 
+            //Exception handling again here for the conversion of the year of manufacture
             try
             {
                 intCarYearOfManufacture = Convert.ToInt32(stringCarYearOfManufacture);
             }
-            catch (FormatException)
+            catch (FormatException) //Handling a format exception
             {
                 Utilities.errorYellowWarning();
                 Console.Write("Cannot convert '" + stringCarYearOfManufacture + "' to a number");
@@ -386,17 +416,19 @@ namespace VehicleInfo
             string stringCarMileage = Console.ReadLine()!;
             int intCarMileage;
 
+            //Repeating for the mileage of the car
             try
             {
                 intCarMileage = Convert.ToInt32(stringCarMileage);
             }
-            catch (FormatException)
+            catch (FormatException) //Format exception handling again
             {
                 Utilities.errorYellowWarning();
                 Console.Write("Cannot convert '" + stringCarMileage + "' to a number");
                 return;
             }
 
+            //Getting which category the car belongs to
             Utilities.insertBreak();
             Console.Write("CATEGORY: ");
             string carCategory = Console.ReadLine()!.Trim();
@@ -405,6 +437,7 @@ namespace VehicleInfo
             string stringPricePerDay = Console.ReadLine()!;
             int intPricePerDay;
 
+            //Same exception handling again for the price per day
             try
             {
                 intPricePerDay = Convert.ToInt32(stringPricePerDay);
@@ -416,27 +449,33 @@ namespace VehicleInfo
                 return;
             }
 
+            //Getting the number plate from the user
             Utilities.insertBreak();
-            Console.Write("PLATE: ");
+            Console.Write("NUMBER PLATE: ");
             string carPlate = Console.ReadLine()!;
 
+            //Error handling, if the category doesn't equal small, medium or large...
             if (!(carCategory.Equals("small", StringComparison.OrdinalIgnoreCase)
                 || carCategory.Equals("medium", StringComparison.OrdinalIgnoreCase)
                 || carCategory.Equals("large", StringComparison.OrdinalIgnoreCase)))
             {
+                //The user will be told that their input is invalid
                 Utilities.invalidInput();
                 Console.WriteLine("Please EXIT and RETRY.");
                 return;
             }
 
+            //If the number plate can already be found within the dictionary
             if (CarData.carDict.ContainsKey(carPlate))
             {
+                //The error message is provided to the user
                 Utilities.errorYellowWarning();
                 Console.WriteLine("A car with this plate already exists.");
                 return;
             }
 
-            Car newCar = new Car();
+            //Creating a new instance of a car
+            Car newCar = new Car(); 
             newCar.SetMake(carMake);
             newCar.SetModel(carModel);
             newCar.SetYearOfManufacture(intCarYearOfManufacture);
@@ -445,11 +484,16 @@ namespace VehicleInfo
             newCar.SetPricePerDay(intPricePerDay);
             newCar.SetNumberPlate(carPlate);
 
+            //Adding all of the fields above to the car dictionary        
             CarData.carDict.Add(newCar.GetNumberPlate()!, newCar);
             CarData.SaveToBinary();
-            Console.WriteLine("CAR ADDED");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("CAR ADDED"); //Providing the user with a message detailing that the car has been added
+            Console.ResetColor();
         }
 
+
+        //Repeating the same logic as above but for the vans
         public static void addVan()
         {
             LoadVans();
@@ -545,9 +589,12 @@ namespace VehicleInfo
             VanData.vanDict.Add(newVan.GetNumberPlate()!, newVan);
             VanData.SaveToBinary();
             Utilities.insertBreak();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("VAN ADDED");
+            Console.ResetColor();
         }
 
+        //Repeating yet again the same logic but for motorbikes
         public static void addMotorbike()
         {
             LoadMotorbikes();
@@ -628,34 +675,40 @@ namespace VehicleInfo
 
             MotorbikeData.motorbikeDict.Add(newMotorbike.GetNumberPlate()!, newMotorbike);
             MotorbikeData.SaveToBinary();
-
+            
             Utilities.insertBreak();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("MOTORBIKE ADDED");
+            Console.ResetColor();
         }
 
-        public static void removeCar(string make, string model)
+        //The function that allows users to remove cars from the system
+        public static void removeCar(string make, string model) //Taking the make and model as parameters
         {
-            LoadCars();
+            LoadCars(); //First, loading the cars in from the binary file
 
             var car = CarData.carDict.FirstOrDefault(c =>
                 !string.IsNullOrEmpty(c.Value.GetMake()) &&
                 !string.IsNullOrEmpty(c.Value.GetModel()) &&
                 c.Value.GetMake()!.Equals(make, StringComparison.OrdinalIgnoreCase) &&
                 c.Value.GetModel()!.Equals(model, StringComparison.OrdinalIgnoreCase));
-
+            
+            //If the key isn't null
             if (car.Key != null)
             {
-                CarData.carDict.Remove(car.Key);
-                CarData.SaveToBinary();
+                CarData.carDict.Remove(car.Key); //Remove the car by the key
+                CarData.SaveToBinary(); //Then, save the binary file to include the changes
             }
             else
             {
+                //If the car can't be found, providing a warning for the user.
                 Utilities.errorRedWarning();
                 Console.WriteLine("Could not find the car within the list");
             }
 
         }
 
+        //Same logic here as for the car removal
         public static void removeVan(string make, string model)
         {
             LoadVans();
@@ -678,7 +731,8 @@ namespace VehicleInfo
                 Console.WriteLine("Could not find the van within the list");
             }
         }
-
+        
+        //Same logic here as for the car removal
         public static void removeMotorbike(string make, string model)
         {
             LoadMotorbikes();

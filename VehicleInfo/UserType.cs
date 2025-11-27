@@ -41,7 +41,10 @@ namespace VehicleInfo
                     //If the id and surname are matching within the staff Dictionary...
                 {
                     //The staff member is logged in.
+                    Utilities.insertBreak();
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
+                    Console.ResetColor();
                     staffMember();
                     return;
                 }
@@ -61,13 +64,10 @@ namespace VehicleInfo
             Console.WriteLine("Invalid command.");
         }
 
-
         //If the user logs in as a staff member
         public static void staffMember()
         {
             //They are provided with this staff menu
-            Utilities.insertBreak();
-            Console.WriteLine("WELCOME STAFF");
             Utilities.insertBreak();
             Console.WriteLine("Which of the following functions would you like to perform?");
             Utilities.insertBreak();

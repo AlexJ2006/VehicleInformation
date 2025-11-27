@@ -43,8 +43,8 @@ namespace VehicleInfo
             Console.WriteLine("**************** USER ALERT ****************");
             Console.ResetColor();
             Console.WriteLine("To enter STAFF or ADMIN MODE please enter the following when prompted");
-            Console.WriteLine("  --staff <username> <password>");
-            Console.WriteLine("  --admin <username> <password>");
+            Console.WriteLine("  --staff <userID> <surname>");
+            Console.WriteLine("  --admin <userID> <surname>");
             Console.WriteLine("ELSE");
             Console.WriteLine("Enter E to enter the guest/customer menus");
             Console.ForegroundColor = ConsoleColor.Red;

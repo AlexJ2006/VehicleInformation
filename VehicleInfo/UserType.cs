@@ -438,7 +438,7 @@ namespace VehicleInfo
                 StoreFunctions.storeListSort(); //Sorting the store list
                 StoreFunctions.storeListDisplay(); //Displaying the sorted store list
 
-                //Providing them with another menu, asking how they wish to manipulate the storel list
+                //Providing them with another menu, asking how they wish to manipulate the store list
                 Utilities.insertBreak();
                 Console.WriteLine("Please select one of the following functions: ");
                 Console.WriteLine("A) ADD STORE(S)");
@@ -609,6 +609,7 @@ namespace VehicleInfo
             Utilities.insertBreak();
             Console.WriteLine("V) VIEW staff member list");
             Utilities.insertBreak();
+            Console.WriteLine("G) GENERATE staff report");
             Console.Write("ENTER YOUR CHOICE:");
             string adminFunctionChoice = Console.ReadLine() ?? "";
 
@@ -685,7 +686,11 @@ namespace VehicleInfo
             }
             else if (adminFunctionChoice.Equals("V", StringComparison.OrdinalIgnoreCase))
             {
-                // View staff logic (not implemented yet)
+                AdminFunctions.ViewAllStaff(); 
+            }
+            else if(adminFunctionChoice.Equals("G", StringComparison.OrdinalIgnoreCase))
+            {
+                AdminFunctions.GenerateStaffReport();
             }
             else
             {

@@ -1,4 +1,6 @@
+using System.Transactions;
 using storeList;
+using VehicleManagement;
 namespace VehicleInfo
 {
     public static class UserType
@@ -646,7 +648,40 @@ namespace VehicleInfo
             }
             else if (adminFunctionChoice.Equals("R", StringComparison.OrdinalIgnoreCase))
             {
-                // Remove staff logic (not implemented yet)
+                Console.WriteLine("You have selected to REMOVE a staff member, is this true?");
+                Console.Write("ENTER Y OR N: ");
+                string continueWithStaffRemoval = Console.ReadLine()!;
+
+                // REMOVE THE SEMICOLON ↓↓↓
+                if (continueWithStaffRemoval.Equals("Y", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("Please enter the following details of the staff member you wish to remove");
+
+                    Console.Write("Staff ID: ");
+                    string stringStaffID = Console.ReadLine()!;
+                    int staffID;
+
+                    try
+                    {
+                        staffID = Convert.ToInt32(stringStaffID);
+                    }
+                    catch (FormatException)
+                    {
+                        Utilities.errorYellowWarning();
+                        Console.WriteLine($"Cannot convert '{stringStaffID}' to a number");
+                        return;
+                    }
+
+                    Utilities.insertBreak();
+                    Console.Write("First Name: ");
+                    string firstName = Console.ReadLine()!;
+
+                    Utilities.insertBreak();
+                    Console.Write("Last Name: ");
+                    string lastName = Console.ReadLine()!;
+                   
+                    AdminFunctions.RemoveStaff(staffID, firstName, lastName);
+                }
             }
             else if (adminFunctionChoice.Equals("V", StringComparison.OrdinalIgnoreCase))
             {

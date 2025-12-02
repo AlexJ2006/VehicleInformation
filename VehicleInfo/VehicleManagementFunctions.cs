@@ -706,7 +706,6 @@ namespace VehicleInfo
                 Utilities.errorRedWarning();
                 Console.WriteLine("Could not find the car within the list");
             }
-
         }
 
         //Same logic here as for the car removal

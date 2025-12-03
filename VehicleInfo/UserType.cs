@@ -1,7 +1,6 @@
 using System.Transactions;
 using StoreList;
 
-
 namespace VehicleInfo
 {
     public static class UserType

@@ -56,7 +56,7 @@ namespace VehicleInfo
 
         private static void DummyCalculation()
         {
-            //Creating a CPU intensive calculation
+            //Creating a calculation that is heavy on the CPU
             for (int i = 0; i < 4000; i++) { }
         }
         
@@ -83,7 +83,7 @@ namespace VehicleInfo
                 string last = pair.Value.GetLastName();
 
                 //Displaying each of them
-                Console.WriteLine($"ID: {id}   |   Name: {first} {last}");
+                Console.WriteLine($"ID: {id} Name: {first} {last}");
             }
 
             //The end of the display

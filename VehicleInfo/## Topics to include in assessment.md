@@ -108,12 +108,18 @@ Will I lose out on marks if I don't use this? If so, I will put this in somehwer
 
 NEED TO DO...
 
-Check that the color scheme has been used in the same way across the whole program (changing the colour of certain texts) and providing warnings
-Add some staff and admin users to their respective data sets
-Ensure that the command line arguments work properly
-Ensure that code has lots of comments throughout
+**ITEMS DISPLAYED LIKE THIS ARE MARKED AS DONE**
 
-Use Parallel execution
+**Check that the color scheme has been used in the same way across the whole program (changing the colour of certain texts) and providing warnings**
+
+**Add some staff and admin users to their respective data sets**
+
+**Ensure that the command line arguments work properly**
+
+**Ensure that code has lots of comments throughout**
+
+**Use Parallel execution**
+
 When we use the single core we can use the cache.
 If you have a large number of data, the parallel execution is definitely much faster than the single core.
 

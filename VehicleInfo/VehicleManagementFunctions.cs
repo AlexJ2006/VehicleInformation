@@ -1,6 +1,5 @@
 using VanInfo;
 using MotorbikeInfo;
-using System.Drawing;
 
 namespace VehicleInfo
 {

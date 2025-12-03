@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using VehicleInfo;
 
-namespace VehicleManagement
+namespace VehicleInfo
 {
     public static class AdminFunctions
     {

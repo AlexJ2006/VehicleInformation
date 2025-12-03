@@ -11,6 +11,7 @@
 **CONTAINS** -- STORE LIST
 
 **HASH SET** --USER ID's
+
 **N/A as using the hashset means that the entire item has to be unique, not just the userID**
 
 HASH SET for the USER ID's as it can't contain duplicates. It also presents the items in no particular order.
@@ -27,13 +28,13 @@ you can also use IEnumerable to create a short "lazy" list to loop over.
 
 You can also use IEnumerable to select number using the select function.
 
-You can also use OrderBy();
+**use OrderBy()**
 
 COULD CREATE A SORT BY FUNCTION TO PROVIDE THE USER WITH MORE SPECIFIC RESULTS.
 
 COULD ALSO ASK THE USER HOW MANY ITEMS THEY WANT TO DISPLAY.
 
-3) **N/A** --assessment information 
+3) **N/A** --assessment information
 
 4) **Command line arguments** --staff and admin commands to access alternative menus
 
@@ -129,4 +130,32 @@ At the start of the program, we read the data.
 When the program is terminated, we write all the data.
 Video Presentation, can mention.
 
+THINGS I STILL NEED TO COMPLETE.....
 
+CHECK CODEBASE CONTAINS ALL OF THE TOPICS
+
+CHECK THAT MY POWERPOINT IS 7 MINUTES
+
+CHECK THAT MY INDIVIDUAL REFLECTION DOCUMENT IS ATTACHED
+
+USE THE STRING BUILDER FEATURE
+USE A CACHE TABLE
+
+can do this with dictionary
+
+you can check if the item exists within the cache table and if it does then you can return an invalid result
+if the item doesn't exist within the cache table
+
+yuo hae to maintain a certain number of cache only, within the cache table.
+
+for the topic 6, we learnt 4 different techniques
+parallel executiom
+a list with capacity
+stringbuilder
+and cache
+
+for the final application, you can use the techniques 
+
+learm the tests for each of them using dummy data and show how they are beneficial
+
+be careful with teh submission, we are given a mark based on what we have submitted. JungHun will download the file, unzip it and check the contents. We shouold check that the unloaded file is working properly on our own.

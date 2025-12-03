@@ -81,7 +81,7 @@ namespace VehicleInfo
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"WELCOME ADMIN MEMBER {admin.GetName()}");
                     Console.ResetColor();
-                    staffMember();
+                    AdminFunction();
                     loginSuccess = true;
                 }
                 else

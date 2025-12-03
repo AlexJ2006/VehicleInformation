@@ -31,6 +31,7 @@ namespace VehicleInfo
             StaffData.LoadFromBinary();
             var staffList = StaffData.staffDict.Values.ToList();
 
+            Utilities.insertBreak();
             Console.WriteLine("Running simple parallel demo...");
 
             //Using single-core processing
@@ -50,14 +51,20 @@ namespace VehicleInfo
             sw2.Stop();
 
             //Displaying the times to the user
+            Utilities.insertBreak();
             Console.WriteLine($"Single-Core time: {sw1.ElapsedMilliseconds} ms");
+            Utilities.insertBreak();
             Console.WriteLine($"Parallel Processing time:        {sw2.ElapsedMilliseconds} ms");
         }
 
         private static void DummyCalculation()
         {
             //Creating a calculation that is heavy on the CPU
-            for (int i = 0; i < 4000; i++) { }
+            for (int i = 0; i < 300000; i++)
+            {
+                
+                Console.WriteLine($"Staff Member - {i} ");
+            }
         }
         
         public static void ViewAllStaff()

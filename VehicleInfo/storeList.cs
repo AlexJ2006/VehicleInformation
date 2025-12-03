@@ -7,7 +7,7 @@ namespace StoreList
 {
     public static class StoreInfo
     {
-        public static List<string> Stores { get; private set; } = new();
+        public static List<string> Stores { get; private set; } = new(5000);
 
         private static readonly string filePath = "storeList.json";
 

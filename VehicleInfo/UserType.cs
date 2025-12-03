@@ -1,5 +1,5 @@
 using System.Transactions;
-using storeList;
+using StoreList;
 using VehicleManagement;
 namespace VehicleInfo
 {
@@ -489,11 +489,11 @@ namespace VehicleInfo
                     //Asking how many items they wish to view from the list.
                     string displayNumberOfItems = Console.ReadLine() ?? "";
                     if (!int.TryParse(displayNumberOfItems, out int intdisplayNumberOfItems))
-                        intdisplayNumberOfItems = StoreInfo.stores.Count;
+                        intdisplayNumberOfItems = StoreInfo.Stores.Count;
 
-                    for (int i = 0; i < Math.Min(intdisplayNumberOfItems, StoreInfo.stores.Count); i++)
+                    for (int i = 0; i < Math.Min(intdisplayNumberOfItems, StoreInfo.Stores.Count); i++)
                     {
-                        Console.WriteLine(StoreInfo.stores[i]);
+                        Console.WriteLine(StoreInfo.Stores[i]);
                     }
                 }
                 //Clearing the store List

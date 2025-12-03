@@ -1,4 +1,5 @@
-using storeList;
+
+using StoreList;
 
 namespace VehicleInfo
 {
@@ -8,7 +9,7 @@ namespace VehicleInfo
         //Allowing them to add stores
         public static void storeAdd()
         {
-            var stores = StoreInfo.stores; //Setting the variable as the storelist
+            var stores = StoreInfo.Stores; //Setting the variable as the storelist
 
             Console.Write("Please enter the name of the store you wish to ADD: "); //Asking them to enter the name of the store they wish to add
             string addStoreName = Console.ReadLine()!;
@@ -60,7 +61,7 @@ namespace VehicleInfo
         //Function for the removal of stores
         public static void storeRemove()
         {
-            var stores = StoreInfo.stores; //Again, setting the variable as the store list
+            var stores = StoreInfo.Stores; //Again, setting the variable as the store list
 
             Console.WriteLine("Please enter the name of the store you wish to remove from the list"); //Asking the user for the input of which store they wish to remove
             string removeStoreName = Console.ReadLine()!;
@@ -112,7 +113,7 @@ namespace VehicleInfo
         //The function that displays the storelist (called multiple times within this file)
         public static void storeListDisplay()
         {
-            var stores = StoreInfo.stores; //Setting the variable as the storelist
+            var stores = StoreInfo.Stores; //Setting the variable as the storelist
 
             foreach (string store in stores) //Foreach one of the stores within the storelist
             {
@@ -122,14 +123,14 @@ namespace VehicleInfo
         //The function that clears the storelist
         public static void storeListClear()
         {
-            var stores = StoreInfo.stores;
+            var stores = StoreInfo.Stores;
 
             stores.Clear();
         }
         //The function that sorts the storelist (alphabetically)
         public static void storeListSort()
         {
-            var stores = StoreInfo.stores;
+            var stores = StoreInfo.Stores;
             stores.Sort();
         }
         

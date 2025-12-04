@@ -11,7 +11,6 @@ namespace VehicleInfo
         public static Dictionary<int, Customer> customerDict = new();
         private static readonly string filepath = "customer.bin";
 
-
         //Same Processa as for the vehicles
         public static void SaveToBinary()
         {

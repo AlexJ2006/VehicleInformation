@@ -9,20 +9,7 @@ namespace VanInfo
         public static Dictionary<string, Van> vanDict = new Dictionary<string, Van>();
         private static readonly string filepath = "vans.bin";
 
-        static VanData()
-        {
-            // If the binary file exists, load data from it
-            if (File.Exists(filepath))
-            {
-                LoadFromBinary();
-            }
-            else
-            {
-                // Otherwise, add initial vans and save to binary
-                AddInitialVans();
-                SaveToBinary();
-            }
-        }
+        private static bool isLoaded = false;
 
         public static void SaveToBinary()
         {
@@ -40,10 +27,24 @@ namespace VanInfo
             }
         }
 
-        public static void LoadFromBinary()
+        public static void LoadFromBinary(bool forceReload = false)
         {
+
+            if(isLoaded && !forceReload)
+            {
+                return;
+            }
+            
             // Reset the dictionary before loading
             vanDict = new Dictionary<string, Van>();
+
+            if(!File.Exists(filepath))
+            {
+                AddInitialVans();
+                SaveToBinary();
+                isLoaded = true;
+                return;
+            }
 
             using FileStream fs = File.Open(filepath, FileMode.Open);
             using BinaryReader br = new BinaryReader(fs);
@@ -61,6 +62,8 @@ namespace VanInfo
 
                 vanDict[numberPlate] = v; // Add the van to the dictionary
             }
+
+            isLoaded = true;
         }
 
         // Adding in some initial vans for testing purposes

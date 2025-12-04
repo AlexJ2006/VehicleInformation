@@ -146,10 +146,10 @@ can do this with dictionary
 you can check if the item exists within the cache table and if it does then you can return an invalid result
 if the item doesn't exist within the cache table
 
-yuo hae to maintain a certain number of cache only, within the cache table.
+you have to maintain a certain number of cache only, within the cache table.
 
 for the topic 6, we learnt 4 different techniques
-parallel executiom
+parallel execution
 a list with capacity
 stringbuilder
 and cache
@@ -158,4 +158,4 @@ for the final application, you can use the techniques
 
 learm the tests for each of them using dummy data and show how they are beneficial
 
-be careful with teh submission, we are given a mark based on what we have submitted. JungHun will download the file, unzip it and check the contents. We shouold check that the unloaded file is working properly on our own.
+be careful with the submission, we are given a mark based on what we have submitted. JungHun will download the file, unzip it and check the contents. We shouold check that the unloaded file is working properly on our own.

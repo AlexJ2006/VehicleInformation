@@ -1,5 +1,4 @@
 using System.IO;
-
 namespace VehicleInfo
 {
     public static class CarData
@@ -8,20 +7,7 @@ namespace VehicleInfo
         public static Dictionary<string, Car> carDict = new Dictionary<string, Car>();
         private static readonly string filepath = "cars.bin";
 
-        static CarData()
-        {
-            // If the binary file exists, load data from it
-            if (File.Exists(filepath))
-            {
-                LoadFromBinary();
-            }
-            else
-            {
-                // Otherwise, add initial cars and save to binary
-                AddInitialCars();
-                SaveToBinary();
-            }
-        }
+        private static bool isLoaded = false;
 
         public static void SaveToBinary()
         {
@@ -40,10 +26,25 @@ namespace VehicleInfo
             }
         }
 
-        public static void LoadFromBinary()
+        public static void LoadFromBinary(bool forceReload = false)
         {
+            //Checking whether the binary file has already been loaded and is within the cache
+            if (isLoaded && !forceReload)
+            {
+                return;
+            }
+
             // Reset the dictionary before loading
             carDict = new Dictionary<string, Car>();
+
+            //If the file exists at the filepath...
+            if (!File.Exists(filepath))
+            {
+                AddInitialCars(); //Add the initial cars
+                SaveToBinary(); //Save them
+                isLoaded = true; //Return true for the isLoaded variable
+                return;
+            }
 
             using FileStream fs = File.Open(filepath, FileMode.Open);
             using BinaryReader br = new BinaryReader(fs);
@@ -61,6 +62,8 @@ namespace VehicleInfo
 
                 carDict[numberPlate] = c; // Add the car to the dictionary
             }
+
+            isLoaded = true;
         }
 
         // Adding in some initial cars for testing purposes (going to keep these here)
@@ -77,6 +80,7 @@ namespace VehicleInfo
             carDict.Add(c3.GetNumberPlate()!, c3);
         }
     }
+
     // Creating a Car class here that inherits all of the properties from Vehicle.
     // On top of this, the Car class has its own new property of Category.
     public class Car : Vehicle

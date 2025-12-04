@@ -9,20 +9,8 @@ namespace MotorbikeInfo
         public static Dictionary<string, Motorbike> motorbikeDict = new Dictionary<string, Motorbike>();
         private static readonly string filepath = "motorbikes.bin"; //Specifying the filepath for the motorbikes
 
-
-        static MotorbikeData()
-        {
-            if (File.Exists(filepath))
-            {
-                LoadFromBinary();
-            }
-            else
-            {
-                AddInitialMotorbikes();
-                SaveToBinary();
-            }
-        }
-
+        private static bool isLoaded = false;
+       
         //Saving the motorbikes to binary
         public static void SaveToBinary()
         {
@@ -38,8 +26,13 @@ namespace MotorbikeInfo
             }
         }
         //Loading the motorbikes from binary
-        public static void LoadFromBinary()
+        public static void LoadFromBinary(bool forceRelaod = false)
         {
+            if(isLoaded && !forceRelaod)
+            {
+                return;
+            }
+
             motorbikeDict = new Dictionary<string, Motorbike>();
 
             using FileStream fs = File.Open(filepath, FileMode.Open);
@@ -56,6 +49,8 @@ namespace MotorbikeInfo
 
                 motorbikeDict[key] = m;
             }
+            
+            isLoaded = true;
         }
 
         //The initial motorbikes that will exist within the system (until removed)

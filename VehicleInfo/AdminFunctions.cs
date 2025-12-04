@@ -20,7 +20,6 @@ namespace VehicleInfo
                 Console.WriteLine("Could not find the staff member within the list");
                 return;
             }
-
             StaffData.staffDict.Remove(staff.Key);
             StaffData.SaveToBinary();
 

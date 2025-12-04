@@ -23,7 +23,10 @@ namespace VehicleInfo
             StaffData.staffDict.Remove(staff.Key);
             StaffData.SaveToBinary();
 
+            Utilities.insertBreak();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Staff member {firstName} {lastName} (ID: {staffID}) removed successfully.");
+            Console.ResetColor();
         }
         public static void GenerateStaffReport()
         {

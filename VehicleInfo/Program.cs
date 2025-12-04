@@ -21,7 +21,7 @@ Utilities.welcomeUser();
 //Presenting the user with the option to sign in as a member of staff (using command line arguments).
 UserType.staffArgsMenu(args);
     
-    Utilities.userSelectMenu();
+    // Utilities.userSelectMenu();
     Console.Write("ENTER YOUR CHOICE: ");
     string userSelection = Console.ReadLine()!.Trim().ToUpper();
 

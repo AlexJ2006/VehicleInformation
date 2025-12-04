@@ -45,7 +45,7 @@ namespace VehicleInfo
                 catch (FormatException) //Catching a format exception
                 {
                     Utilities.errorYellowWarning();
-                    Console.Write("Cannot convert '" + maxPriceString + "' to a number"); //Warning the user that they string cannot be converted into an integer
+                    Console.Write("Cannot convert '" + maxPriceString + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer. //Warning the user that they string cannot be converted into an integer
                     return;
                 }
 
@@ -99,7 +99,7 @@ namespace VehicleInfo
                 {
                     //Warning the user that the string they have provided cannot be converted into an integer
                     Utilities.errorYellowWarning();
-                    Console.Write("Cannot convert '" + stringNumberOfDaysRental + "' to a number");
+                    Console.Write("Cannot convert '" + stringNumberOfDaysRental + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                     return;
                 }
 
@@ -169,7 +169,7 @@ namespace VehicleInfo
                 catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
-                    Console.Write("Cannot convert '" + maxPriceString + "' to a number");
+                    Console.Write("Cannot convert '" + maxPriceString + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                     return;
                 }
 
@@ -216,7 +216,7 @@ namespace VehicleInfo
                 catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
-                    Console.Write("Cannot convert '" + stringNumberOfDaysRental + "' to a number");
+                    Console.Write("Cannot convert '" + stringNumberOfDaysRental + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                     return;
                 }
 
@@ -276,7 +276,7 @@ namespace VehicleInfo
                 catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
-                    Console.Write("Cannot convert '" + maxVanPriceString + "' to a number");
+                    Console.Write("Cannot convert '" + maxVanPriceString + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                     return;
                 }
 
@@ -323,7 +323,7 @@ namespace VehicleInfo
                 catch (FormatException)
                 {
                     Utilities.errorYellowWarning();
-                    Console.Write("Cannot convert '" + stringNumberOfDaysVanRental + "' to a number");
+                    Console.Write("Cannot convert '" + stringNumberOfDaysVanRental + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                     return;
                 }
 
@@ -407,7 +407,7 @@ namespace VehicleInfo
             catch (FormatException) //Handling a format exception
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringCarYearOfManufacture + "' to a number");
+                Console.Write("Cannot convert '" + stringCarYearOfManufacture + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
 
@@ -424,7 +424,7 @@ namespace VehicleInfo
             catch (FormatException) //Format exception handling again
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringCarMileage + "' to a number");
+                Console.Write("Cannot convert '" + stringCarMileage + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
 
@@ -445,7 +445,7 @@ namespace VehicleInfo
             catch (FormatException)
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringPricePerDay + "' to a number");
+                Console.Write("Cannot convert '" + stringPricePerDay + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
 
@@ -518,7 +518,7 @@ namespace VehicleInfo
             catch (FormatException)
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringVanYearOfManufacture + "' to a number");
+                Console.Write("Cannot convert '" + stringVanYearOfManufacture + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
 
@@ -534,7 +534,7 @@ namespace VehicleInfo
             catch (FormatException)
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringVanMileage + "' to a number");
+                Console.Write("Cannot convert '" + stringVanMileage + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
 
@@ -553,7 +553,7 @@ namespace VehicleInfo
             catch (FormatException)
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringPricePerDay + "' to a number");
+                Console.Write("Cannot convert '" + stringPricePerDay + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
 
@@ -620,7 +620,7 @@ namespace VehicleInfo
             catch (FormatException)
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringYearOfManufacture + "' to a number");
+                Console.Write("Cannot convert '" + stringYearOfManufacture + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer. //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
 
@@ -635,7 +635,7 @@ namespace VehicleInfo
             catch (FormatException)
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringMotorbikeMileage + "' to a number");
+                Console.Write("Cannot convert '" + stringMotorbikeMileage + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
 
@@ -650,7 +650,7 @@ namespace VehicleInfo
             catch (FormatException)
             {
                 Utilities.errorYellowWarning();
-                Console.Write("Cannot convert '" + stringPricePerDay + "' to a number");
+                Console.Write("Cannot convert '" + stringPricePerDay + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
 

@@ -7,133 +7,131 @@ namespace VehicleInfo
     {
         //Getting the args from the user that allow them to LOG IN as STAFF or ADMIN. 
         public static void staffArgsMenu(string[]? args)
-{
-    // Load staff data from binary before accessing the dictionary
-    StaffData.LoadFromBinary();
-    AdminData.LoadFromBinary();
-    CustomerData.LoadFromBinary();
-
-    while (true)
     {
-        //Getting the args from the user
-        if (args == null || args.Length == 0)
-            args = Utilities.getUserCommand();
+        // Load staff data from binary before accessing the dictionary
+        StaffData.LoadFromBinary();
+        AdminData.LoadFromBinary();
+        CustomerData.LoadFromBinary();
 
-        //If the user wishes to enter the normal menu/mode
-        if (args.Length == 1 && args[0].Equals("E", StringComparison.OrdinalIgnoreCase))
+        while (true)
         {
-            //Displaying a message to the user from utilities.
-            Utilities.nonStaffMenuMessage();
-            VehicleManagement.guestMenu();
-            return;
-        }
+            //Getting the args from the user
+            if (args == null || args.Length == 0)
+                args = Utilities.getUserCommand();
 
-        bool loginSuccess = false;
-
-        //If the user has attempted to log in as a member of STAFF 
-        if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
-        {
-            //ensuring that the first argument (second but it's first as they begin at 0)
-            //Can be converted to an integer.
-            if (!int.TryParse(args[1], out int id))
+            //If the user wishes to enter the normal menu/mode
+            if (args.Length == 1 && args[0].Equals("E", StringComparison.OrdinalIgnoreCase))
             {
-                //If not...
-                Console.WriteLine("Invalid userID format."); //This error message will be shown
+                //Displaying a message to the user from utilities.
+                Utilities.nonStaffMenuMessage();
+                VehicleManagement.guestMenu();
+                return;
             }
-            else
-            {
-                string lastName = args[2]; //The second (third) argument should be the surname of the staff member
 
-                if (StaffData.staffDict.TryGetValue(id, out Staff? staff) &&
-                    staff.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+            bool loginSuccess = false;
+
+            //If the user has attempted to log in as a member of STAFF 
+            if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
+            {
+                //ensuring that the first argument (second but it's first as they begin at 0)
+                //Can be converted to an integer.
+                if (!int.TryParse(args[1], out int id))
                 {
-                    //The staff member is logged in.
-                    Utilities.insertBreak();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
-                    Console.ResetColor();
-                    staffMember();
-                    loginSuccess = true;
+                    //If not...
+                    Console.WriteLine("Invalid userID format."); //This error message will be shown
                 }
                 else
                 {
-                    Utilities.insertBreak();
-                    Console.WriteLine("ACCESS DENIED");
+                    string lastName = args[2]; //The second (third) argument should be the surname of the staff member
+
+                    if (StaffData.staffDict.TryGetValue(id, out Staff? staff) &&
+                        staff.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        //The staff member is logged in.
+                        Utilities.insertBreak();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
+                        Console.ResetColor();
+                        staffMember();
+                        loginSuccess = true;
+                    }
+                    else
+                    {
+                        Utilities.insertBreak();
+                        Console.WriteLine("ACCESS DENIED");
+                    }
                 }
             }
-        }
-        //If the user has attempted to log in as a member of ADMIN 
-        else if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
-        {
-            if (!int.TryParse(args[1], out int id))
+            //If the user has attempted to log in as a member of ADMIN 
+            else if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
             {
-                //If not...
-                Console.WriteLine("Invalid admin ID format.");
-            }
-            else
-            {
-                string lastName = args[2];
-
-                if (AdminData.adminDict.TryGetValue(id, out Admin? admin) &&
-                    admin.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                if (!int.TryParse(args[1], out int id))
                 {
-                    Utilities.insertBreak();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"WELCOME ADMIN MEMBER {admin.GetName()}");
-                    Console.ResetColor();
-                    AdminFunction();
-                    loginSuccess = true;
+                    //If not...
+                    Console.WriteLine("Invalid admin ID format.");
                 }
                 else
                 {
-                    Utilities.insertBreak();
-                    Console.WriteLine("ACCESS DENIED");
+                    string lastName = args[2];
+
+                    if (AdminData.adminDict.TryGetValue(id, out Admin? admin) &&
+                        admin.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Utilities.insertBreak();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"WELCOME ADMIN MEMBER {admin.GetName()}");
+                        Console.ResetColor();
+                        AdminFunction();
+                        loginSuccess = true;
+                    }
+                    else
+                    {
+                        Utilities.insertBreak();
+                        Console.WriteLine("ACCESS DENIED");
+                    }
                 }
             }
-        }
-        //If the user has attempted to log in as a CUSTOMER
-        else if (args.Length == 3 && args[0].Equals("--customer", StringComparison.OrdinalIgnoreCase))
-        {
-            if (!int.TryParse(args[1], out int id))
+            //If the user has attempted to log in as a CUSTOMER
+            else if (args.Length == 3 && args[0].Equals("--customer", StringComparison.OrdinalIgnoreCase))
             {
-                //If not...
-                Console.WriteLine("Invalid customer ID format.");
-            }
-            else
-            {
-                string lastName = args[2];
-
-                if (CustomerData.customerDict.TryGetValue(id, out Customer? customer) &&
-                    customer.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                if (!int.TryParse(args[1], out int id))
                 {
-                    Utilities.insertBreak();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"WELCOME CUSTOMER {customer.GetName()}");
-                    Console.ResetColor();
-                    CustomerMenuFunctions.CustomerMenu();
-                    loginSuccess = true;
+                    //If not...
+                    Console.WriteLine("Invalid customer ID format.");
                 }
                 else
                 {
-                    Utilities.insertBreak();
-                    Console.WriteLine("ACCESS DENIED");
+                    string lastName = args[2];
+
+                    if (CustomerData.customerDict.TryGetValue(id, out Customer? customer) &&
+                        customer.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Utilities.insertBreak();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"WELCOME CUSTOMER {customer.GetName()}");
+                        Console.ResetColor();
+                        CustomerMenuFunctions.CustomerMenu();
+                        loginSuccess = true;
+                    }
+                    else
+                    {
+                        Utilities.insertBreak();
+                        Console.WriteLine("ACCESS DENIED");
+                    }
                 }
             }
-        }
-        else
-        {
-            Utilities.errorRedWarning();
-            Console.WriteLine("Invalid command.");
-        }
+            else
+            {
+                Utilities.errorRedWarning();
+                Console.WriteLine("Invalid command.");
+            }
 
-        if (loginSuccess)
-            break;
+            if (loginSuccess)
+                break;
 
-        args = null; // Reset args to ask for input again
+            args = null; // Reset args to ask for input again
+        }
     }
-}
-
-
 
         //If the user logs in as a staff member
         public static void staffMember()
@@ -184,7 +182,7 @@ namespace VehicleInfo
                         if (!int.TryParse(stringHowManyCars, out int intHowManyCars))
                         {
                             Utilities.errorYellowWarning();
-                            Console.WriteLine($"Cannot convert '{stringHowManyCars}' to a number");
+                            Console.WriteLine($"Cannot convert '{stringHowManyCars}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                             return;
                         }
                         Utilities.insertBreak();
@@ -219,7 +217,7 @@ namespace VehicleInfo
                         if (!int.TryParse(stringHowManyMotorbikes, out int intHowManyMotorbikes))
                         {
                             Utilities.errorYellowWarning();
-                            Console.WriteLine($"Cannot convert '{stringHowManyMotorbikes}' to a number");
+                            Console.WriteLine($"Cannot convert '{stringHowManyMotorbikes}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                             return;
                         }
 
@@ -251,7 +249,7 @@ namespace VehicleInfo
                         if (!int.TryParse(stringHowManyVans, out int intHowManyVans))
                         {
                             Utilities.errorYellowWarning();
-                            Console.WriteLine($"Cannot convert '{stringHowManyVans}' to a number");
+                            Console.WriteLine($"Cannot convert '{stringHowManyVans}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                             return;
                         }
                         //If they wish to add multiple vans...
@@ -307,7 +305,7 @@ namespace VehicleInfo
                         if (!int.TryParse(stringHowManyCars, out int intHowManyCars))
                         {
                             Utilities.errorYellowWarning();
-                            Console.WriteLine($"Cannot convert '{stringHowManyCars}' to a number");
+                            Console.WriteLine($"Cannot convert '{stringHowManyCars}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                             return;
                         }
                         Utilities.insertBreak();
@@ -353,7 +351,7 @@ namespace VehicleInfo
                         if (!int.TryParse(stringHowManyMotorbikes, out int intHowManyMotorbikes))
                         {
                             Utilities.errorYellowWarning();
-                            Console.WriteLine($"Cannot convert '{stringHowManyMotorbikes}' to a number");
+                            Console.WriteLine($"Cannot convert '{stringHowManyMotorbikes}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                             return;
                         }
 
@@ -397,7 +395,7 @@ namespace VehicleInfo
                         if (!int.TryParse(stringHowManyVans, out int intHowManyVans))
                         {
                             Utilities.errorYellowWarning();
-                            Console.WriteLine($"Cannot convert '{stringHowManyVans}' to a number");
+                            Console.WriteLine($"Cannot convert '{stringHowManyVans}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                             return;
                         }
 
@@ -543,7 +541,7 @@ namespace VehicleInfo
             if (!int.TryParse(stringUserID, out int intUserID))
             {
                 Utilities.errorYellowWarning();
-                Console.WriteLine($"Cannot convert '{stringUserID}' to a number");
+                Console.WriteLine($"Cannot convert '{stringUserID}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
 
@@ -566,7 +564,7 @@ namespace VehicleInfo
             if (!int.TryParse(stringContactNumber, out int contactNumber))
             {
                 Utilities.errorYellowWarning();
-                Console.WriteLine($"Cannot convert '{stringContactNumber}' to a number");
+                Console.WriteLine($"Cannot convert '{stringContactNumber}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                 return;
             }
             //If the UserID that the user has provided has an invalid length (larger than 5 characters)
@@ -597,112 +595,122 @@ namespace VehicleInfo
         }
 
         //If the user logs in as a member of admin staff
-        public static void AdminFunction()
+       public static void AdminFunction()
         {
-            //They are asked to select a function to perform.
-            //Using a simple, user friendly menu layout.
-            Console.WriteLine("Please select a function from the following");
-            Utilities.insertBreak();
-            Console.WriteLine("A) ADD staff member");
-            Utilities.insertBreak();
-            Console.WriteLine("R) REMOVE staff member");
-            Utilities.insertBreak();
-            Console.WriteLine("V) VIEW staff member list");
-            Utilities.insertBreak();
-            Console.WriteLine("G) GENERATE staff report");
-            Console.Write("ENTER YOUR CHOICE:");
-            string adminFunctionChoice = Console.ReadLine() ?? "";
-
-            //If they wish to add a member of staff.
-            if (adminFunctionChoice.Equals("A", StringComparison.OrdinalIgnoreCase))
-            {   
-                //They are asked to enter the staff ID 
+            while (true)
+            {
+                Console.WriteLine("Please select a function from the following");
                 Utilities.insertBreak();
-                Console.Write("STAFF ID: ");
-                string stringStaffID = Console.ReadLine() ?? "";
-                if (!int.TryParse(stringStaffID, out int staffID))
+                Console.WriteLine("A) ADD staff member");
+                Utilities.insertBreak();
+                Console.WriteLine("R) REMOVE staff member");
+                Utilities.insertBreak();
+                Console.WriteLine("V) VIEW staff member list");
+                Utilities.insertBreak();
+                Console.WriteLine("G) GENERATE staff report");
+                Utilities.insertBreak();
+                Console.WriteLine("L) LOG OUT");
+                Utilities.insertBreak();
+                Console.Write("ENTER YOUR CHOICE:");
+                string adminFunctionChoice = Console.ReadLine() ?? "";
+
+                if (adminFunctionChoice.Equals("A", StringComparison.OrdinalIgnoreCase))
                 {
-                    //Exception handling here.
-                    //If the string provided cannot be converted to an integer.
-                    Utilities.errorYellowWarning(); //Provide a preset warning.
-                    Console.WriteLine($"Cannot convert '{stringStaffID}' to a number");
-                    return;
-                }
-
-                //If they have met the requirements above with no errors.
-                Console.Write("FIRST NAME: "); //Provide the first name.
-                string firstName = Console.ReadLine() ?? ""; //Read the first name that has been inputted
-                Console.Write("LAST NAME: "); //Provide the last name.
-                string lastName = Console.ReadLine() ?? "";
-
-                //Then, with the details provided
-                //Create a new instance of the staff class
-                Staff newStaff = new Staff();
-                newStaff.SetID(staffID);
-                newStaff.SetFirstName(firstName);
-                newStaff.SetLastName(lastName);
-
-                //Then add these to the Binary File
-                StaffData.staffDict[staffID] = newStaff;
-                StaffData.SaveToBinary();
-                Console.WriteLine("STAFF ADDED");
-            }
-            else if (adminFunctionChoice.Equals("R", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine("You have selected to REMOVE a staff member, is this true?");
-                Console.Write("ENTER Y OR N: ");
-                string continueWithStaffRemoval = Console.ReadLine()!;
-
-                // REMOVE THE SEMICOLON ↓↓↓
-                if (continueWithStaffRemoval.Equals("Y", StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine("Please enter the following details of the staff member you wish to remove");
-
-                    Console.Write("Staff ID: ");
-                    string stringStaffID = Console.ReadLine()!;
-                    int staffID;
-
-                    try
+                //They are asked to enter the staff ID 
+                    Utilities.insertBreak();
+                    Console.Write("STAFF ID: ");
+                    string stringStaffID = Console.ReadLine() ?? "";
+                    if (!int.TryParse(stringStaffID, out int staffID))
                     {
-                        staffID = Convert.ToInt32(stringStaffID);
-                    }
-                    catch (FormatException)
-                    {
-                        Utilities.errorYellowWarning();
-                        Console.WriteLine($"Cannot convert '{stringStaffID}' to a number");
-                        return;
+                        //Exception handling here.
+                        //If the string provided cannot be converted to an integer.
+                        Utilities.errorYellowWarning(); //Provide a preset warning.                    Console.WriteLine($"Cannot convert '{stringStaffID}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
                     }
 
-                    Utilities.insertBreak();
-                    Console.Write("First Name: ");
-                    string firstName = Console.ReadLine()!;
+                    //If they have met the requirements above with no errors.
+                    Console.Write("FIRST NAME: "); //Provide the first name.
+                    string firstName = Console.ReadLine() ?? ""; //Read the first name that has been inputted
+                    Console.Write("LAST NAME: "); //Provide the last name.
+                    string lastName = Console.ReadLine() ?? "";
 
-                    Utilities.insertBreak();
-                    Console.Write("Last Name: ");
-                    string lastName = Console.ReadLine()!;
-                   
-                    AdminFunctions.RemoveStaff(staffID, firstName, lastName);
+                    //Then, with the details provided
+                    //Create a new instance of the staff class
+                    Staff newStaff = new Staff();
+                    newStaff.SetID(staffID);
+                    newStaff.SetFirstName(firstName);
+                    newStaff.SetLastName(lastName);
+
+                    //Then add these to the Binary File
+                    StaffData.staffDict[staffID] = newStaff;
+                    StaffData.SaveToBinary();
+                    Console.WriteLine("STAFF ADDED");
                 }
-            }
-            else if (adminFunctionChoice.Equals("V", StringComparison.OrdinalIgnoreCase))
-            {
-                AdminFunctions.ViewAllStaff(); 
-            }
-            else if(adminFunctionChoice.Equals("G", StringComparison.OrdinalIgnoreCase))
-            {
-                AdminFunctions.GenerateStaffReport();
-            }
-            else
-            {
-                Utilities.invalidInput();
+                else if (adminFunctionChoice.Equals("R", StringComparison.OrdinalIgnoreCase))
+                {
+                        
+                    Console.WriteLine("You have selected to REMOVE a staff member, is this true?");
+                    Utilities.insertBreak();
+                    Console.Write("ENTER Y OR N: ");
+                    string continueWithStaffRemoval = Console.ReadLine()!;
+                    
+                    if (continueWithStaffRemoval.Equals("Y", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Utilities.insertBreak();
+                        Console.WriteLine("Please enter the following details of the staff member you wish to remove");
+
+                        Utilities.insertBreak();
+                        Console.Write("Staff ID: ");
+                        string stringStaffID = Console.ReadLine()!;
+                        int staffID = 0;
+
+                        try
+                        {
+                            staffID = Convert.ToInt32(stringStaffID);
+                        }
+                        catch (FormatException)
+                        {
+                            Utilities.insertBreak();
+                            Utilities.errorYellowWarning();
+                            Console.WriteLine($"Cannot convert '{stringStaffID}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
+                        }
+
+                        Utilities.insertBreak();
+                        Console.Write("First Name: ");
+                        string firstName = Console.ReadLine()!;
+
+                        Utilities.insertBreak();
+                        Console.Write("Last Name: ");
+                        string lastName = Console.ReadLine()!;
+                        
+                        AdminFunctions.RemoveStaff(staffID, firstName, lastName);
+                    }
+                }
+                else if (adminFunctionChoice.Equals("V", StringComparison.OrdinalIgnoreCase))
+                {
+                    Utilities.insertBreak();
+                    AdminFunctions.ViewAllStaff(); 
+                }
+                else if(adminFunctionChoice.Equals("G", StringComparison.OrdinalIgnoreCase))
+                {
+                    AdminFunctions.GenerateStaffReport();
+                }
+                else if(adminFunctionChoice.Equals("L", StringComparison.OrdinalIgnoreCase))
+                {
+                    Utilities.insertBreak();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("LOGGED OUT. THANK YOU.");
+                    Console.ResetColor();
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Utilities.invalidInput();
+                }
             }
         }
-        internal static void staffArgsMenu(object staffArgs)
-        {
-           
-        }    
     }
 }
+
 //Using a HashSet for the userInformation is much faster than a list, you can find an item within the list much quicker. 
 //The reason for using encapsulation is for futureproofing.
 //Can't use that here as it means the entire field need to be unique, not only the password. 

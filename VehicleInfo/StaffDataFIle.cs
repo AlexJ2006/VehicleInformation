@@ -10,6 +10,7 @@ namespace VehicleInfo
     {
         public static Dictionary<int, Staff> staffDict = new(); //Creating a staff dictionary using the ID as the key
         private static readonly string filepath = "staff.bin"; //Specifying the name of the specific staff binary file
+        private static bool isLoaded = false;
 
         public static void SaveToBinary() //Saving the staff details to binary (writing)
         {
@@ -24,12 +25,17 @@ namespace VehicleInfo
                 pair.Value.SaveBinary(bw);
             }
         }
+
         public static void LoadFromBinary() //Loading the staff details from the binary file (reading)
         {
+            if (isLoaded)
+                return;
+
             if (!File.Exists(filepath))
             {   
                 AddInitialStaff();
                 staffDict = new Dictionary<int, Staff>();
+                isLoaded = true;
                 return;
             }
 
@@ -45,6 +51,8 @@ namespace VehicleInfo
                 Staff staff = Staff.LoadBinary(br);
                 staffDict[staffID] = staff;
             }
+
+            isLoaded = true;
         }
         
         private static void AddInitialStaff()
@@ -104,6 +112,7 @@ namespace VehicleInfo
 
             return staff;
         }
+
         //Adding a constructor
         public Staff(int id, string fName, string lName)
         {

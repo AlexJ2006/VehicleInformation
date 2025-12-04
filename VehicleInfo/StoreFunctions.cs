@@ -9,7 +9,6 @@ namespace VehicleInfo
         //Allowing them to add stores
         public static void storeAdd()
         {
-
             var stores = StoreInfo.Stores; //Setting the variable as the storelist
 
             Console.Write("Please enter the name of the store you wish to ADD: "); //Asking them to enter the name of the store they wish to add

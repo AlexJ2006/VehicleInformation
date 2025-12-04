@@ -159,3 +159,38 @@ for the final application, you can use the techniques
 learm the tests for each of them using dummy data and show how they are beneficial
 
 be careful with the submission, we are given a mark based on what we have submitted. JungHun will download the file, unzip it and check the contents. We shouold check that the unloaded file is working properly on our own.
+
+------------------------------ MENUS THAT NEED CHECKING ---------------------
+
+GUEST FUNCTIONS
+    Rent Car
+    Rent Motorcycle
+    Rent Van
+
+STAFF FUNCTIONS
+    Add Vehicles
+        Add Car
+        Add Motorbike
+        Add Van
+
+    Remove Vehicles
+        Remove Car
+        Remove Motorbike 
+        Remove Van
+
+    Edit Store List
+
+CUSTOMER FUNCTIONS
+    Rent Car
+    Rent Motorcycle
+    Rent Van
+
+ADMIN FUNCTIONS
+    Add Staff Member
+    Remove Staff Member
+    View Staff Member List
+    Generate Staff Report
+    Log Out
+
+
+

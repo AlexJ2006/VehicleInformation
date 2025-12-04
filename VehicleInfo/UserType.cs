@@ -1,4 +1,5 @@
 using System.Transactions;
+using System.Windows.Markup;
 using StoreList;
 
 namespace VehicleInfo
@@ -605,7 +606,9 @@ namespace VehicleInfo
                 Utilities.insertBreak();
                 Console.WriteLine("R) REMOVE staff member");
                 Utilities.insertBreak();
-                Console.WriteLine("V) VIEW staff member list");
+                Console.WriteLine("V) VIEW STAFF list");
+                Utilities.insertBreak();
+                Console.WriteLine("VAS) VIEW ADMIN staff list");
                 Utilities.insertBreak();
                 Console.WriteLine("G) GENERATE staff report");
                 Utilities.insertBreak();

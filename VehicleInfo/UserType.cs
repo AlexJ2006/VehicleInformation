@@ -688,14 +688,16 @@ namespace VehicleInfo
                 else if (adminFunctionChoice.Equals("V", StringComparison.OrdinalIgnoreCase))
                 {
                     Utilities.insertBreak();
-                    AdminFunctions.ViewAllStaff(); 
+                    AdminFunctions.ViewAllStaff();
                 }
                 else if(adminFunctionChoice.Equals("G", StringComparison.OrdinalIgnoreCase))
                 {
+                    //Demonstrates an example of parallel processing.
                     AdminFunctions.GenerateStaffReport();
                 }
                 else if(adminFunctionChoice.Equals("L", StringComparison.OrdinalIgnoreCase))
                 {
+                    //If the user has chosen to log out.
                     Utilities.insertBreak();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("LOGGED OUT. THANK YOU.");
@@ -704,6 +706,7 @@ namespace VehicleInfo
                 }
                 else
                 {
+                    //If the user has entered an invalid input.
                     Utilities.invalidInput();
                 }
             }

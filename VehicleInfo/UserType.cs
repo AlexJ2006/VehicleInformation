@@ -483,6 +483,7 @@ namespace VehicleInfo
                     else
                     {
                         Console.WriteLine("You will now be logged out, THANK YOU.");
+                        return;
                     }
                 }
                 //If they wish to remove a store from the list
@@ -501,6 +502,7 @@ namespace VehicleInfo
                     {
                         //If not, they will be logged out. 
                         Console.WriteLine("You will now be logged out, THANK YOU.");
+                        return;
                     }
                 }
                 //Else, if they simply wish to view the store list
@@ -532,6 +534,11 @@ namespace VehicleInfo
                         Utilities.insertBreak();
                         Console.WriteLine(StoreInfo.Stores[i]);
                     }
+
+                    Utilities.insertBreak();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Thank you. You will now be logged out.");
+                    return;
                 }
                 //Clearing the store List
                 else if (decision.Equals("C", StringComparison.OrdinalIgnoreCase))
@@ -556,8 +563,7 @@ namespace VehicleInfo
                         Console.WriteLine("Okay, the store list has not been cleared.");
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("You will now be LOGGED OUT.");
-                        Console.ResetColor();
-                        Environment.Exit(0);
+                        return;
                     }
                 }
             }
@@ -566,6 +572,7 @@ namespace VehicleInfo
                 //Else, if the user has not selected one of the options provided.
                 //THey are provided with a simple error message.
                 Utilities.invalidInput();
+                break;
             }
         }
     

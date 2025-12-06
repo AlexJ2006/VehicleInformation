@@ -18,37 +18,46 @@ Utilities.getAndShowVersion();
 //Welcoming the user to the program.
 Utilities.welcomeUser();
 
-//Presenting the user with the option to sign in as a member of staff (using command line arguments).
-UserType.staffArgsMenu(args);
-    
+
+while(true)
+{
+    UserType.staffArgsMenu(args);
+
     // Utilities.userSelectMenu();
     Console.Write("ENTER YOUR CHOICE: ");
     string userSelection = Console.ReadLine()!.Trim().ToUpper();
 
-if (userSelection == "C")
-{
-    Utilities.insertBreak();
-    Utilities.newUserWelcomeMessage();
-    // Insert NEW USER functions here
+    if (userSelection == "C")
+    {
+        Utilities.insertBreak();
+        Utilities.newUserWelcomeMessage();
+    }
+    else if (userSelection == "L")
+    {
+        Utilities.insertBreak();
+        LogInFunction.LogIn();
+    }
+    else if (userSelection == "G")
+    {
+        Utilities.insertBreak();
+        Utilities.guestModeMessage();
+        VehicleManagement.guestMenu();
+    }
+    else if (userSelection == "E")
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("PROGRAM TERMINATING");
+        Console.ResetColor();
+        Environment.Exit(0); //Exiting the program
+    }
+    else
+    {
+        Utilities.insertBreak();
+        Utilities.invalidInput();
+    }
 }
-else if (userSelection == "L")
-{
-    Utilities.insertBreak();
-    LogInFunction.LogIn();
-}
-else if (userSelection == "G")
-{
-    Utilities.insertBreak();
-    Utilities.guestModeMessage();
-    VehicleManagement.guestMenu();
-}
-else
-{
-    Utilities.insertBreak();
-    Utilities.invalidInput();
-}
+//Presenting the user with the option to sign in as a member of staff (using command line arguments).
 
-need to ensure that every menu for every user works correctly
 // ============================================================================== MAIN PROGRAM ENDS ===================================================
 //Potential Developments
 

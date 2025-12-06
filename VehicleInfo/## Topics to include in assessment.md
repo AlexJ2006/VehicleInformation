@@ -163,8 +163,8 @@ be careful with the submission, we are given a mark based on what we have submit
 ------------------------------ MENUS THAT NEED CHECKING ---------------------
 
 GUEST FUNCTIONS
-    Rent Car
-    Rent Motorcycle
+    **Rent Car**
+    **Rent Motorcycle**
     Rent Van
 
 STAFF FUNCTIONS

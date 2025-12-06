@@ -1,5 +1,6 @@
 using System.Transactions;
 using System.Windows.Markup;
+using SQLitePCL;
 using StoreList;
 
 namespace VehicleInfo
@@ -8,131 +9,137 @@ namespace VehicleInfo
     {
         //Getting the args from the user that allow them to LOG IN as STAFF or ADMIN. 
         public static void staffArgsMenu(string[]? args)
-    {
-        // Load staff data from binary before accessing the dictionary
-        StaffData.LoadFromBinary();
-        AdminData.LoadFromBinary();
-        CustomerData.LoadFromBinary();
-
-        while (true)
         {
-            //Getting the args from the user
-            if (args == null || args.Length == 0)
-                args = Utilities.getUserCommand();
-
-            //If the user wishes to enter the normal menu/mode
-            if (args.Length == 1 && args[0].Equals("E", StringComparison.OrdinalIgnoreCase))
-            {
-                //Displaying a message to the user from utilities.
-                Utilities.nonStaffMenuMessage();
-                VehicleManagement.guestMenu();
-                return;
-            }
-
+            // Load staff data from binary before accessing the dictionary
+            StaffData.LoadFromBinary();
+            AdminData.LoadFromBinary();
+            CustomerData.LoadFromBinary();
+            
             bool loginSuccess = false;
-
-            //If the user has attempted to log in as a member of STAFF 
-            if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
+                
+            if(loginSuccess)
             {
-                //ensuring that the first argument (second but it's first as they begin at 0)
-                //Can be converted to an integer.
-                if (!int.TryParse(args[1], out int id))
-                {
-                    //If not...
-                    Console.WriteLine("Invalid userID format."); //This error message will be shown
-                }
-                else
-                {
-                    string lastName = args[2]; //The second (third) argument should be the surname of the staff member
+                Environment.Exit(0);
+            }
 
-                    if (StaffData.staffDict.TryGetValue(id, out Staff? staff) &&
-                        staff.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+            while (true)
+            {
+                //Getting the args from the user
+                if (args == null || args.Length == 0)
+                    args = Utilities.getUserCommand();
+
+                //If the user wishes to enter the normal menu/mode
+                if (args.Length == 1 && args[0].Equals("E", StringComparison.OrdinalIgnoreCase))
+                {
+                    //Displaying a message to the user from utilities.
+                    Utilities.nonStaffMenuMessage();
+                    VehicleManagement.guestMenu();
+                    Environment.Exit(0);
+                }
+
+                
+                //If the user has attempted to log in as a member of STAFF 
+                if (args.Length == 3 && args[0].Equals("--staff", StringComparison.OrdinalIgnoreCase))
+                {
+                    //ensuring that the first argument (second but it's first as they begin at 0)
+                    //Can be converted to an integer.
+                    if (!int.TryParse(args[1], out int id))
                     {
-                        //The staff member is logged in.
-                        Utilities.insertBreak();
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
-                        Console.ResetColor();
-                        staffMember();
-                        loginSuccess = true;
+                        //If not...
+                        Console.WriteLine("Invalid userID format."); //This error message will be shown
                     }
                     else
                     {
-                        Utilities.insertBreak();
-                        Console.WriteLine("ACCESS DENIED");
+                        string lastName = args[2]; //The second (third) argument should be the surname of the staff member
+
+                        if (StaffData.staffDict.TryGetValue(id, out Staff? staff) &&
+                            staff.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            //The staff member is logged in.
+                            Utilities.insertBreak();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine($"WELCOME STAFF MEMBER {staff.GetName()}");
+                            Console.ResetColor();
+                            staffMember();
+                            loginSuccess = true;
+                        }
+                        else
+                        {
+                            Utilities.insertBreak();
+                            Console.WriteLine("ACCESS DENIED");
+                        }
                     }
                 }
-            }
-            //If the user has attempted to log in as a member of ADMIN 
-            else if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
-            {
-                if (!int.TryParse(args[1], out int id))
+                //If the user has attempted to log in as a member of ADMIN 
+                else if (args.Length == 3 && args[0].Equals("--admin", StringComparison.OrdinalIgnoreCase))
                 {
-                    //If not...
-                    Console.WriteLine("Invalid admin ID format.");
-                }
-                else
-                {
-                    string lastName = args[2];
-
-                    if (AdminData.adminDict.TryGetValue(id, out Admin? admin) &&
-                        admin.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                    if (!int.TryParse(args[1], out int id))
                     {
-                        Utilities.insertBreak();
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"WELCOME ADMIN MEMBER {admin.GetName()}");
-                        Console.ResetColor();
-                        AdminFunction();
-                        loginSuccess = true;
+                        //If not...
+                        Console.WriteLine("Invalid admin ID format.");
                     }
                     else
                     {
-                        Utilities.insertBreak();
-                        Console.WriteLine("ACCESS DENIED");
+                        string lastName = args[2];
+
+                        if (AdminData.adminDict.TryGetValue(id, out Admin? admin) &&
+                            admin.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            Utilities.insertBreak();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine($"WELCOME ADMIN MEMBER {admin.GetName()}");
+                            Console.ResetColor();
+                            AdminFunction();
+                            loginSuccess = true;
+                        }
+                        else
+                        {
+                            Utilities.insertBreak();
+                            Console.WriteLine("ACCESS DENIED");
+                        }
                     }
                 }
-            }
-            //If the user has attempted to log in as a CUSTOMER
-            else if (args.Length == 3 && args[0].Equals("--customer", StringComparison.OrdinalIgnoreCase))
-            {
-                if (!int.TryParse(args[1], out int id))
+                //If the user has attempted to log in as a CUSTOMER
+                else if (args.Length == 3 && args[0].Equals("--customer", StringComparison.OrdinalIgnoreCase))
                 {
-                    //If not...
-                    Console.WriteLine("Invalid customer ID format.");
-                }
-                else
-                {
-                    string lastName = args[2];
-
-                    if (CustomerData.customerDict.TryGetValue(id, out Customer? customer) &&
-                        customer.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                    if (!int.TryParse(args[1], out int id))
                     {
-                        Utilities.insertBreak();
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"WELCOME CUSTOMER {customer.GetName()}");
-                        Console.ResetColor();
-                        CustomerMenuFunctions.CustomerMenu();
-                        loginSuccess = true;
+                        //If not...
+                        Console.WriteLine("Invalid customer ID format.");
                     }
                     else
                     {
-                        Utilities.insertBreak();
-                        Console.WriteLine("ACCESS DENIED");
+                        string lastName = args[2];
+
+                        if (CustomerData.customerDict.TryGetValue(id, out Customer? customer) &&
+                            customer.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            Utilities.insertBreak();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine($"WELCOME CUSTOMER {customer.GetName()}");
+                            Console.ResetColor();
+                            CustomerMenuFunctions.CustomerMenu();
+                            loginSuccess = true;
+                        }
+                        else
+                        {
+                            Utilities.insertBreak();
+                            Console.WriteLine("ACCESS DENIED");
+                        }
                     }
                 }
-            }
-            else
-            {
-                Utilities.errorRedWarning();
-                Console.WriteLine("Invalid command.");
-            }
+                else
+                {
+                    Utilities.errorRedWarning();
+                    Console.WriteLine("Invalid command.");
+                }
 
-            if (loginSuccess)
-                break;
+                if (loginSuccess)
+                    break;
 
-            args = null; // Reset args to ask for input again
+                args = null; // Reset args to ask for input again
+            }
         }
-    }
 
         //If the user logs in as a staff member
         public static void staffMember()
@@ -208,6 +215,7 @@ namespace VehicleInfo
                 {
                     Console.Write("Would you like to ADD MULTIPLE MOTORBIKES?: ");
                     string addMultipleMotorbikes = Console.ReadLine() ?? "";
+                    Utilities.insertBreak();
 
                     if (addMultipleMotorbikes.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
                         addMultipleMotorbikes.Equals("Y", StringComparison.OrdinalIgnoreCase))
@@ -241,6 +249,7 @@ namespace VehicleInfo
                 {
                     Console.Write("Would you like to ADD MULTIPLE VANS?: ");
                     string addMultipleVans = Console.ReadLine() ?? "";
+                    Utilities.insertBreak();
 
                     if (addMultipleVans.Equals("Yes", StringComparison.OrdinalIgnoreCase) ||
                         addMultipleVans.Equals("Y", StringComparison.OrdinalIgnoreCase))
@@ -425,12 +434,18 @@ namespace VehicleInfo
 
                         VehicleManagement.removeVan(VanMake, VanModel);
                     }
+                }
             }
             //else, if the user has selected to EDIT the STORE LIST
             else if (staffMenuChoice.Equals("E", StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("The current list of stores will be displayed below: ");
+                Console.WriteLine("The current list of stores will be displayed below");
+                Utilities.insertBreak();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("PLEASE NOTE:");
+                Utilities.insertBreak();
                 Console.WriteLine("The list will be automatically sorted, alphabetically");
+                Console.ResetColor();
                 Utilities.insertBreak();
 
                 //Displaying the store list
@@ -440,10 +455,16 @@ namespace VehicleInfo
                 //Providing them with another menu, asking how they wish to manipulate the store list
                 Utilities.insertBreak();
                 Console.WriteLine("Please select one of the following functions: ");
+                Utilities.insertBreak();
                 Console.WriteLine("A) ADD STORE(S)");
+                Utilities.insertBreak();
                 Console.WriteLine("R) REMOVE STORE(S)");
+                Utilities.insertBreak();
                 Console.WriteLine("V) VIEW STORE LIST");
+                Utilities.insertBreak();
                 Console.WriteLine("C) CLEAR STORE LIST");
+                Utilities.insertBreak();
+                Console.Write("ENTER YOUR CHOICE: ");
                 string decision = Console.ReadLine() ?? "";
 
                 //If they wish to add a store
@@ -486,12 +507,29 @@ namespace VehicleInfo
                 else if (decision.Equals("V", StringComparison.OrdinalIgnoreCase))
                 {
                     //Asking how many items they wish to view from the list.
-                    string displayNumberOfItems = Console.ReadLine() ?? "";
-                    if (!int.TryParse(displayNumberOfItems, out int intdisplayNumberOfItems))
+                    Utilities.insertBreak();
+                    Console.Write("How many stores would you like to display?: ");
+                    string displayNumberOfStores = Console.ReadLine() ?? "";
+                    int intNumberOfStoresToDisplay;
+                    Utilities.insertBreak();
+
+                    try
+                    {
+                        intNumberOfStoresToDisplay = Convert.ToInt32(displayNumberOfStores); //Converting the string into an integer
+                    }
+                    catch (FormatException) //Catching a format exception
+                    {
+                        Utilities.errorYellowWarning();
+                        Console.Write("Cannot convert '" + displayNumberOfStores + "' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer. //Warning the user that they string cannot be converted into an integer
+                        return;
+                    }
+
+                    if (!int.TryParse(displayNumberOfStores, out int intdisplayNumberOfItems))
                         intdisplayNumberOfItems = StoreInfo.Stores.Count;
 
                     for (int i = 0; i < Math.Min(intdisplayNumberOfItems, StoreInfo.Stores.Count); i++)
                     {
+                        Utilities.insertBreak();
                         Console.WriteLine(StoreInfo.Stores[i]);
                     }
                 }
@@ -510,15 +548,18 @@ namespace VehicleInfo
                     {
                         //Clearing the storeList
                         StoreFunctions.storeListClear();
+                        Environment.Exit(0);
                     }
                     else //If the user does not want to clear the store list
                     {
                         //Letting the user know that the store list has not been cleared (as per their request)
                         Console.WriteLine("Okay, the store list has not been cleared.");
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("You will now be LOGGED OUT.");
+                        Console.ResetColor();
+                        Environment.Exit(0);
                     }
                 }
-            }
             }
             else
             {
@@ -527,6 +568,7 @@ namespace VehicleInfo
                 Utilities.invalidInput();
             }
         }
+    
 
         //Registering the new user.
         public static void RegisterNewUser()

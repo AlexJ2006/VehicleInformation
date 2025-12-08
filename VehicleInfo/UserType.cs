@@ -326,7 +326,8 @@ namespace VehicleInfo
 
                             Console.Write("Enter the car make to remove: ");
                             string CarMake = Console.ReadLine() ?? "";
-
+                            Utilities.insertBreak();
+                            
                             Console.Write("Enter the car model to remove: ");
                             string CarModel = Console.ReadLine() ?? "";
 
@@ -371,11 +372,15 @@ namespace VehicleInfo
 
                             Console.Write("Enter the motorbike make to remove: ");
                             string MotorbikeMake = Console.ReadLine() ?? "";
-
+                            
+                            Utilities.insertBreak();
                             Console.Write("Enter the motorbike model to remove: ");
                             string MotorbikeModel = Console.ReadLine() ?? "";
 
                             VehicleManagement.removeMotorbike(MotorbikeMake, MotorbikeModel);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("MOTORBIKE REMOVED.");
+                            Console.ResetColor();
                         }
                     }
                     else
@@ -385,10 +390,14 @@ namespace VehicleInfo
                         Console.Write("Enter the motorbike make to remove: ");
                         string MotorbikekMake = Console.ReadLine() ?? "";
 
+                        Utilities.insertBreak();
                         Console.Write("Enter the motorbike model to remove: ");
                         string MotorbikeModel = Console.ReadLine() ?? "";
 
                         VehicleManagement.removeMotorbike(MotorbikekMake, MotorbikeModel);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("MOTORBIKE REMOVED.");
+                        Console.ResetColor();
                     }
                 }
                 //Repeating the same logic for VANS as for CARS and MOTORCYCLES
@@ -416,6 +425,7 @@ namespace VehicleInfo
                             Console.Write("Enter van make to remove: ");
                             string VanMake = Console.ReadLine() ?? "";
 
+                            Utilities.insertBreak();
                             Console.Write("Enter van model to remove: ");
                             string VanModel = Console.ReadLine() ?? "";
 
@@ -429,6 +439,7 @@ namespace VehicleInfo
                         Console.Write("Enter van make to remove: ");
                         string VanMake = Console.ReadLine() ?? "";
 
+                        Utilities.insertBreak();
                         Console.Write("Enter van model to remove: ");
                         string VanModel = Console.ReadLine() ?? "";
 
@@ -470,39 +481,50 @@ namespace VehicleInfo
                 //If they wish to add a store
                 if (decision.Equals("A", StringComparison.OrdinalIgnoreCase))
                 {
+                    Utilities.insertBreak();
                     StoreFunctions.storeAdd(); //Running the storeAdd function (to add a store)
-                    Console.WriteLine("Would you like to add another store?: "); //Asking if they wish to add another store
+                    Utilities.insertBreak();
+                    Console.Write("Would you like to add another store?: "); //Asking if they wish to add another store
                     string addMoreStores = Console.ReadLine() ?? "";
                     
                     //If so...
-                    if (addMoreStores.Equals("Yes", StringComparison.OrdinalIgnoreCase))
+                    if (addMoreStores.Equals("Y", StringComparison.OrdinalIgnoreCase))
                     {
                         //They can add another store here
+                        Utilities.insertBreak();
                         StoreFunctions.storeAdd();
+                        Environment.Exit(0);
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Utilities.insertBreak();
                         Console.WriteLine("You will now be logged out, THANK YOU.");
-                        return;
+                        Console.ResetColor();
+                        Environment.Exit(0);
                     }
                 }
                 //If they wish to remove a store from the list
                 else if (decision.Equals("R", StringComparison.OrdinalIgnoreCase))
                 {
+                    Utilities.insertBreak();
                     StoreFunctions.storeRemove(); //Remove store function (from the storeFunctions file)
-                    Console.WriteLine("Would you like to remove another store?: "); //Would they like to remove another store?
+                    Console.Write("Would you like to remove another store?: "); //Would they like to remove another store?
                     string removeMoreStores = Console.ReadLine() ?? "";
 
                     if (removeMoreStores.Equals("Yes", StringComparison.OrdinalIgnoreCase))
                     {
                         //Remove another store
+                        Utilities.insertBreak();
                         StoreFunctions.storeRemove();
                     }
                     else
                     {
                         //If not, they will be logged out. 
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("You will now be logged out, THANK YOU.");
-                        return;
+                        Console.ResetColor();
+                        Environment.Exit(0);
                     }
                 }
                 //Else, if they simply wish to view the store list
@@ -538,7 +560,7 @@ namespace VehicleInfo
                     Utilities.insertBreak();
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("Thank you. You will now be logged out.");
-                    return;
+                    Environment.Exit(0);
                 }
                 //Clearing the store List
                 else if (decision.Equals("C", StringComparison.OrdinalIgnoreCase))
@@ -563,7 +585,7 @@ namespace VehicleInfo
                         Console.WriteLine("Okay, the store list has not been cleared.");
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("You will now be LOGGED OUT.");
-                        return;
+                        Environment.Exit(0);
                     }
                 }
             }
@@ -572,7 +594,6 @@ namespace VehicleInfo
                 //Else, if the user has not selected one of the options provided.
                 //THey are provided with a simple error message.
                 Utilities.invalidInput();
-                break;
             }
         }
     
@@ -657,8 +678,6 @@ namespace VehicleInfo
                 Utilities.insertBreak();
                 Console.WriteLine("V) VIEW STAFF list");
                 Utilities.insertBreak();
-                Console.WriteLine("VAS) VIEW ADMIN staff list");
-                Utilities.insertBreak();
                 Console.WriteLine("G) GENERATE staff report");
                 Utilities.insertBreak();
                 Console.WriteLine("L) LOG OUT");
@@ -676,7 +695,7 @@ namespace VehicleInfo
                     {
                         //Exception handling here.
                         //If the string provided cannot be converted to an integer.
-                        Utilities.errorYellowWarning(); //Provide a preset warning.                    Console.WriteLine($"Cannot convert '{stringStaffID}' to a number. Please RETRY."); //Warning the user that the string they have entered cannot be converted to an integer.
+                        Utilities.errorYellowWarning(); //Provide a preset warning.
                     }
 
                     //If they have met the requirements above with no errors.

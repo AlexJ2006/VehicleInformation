@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.ComponentModel;
+using System.Reflection;
 using VehicleInfo;
 
 //Showing the user the version as per the "Version" tag within the VehicleInfo.csproj file.
@@ -19,43 +20,48 @@ Utilities.getAndShowVersion();
 Utilities.welcomeUser();
 
 
-while(true)
+bool keepRunning = true;
+
+while (keepRunning)
 {
     UserType.staffArgsMenu(args);
 
-    // Utilities.userSelectMenu();
+    Utilities.insertBreak();
+    Console.WriteLine("SELECT L now to LOG OUT");
+    Utilities.insertBreak();
     Console.Write("ENTER YOUR CHOICE: ");
     string userSelection = Console.ReadLine()!.Trim().ToUpper();
 
-    if (userSelection == "C")
+    switch (userSelection)
     {
+        case "C":
+            Utilities.newUserWelcomeMessage();
+            break;
+        case "S":
+            LogInFunction.LogIn();
+            break;
+        case "G":
+            VehicleManagement.guestMenu();
+            break;
+        case "E":
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("PROGRAM TERMINATING");
+            Console.ResetColor();
+            keepRunning = false; // exits loop gracefully
+            break;
+        case "L":
         Utilities.insertBreak();
-        Utilities.newUserWelcomeMessage();
-    }
-    else if (userSelection == "L")
-    {
-        Utilities.insertBreak();
-        LogInFunction.LogIn();
-    }
-    else if (userSelection == "G")
-    {
-        Utilities.insertBreak();
-        Utilities.guestModeMessage();
-        VehicleManagement.guestMenu();
-    }
-    else if (userSelection == "E")
-    {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("PROGRAM TERMINATING");
-        Console.ResetColor();
-        Environment.Exit(0); //Exiting the program
-    }
-    else
-    {
-        Utilities.insertBreak();
-        Utilities.invalidInput();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("YOU WILL NOW BE LOGGED OUT.");
+            Console.ResetColor();
+            Environment.Exit(0);
+            break;
+        default:
+            Utilities.invalidInput();
+            break;
     }
 }
+
 //Presenting the user with the option to sign in as a member of staff (using command line arguments).
 
 // ============================================================================== MAIN PROGRAM ENDS ===================================================

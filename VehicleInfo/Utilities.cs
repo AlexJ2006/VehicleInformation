@@ -46,8 +46,6 @@ namespace VehicleInfo
             Console.WriteLine("  --customer <userID> <surname>");
             Console.WriteLine("  --staff <userID> <surname>");
             Console.WriteLine("  --admin <userID> <surname>");
-            Console.WriteLine("ELSE");
-            Console.WriteLine("Enter E to enter the guest/customer menus");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("**************** USER ALERT ****************");
             Console.ResetColor();
@@ -142,6 +140,7 @@ namespace VehicleInfo
         public static void nonStaffMenuMessage()
         {
             Console.ForegroundColor = ConsoleColor.Green;
+            Utilities.insertBreak();
             Console.WriteLine("ENTERING NORMAL MENU...");
             Console.ResetColor();
         }

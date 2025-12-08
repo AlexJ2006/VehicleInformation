@@ -165,32 +165,36 @@ be careful with the submission, we are given a mark based on what we have submit
 GUEST FUNCTIONS
     **Rent Car**
     **Rent Motorcycle**
-    Rent Van
+    **Rent Van**
 
 STAFF FUNCTIONS
     Add Vehicles
-        Add Car
-        Add Motorbike
-        Add Van
+        **Add Car**
+        **Add Motorbike**
+        **Add Van**
 
     Remove Vehicles
-        Remove Car
-        Remove Motorbike 
-        Remove Van
+        **Remove Car**
+        **Remove Motorbike**
+        **Remove Van**
 
     Edit Store List
+        Add Store
+        Remove Store
+        View Store List
+        Clear List
 
 CUSTOMER FUNCTIONS
-    Rent Car
+    **Rent Car**
     Rent Motorcycle
     Rent Van
 
-ADMIN FUNCTIONS
-    Add Staff Member
-    Remove Staff Member
-    View Staff Member List
-    Generate Staff Report
-    Log Out
+ADMIN FUNCTIONS - FULLY WORKING AS EXPECTED
+   **Add Staff Member**
+    **Remove Staff Member**
+    **View Staff Member List**
+    **Generate Staff Report**
+    **Log Out**
 
 
 

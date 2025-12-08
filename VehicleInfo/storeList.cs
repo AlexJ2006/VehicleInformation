@@ -13,23 +13,22 @@ namespace StoreList
 
         private static bool isLoaded = false;
 
-        // Static constructor runs once when the class is first used
-        static StoreInfo()
+        //Saving the stores to the JSON file.
+        public static void SaveStores()
         {
-            LoadStores();
+            string json = JsonSerializer.Serialize(Stores, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, json);
         }
 
         // Loads store list from JSON
-        private static void LoadStores(bool forceReload = false)
+        public static void LoadStores(bool forceReload = true)
         {
-            if (isLoaded && !forceReload)
+            if (!forceReload && isLoaded)
                 return;
 
             if (!File.Exists(filePath))
             {
-                CreateDefaultJson();   // Creates file if it doesn't exist
-                isLoaded = true;
-                return;
+                CreateDefaultJson();
             }
 
             string json = File.ReadAllText(filePath);
@@ -40,13 +39,14 @@ namespace StoreList
             }
             catch
             {
-                Console.WriteLine("Error reading storeList.json — creating a fresh file.");
+                Console.WriteLine("FILE NOT FOUND. CREATING NEW FILE..");
                 CreateDefaultJson();
                 Stores = JsonSerializer.Deserialize<List<string>>(File.ReadAllText(filePath))!;
             }
 
             isLoaded = true;
         }
+
 
         // Creates the JSON file with default stores
         private static void CreateDefaultJson()
@@ -73,6 +73,3 @@ namespace StoreList
         }
     }
 }
-
-//NEED TO UPDATE ANY REFERENCES TO THIS FILE SO THAT THEY WILL UOPDATE TO THE JSON
-//FOR EXAMPLE WHEN ADDING STORES THEY NEED TO BE ADDED, WHEN CLEARING ETC AND REMOVING THE JSON NEEDS TO BE UPDATED

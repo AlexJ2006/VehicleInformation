@@ -53,8 +53,10 @@ namespace VehicleInfo
                 }
 
                 //If everything goes smoothly...
+                Console.ForegroundColor = ConsoleColor.Green;
                 Utilities.insertBreak();
                 Console.WriteLine("The options meeting your criteria are: ");
+                Console.ResetColor();
                 Utilities.insertBreak();
 
                 //Displaying the options to the user
@@ -108,6 +110,7 @@ namespace VehicleInfo
                     return;
                 }
 
+                //Adding the chosen number of days onto the start date... giving the user the end date.
                 DateTime rentalEndDate = rentalStartDate.AddDays(numberOfDaysRental);
 
                 //Repeating the user's choices back to the user for confirmation that they are correct
@@ -161,7 +164,7 @@ namespace VehicleInfo
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("The Car has NOT been rented.");
                     Console.ResetColor();
-                    return;
+                    Environment.Exit(0);
                 }
                 else
                 {
@@ -190,8 +193,10 @@ namespace VehicleInfo
                     return;
                 }
 
+                Console.ForegroundColor = ConsoleColor.Green;
                 Utilities.insertBreak();
-                Console.WriteLine("Your Options are: ");
+                Console.WriteLine("The options meeting your criteria are: ");
+                Console.ResetColor();
                 Utilities.insertBreak();
 
                 var motorbikeList =
@@ -289,7 +294,7 @@ namespace VehicleInfo
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("The Motorbike has NOT been rented.");
                     Console.ResetColor();
-                    return;
+                    Environment.Exit(0);
                 }
                 else
                 {
@@ -326,8 +331,10 @@ namespace VehicleInfo
                     return;
                 }
 
+                Console.ForegroundColor = ConsoleColor.Green;
                 Utilities.insertBreak();
-                Console.WriteLine("Your Options are: ");
+                Console.WriteLine("The options meeting your criteria are: ");
+                Console.ResetColor();
                 Utilities.insertBreak();
 
                 var vanList = VanData.vanDict
@@ -424,7 +431,7 @@ namespace VehicleInfo
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("The Van has NOT been rented.");
                     Console.ResetColor();
-                    return;
+                    Environment.Exit(0);
                 }
                 else
                 {
@@ -549,7 +556,7 @@ namespace VehicleInfo
                 //The user will be told that their input is invalid
                 Utilities.invalidInput();
                 Console.WriteLine("Please EXIT and RETRY.");
-                return;
+                Environment.Exit(0);
             }
 
             //If the number plate can already be found within the dictionary
@@ -684,7 +691,7 @@ namespace VehicleInfo
             {
                 Utilities.invalidInput();
                 Console.WriteLine("Please EXIT and RETRY.");
-                return;
+                Environment.Exit(0);
             }
 
             if (VanData.vanDict.ContainsKey(vanPlate))

@@ -9,7 +9,9 @@ namespace VehicleInfo
         //Creating the customer menu
         public static void CustomerMenu()
         {
-            Utilities.insertBreak();
+            //Setting the current data and time for the start of the rental.
+            DateTime customerRentalStartDate = DateTime.Today;
+
             Utilities.insertBreak();
             Console.WriteLine("Which type of vehicle would you like to RENT?:");
             Utilities.insertBreak();
@@ -47,8 +49,10 @@ namespace VehicleInfo
                 }
 
                 //If everything goes smoothly...
+                Console.ForegroundColor = ConsoleColor.Green;
                 Utilities.insertBreak();
                 Console.WriteLine("The options meeting your criteria are: ");
+                Console.ResetColor();
                 Utilities.insertBreak();
 
                 //Displaying the options to the user
@@ -80,8 +84,9 @@ namespace VehicleInfo
                 Console.Write("MODEL: ");
                 string userCarModelSelection = Console.ReadLine()!;
                 Utilities.insertBreak();
-                Console.Write("NUMBER PLATE: "); 
-                string userNumberPlateSelection = Console.ReadLine()!;  
+                Console.Write("NUMBER PLATE: ");
+                string userNumberPlateSelection = Console.ReadLine()!;
+                Utilities.insertBreak();
                 Console.Write("How many days would you like to rent the CAR for?: ");
                 string stringNumberOfDaysRental = Console.ReadLine()!;
                 int numberOfDaysRental;
@@ -100,11 +105,15 @@ namespace VehicleInfo
                     return;
                 }
 
+                //Adding the chosen number of days onto the start date... giving the customer the end date.
+                DateTime customerRentalEndDate = customerRentalStartDate.AddDays(numberOfDaysRental);
+
                 //Repeating the user's choices back to the user for confirmation that they are correct
                 Utilities.insertBreak();
                 Console.WriteLine($"You would like to rent the {userCarMakeSelection} {userCarModelSelection}");
                 Utilities.insertBreak();
                 Console.WriteLine($"For {numberOfDaysRental} days?");
+                Utilities.insertBreak();
                 Console.Write("Press Y to CONTINUE: ");
                 string continueWithRental = Console.ReadLine()!;
                 Utilities.insertBreak();
@@ -124,8 +133,14 @@ namespace VehicleInfo
                         int totalPrice = userCarSelection.GetPricePerDay() * numberOfDaysRental;
                         Console.WriteLine($"Your total will be £{totalPrice}"); //Displaying the total price to the user
 
+                        Utilities.insertBreak();
                         VehicleManagement.removeCar(userCarMakeSelection, userCarModelSelection); //Removing the car from the list so someone else cannot also rent it (until it is re-added by a member of staff)
+                        Utilities.insertBreak();
                         Console.WriteLine($"Thank you, you have rented the {userCarMakeSelection} {userCarModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}"); //The final summary of the rental is displayed to the user
+                        Utilities.insertBreak();
+                        Console.WriteLine($"Rental START date {customerRentalStartDate: dd/MM/yy}");
+                        Utilities.insertBreak();
+                        Console.WriteLine($"Rental END date {customerRentalEndDate: dd/MM/yy}");
                     }
                     else
                     {
@@ -139,8 +154,13 @@ namespace VehicleInfo
                 else if (continueWithRental.Equals("N", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine("Thank you.");
+                    Utilities.insertBreak();
                     Console.WriteLine("The program will now TERMINATE."); //The program ends
-                    return;
+                    Utilities.insertBreak();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("The Car has NOT been rented.");
+                    Console.ResetColor();
+                    Environment.Exit(0);
                 }
                 else
                 {
@@ -170,8 +190,10 @@ namespace VehicleInfo
                     return;
                 }
 
+                Console.ForegroundColor = ConsoleColor.Green;
                 Utilities.insertBreak();
-                Console.WriteLine("Your Options are: ");
+                Console.WriteLine("The options meeting your criteria are: ");
+                Console.ResetColor();
                 Utilities.insertBreak();
 
                 var motorbikeList =
@@ -190,7 +212,6 @@ namespace VehicleInfo
                     Console.WriteLine($"{motorbike.Make} - {motorbike.Model} - {motorbike.NumberPlate} - £{motorbike.PricePerDay}/day");
                     Utilities.insertBreak();
                 }
-
 
                 Console.WriteLine("Please fill out the following fields for the MOTORBIKE you wish to RENT");
                 Utilities.insertBreak();
@@ -217,6 +238,8 @@ namespace VehicleInfo
                     return;
                 }
 
+                DateTime customerRentalEndDate = customerRentalStartDate.AddDays(numberOfDaysRental);
+
                 Utilities.insertBreak();
                 Console.WriteLine($"You would like to rent the {userMotorbikeMakeSelection} {userMotorbikeModelSelection}");
                 Utilities.insertBreak();
@@ -240,11 +263,33 @@ namespace VehicleInfo
 
                     VehicleManagement.removeMotorbike(userMotorbikeMakeSelection, userMotorbikeModelSelection);
                     Console.WriteLine($"Thank you, you have rented the {userMotorbikeMakeSelection} {userMotorbikeModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}");
+                    Utilities.insertBreak();
+                    Console.WriteLine($"Rental START date {customerRentalStartDate: dd/MM/yy}");
+                    Utilities.insertBreak();
+                    Console.WriteLine($"Rental END date {customerRentalEndDate: dd/MM/yy}");
                 }
                 else
                 {
-                    Console.WriteLine("MOTORBIKE NOT FOUND.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("MOTORBIKE NOT FOUND");
+                    Console.ResetColor();
                 }
+                }
+                //If the user decides not to continue with the rental...
+                else if (continueWithRental.Equals("N", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("Thank you.");
+                    Utilities.insertBreak();
+                    Console.WriteLine("The program will now TERMINATE."); //The program ends
+                    Utilities.insertBreak();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("The Motorbike has NOT been rented.");
+                    Console.ResetColor();
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Utilities.invaliInputDuringRental();
                 }
             }
 
@@ -277,8 +322,10 @@ namespace VehicleInfo
                     return;
                 }
 
+                Console.ForegroundColor = ConsoleColor.Green;
                 Utilities.insertBreak();
-                Console.WriteLine("Your Options are: ");
+                Console.WriteLine("The options meeting your criteria are: ");
+                Console.ResetColor();
                 Utilities.insertBreak();
 
                 var vanList = VanData.vanDict
@@ -324,6 +371,8 @@ namespace VehicleInfo
                     return;
                 }
 
+                DateTime customerRentalEndDate = customerRentalStartDate.AddDays(numberOfDaysVanRental);
+
                 Utilities.insertBreak();
                 Console.WriteLine($"You would like to rent the {userVanMakeSelection} {userVanModelSelection}");
                 Console.WriteLine($"For {numberOfDaysVanRental} days?");
@@ -347,17 +396,36 @@ namespace VehicleInfo
 
                         VehicleManagement.removeVan(userVanMakeSelection, userVanModelSelection);
                         Console.WriteLine($"Thank you, you have rented the {userVanMakeSelection} {userVanModelSelection} for {numberOfDaysVanRental} days, costing £{totalPrice}");
+                        Utilities.insertBreak();
+                        Console.WriteLine($"Rental START date {customerRentalStartDate: dd/MM/yy}");
+                        Utilities.insertBreak();
+                        Console.WriteLine($"Rental END date {customerRentalEndDate: dd/MM/yy}");
                     }
+                
                     else
                     {
-                        Console.WriteLine("VAN NOT FOUND");
+                        //If the car cannot be found, an error message is presented to the user
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("MOTORBIKE NOT FOUND");
+                        Console.ResetColor();
                     }
+                }
+                else if (continueWithVanRental.Equals("N", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("Thank you.");
+                    Utilities.insertBreak();
+                    Console.WriteLine("The program will now TERMINATE."); //The program ends
+                    Utilities.insertBreak();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("The Van has NOT been rented.");
+                    Console.ResetColor();
+                    Environment.Exit(0);
                 }
                 else
                 {
-                    Utilities.invalidInput();
+                    //If the user has inputted something incorrectly during the rental, the error message will be taken from Utiltiies and displayed to them
+                    Utilities.invaliInputDuringRental();
                 }
-
             }
         }
     }

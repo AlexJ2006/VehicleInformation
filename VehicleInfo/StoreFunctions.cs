@@ -24,8 +24,10 @@ namespace VehicleInfo
                 Console.ResetColor();
                 Utilities.insertBreak();
                 Console.WriteLine("Would you like to view the list?");
+                Utilities.insertBreak();
                 Console.Write("Y OR N: ");
                 string viewList = Console.ReadLine()!;
+                Utilities.insertBreak();
 
                 if (viewList.Equals("Y", StringComparison.OrdinalIgnoreCase)) //If they have selected yes
                 {

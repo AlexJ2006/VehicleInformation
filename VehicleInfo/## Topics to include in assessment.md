@@ -186,8 +186,8 @@ STAFF FUNCTIONS
 
 CUSTOMER FUNCTIONS
     **Rent Car**
-    Rent Motorcycle
-    Rent Van
+    **Rent Motorcycle**
+    **Rent Van**
 
 ADMIN FUNCTIONS - FULLY WORKING AS EXPECTED
    **Add Staff Member**

@@ -327,7 +327,7 @@ namespace VehicleInfo
                             Console.Write("Enter the car make to remove: ");
                             string CarMake = Console.ReadLine() ?? "";
                             Utilities.insertBreak();
-                            
+
                             Console.Write("Enter the car model to remove: ");
                             string CarModel = Console.ReadLine() ?? "";
 
@@ -509,10 +509,11 @@ namespace VehicleInfo
                 {
                     Utilities.insertBreak();
                     StoreFunctions.storeRemove(); //Remove store function (from the storeFunctions file)
+                    Utilities.insertBreak();
                     Console.Write("Would you like to remove another store?: "); //Would they like to remove another store?
                     string removeMoreStores = Console.ReadLine() ?? "";
 
-                    if (removeMoreStores.Equals("Yes", StringComparison.OrdinalIgnoreCase))
+                    if (removeMoreStores.Equals("Y", StringComparison.OrdinalIgnoreCase))
                     {
                         //Remove another store
                         Utilities.insertBreak();
@@ -521,6 +522,7 @@ namespace VehicleInfo
                     else
                     {
                         //If not, they will be logged out. 
+                        Utilities.insertBreak();
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("You will now be logged out, THANK YOU.");
                         Console.ResetColor();

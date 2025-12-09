@@ -219,6 +219,7 @@ namespace VehicleInfo
                 string userMotorbikeMakeSelection = Console.ReadLine()!;
                 Utilities.insertBreak();
                 Console.Write("MODEL: ");
+                Utilities.insertBreak();
                 string userMotorbikeModelSelection = Console.ReadLine()!;
                 Console.Write("NUMBER PLATE: ");
                 string userNumberPlateSelection = Console.ReadLine()!; 
@@ -244,6 +245,7 @@ namespace VehicleInfo
                 Console.WriteLine($"You would like to rent the {userMotorbikeMakeSelection} {userMotorbikeModelSelection}");
                 Utilities.insertBreak();
                 Console.WriteLine($"For {numberOfDaysRental} days?");
+                Utilities.insertBreak();
                 Console.Write("Press Y to CONTINUE: ");
                 string continueWithRental = Console.ReadLine()!;
                 Utilities.insertBreak();
@@ -261,6 +263,7 @@ namespace VehicleInfo
                     int totalPrice = userMotorbikeSelection.GetPricePerDay() * numberOfDaysRental;
                     Console.WriteLine($"Your total will be £{totalPrice}");
 
+                    Utilities.insertBreak();
                     VehicleManagement.removeMotorbike(userMotorbikeMakeSelection, userMotorbikeModelSelection);
                     Console.WriteLine($"Thank you, you have rented the {userMotorbikeMakeSelection} {userMotorbikeModelSelection} for {numberOfDaysRental} days, costing £{totalPrice}");
                     Utilities.insertBreak();
@@ -353,6 +356,7 @@ namespace VehicleInfo
                 Utilities.insertBreak();
                 Console.Write("MODEL: ");
                 string userVanModelSelection = Console.ReadLine()!;
+                Utilities.insertBreak();
                 Console.Write("NUMBER PLATE: ");
                 string userNumberPlateSelection = Console.ReadLine()!; 
                 Utilities.insertBreak();
@@ -375,6 +379,7 @@ namespace VehicleInfo
 
                 Utilities.insertBreak();
                 Console.WriteLine($"You would like to rent the {userVanMakeSelection} {userVanModelSelection}");
+                Utilities.insertBreak();
                 Console.WriteLine($"For {numberOfDaysVanRental} days?");
                 Utilities.insertBreak();
                 Console.Write("Press Y to CONTINUE: ");
@@ -394,6 +399,7 @@ namespace VehicleInfo
                         int totalPrice = userVanSelection.GetPricePerDay() * numberOfDaysVanRental;
                         Console.WriteLine($"Your total will be £{totalPrice}");
 
+                        Utilities.insertBreak();
                         VehicleManagement.removeVan(userVanMakeSelection, userVanModelSelection);
                         Console.WriteLine($"Thank you, you have rented the {userVanMakeSelection} {userVanModelSelection} for {numberOfDaysVanRental} days, costing £{totalPrice}");
                         Utilities.insertBreak();

@@ -257,11 +257,11 @@ namespace VehicleInfo
 
                 if (continueWithRental == "Y" || continueWithRental == "y")
                 {
-                   var userMotorbikeSelection = MotorbikeData.motorbikeDict.Values.FirstOrDefault(motorbike =>
-                !string.IsNullOrEmpty(motorbike.GetMake()) &&
-                !string.IsNullOrEmpty(motorbike.GetModel()) &&
-                motorbike.GetMake()!.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
-                motorbike.GetModel()!.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
+                    var userMotorbikeSelection = MotorbikeData.motorbikeDict.Values.FirstOrDefault(motorbike =>
+                    !string.IsNullOrEmpty(motorbike.GetMake()) &&
+                    !string.IsNullOrEmpty(motorbike.GetModel()) &&
+                    motorbike.GetMake()!.Equals(userMotorbikeMakeSelection, StringComparison.OrdinalIgnoreCase) &&
+                    motorbike.GetModel()!.Equals(userMotorbikeModelSelection, StringComparison.OrdinalIgnoreCase));
 
                 if (userMotorbikeSelection != null)
                 {

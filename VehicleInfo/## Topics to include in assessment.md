@@ -179,10 +179,10 @@ STAFF FUNCTIONS
         **Remove Van**
 
     Edit Store List
-        Add Store
-        Remove Store
-        View Store List
-        Clear List
+        **Add Store**
+        **Remove Store**
+        **View Store List**
+        **Clear List**
 
 CUSTOMER FUNCTIONS
     **Rent Car**

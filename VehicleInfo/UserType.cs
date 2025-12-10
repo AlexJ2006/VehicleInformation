@@ -568,10 +568,16 @@ namespace VehicleInfo
                 else if (decision.Equals("C", StringComparison.OrdinalIgnoreCase))
                 {
                     //ASking if they are SURE they wish to clear the list.
+                    Utilities.insertBreak();
                     Console.WriteLine("Are you sure you wish to CLEAR the STORE LIST? ");
+                    Utilities.insertBreak();
                     Console.WriteLine("Y OR N");
+                    Utilities.insertBreak();
                     Utilities.errorRedWarning();
+                    Utilities.insertBreak();
                     Console.WriteLine("THIS ACTION CANNOT BE UNDONE"); //Warning them that this cannot be undone.
+                    Utilities.insertBreak();
+                    Console.Write("ENTER YOUR CHOICE: ");
                     string continueWithClearance = Console.ReadLine() ?? "";
 
                     //If they still wish to continue
@@ -584,7 +590,11 @@ namespace VehicleInfo
                     else //If the user does not want to clear the store list
                     {
                         //Letting the user know that the store list has not been cleared (as per their request)
-                        Console.WriteLine("Okay, the store list has not been cleared.");
+                        Utilities.insertBreak();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("THE STORE LIST HAS NOT BEEN CLEARED.");
+                        Console.ResetColor();
+                        Utilities.insertBreak();
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("You will now be LOGGED OUT.");
                         Environment.Exit(0);

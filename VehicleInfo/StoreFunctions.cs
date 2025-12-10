@@ -40,8 +40,6 @@ namespace VehicleInfo
                     Console.WriteLine("Process complete. Thank you."); //Letting them know that the process is complete
                     Console.ResetColor();
                 }
-
-                return;
             }
             else //If the store already exists within the list...
             {
@@ -64,8 +62,6 @@ namespace VehicleInfo
                     Console.WriteLine("Please RETRY.");
                     Console.ResetColor();
                 }
-
-                return;
             }
         }
 
@@ -88,6 +84,7 @@ namespace VehicleInfo
                 StoreInfo.SaveStores();
                 Utilities.insertBreak();
                 Console.WriteLine("Would you like to view the list?"); //Asking the user if they would like to view the list
+                Utilities.insertBreak();
                 Console.Write("Y OR N: ");
                 string viewList = Console.ReadLine()!;
 
@@ -99,7 +96,7 @@ namespace VehicleInfo
                 {
                     Console.ForegroundColor = ConsoleColor.Green; //Changing the colour to green, manually again.
                     Utilities.insertBreak();
-                    Console.WriteLine("Process complete. Thank you."); //Letting them know that the process is complete
+                    Console.WriteLine("Process Complete. Thank you."); //Letting them know that the process is complete
                     Console.ResetColor();
                 }
                 return;
@@ -112,6 +109,7 @@ namespace VehicleInfo
 
                 Utilities.insertBreak();
                 Console.WriteLine("Would you like to view the list?"); //They are asked if they would like to view the list
+                Utilities.insertBreak();
                 Console.Write("Y OR N: ");
                 string viewList = Console.ReadLine()!;
 
@@ -144,10 +142,14 @@ namespace VehicleInfo
 
         //The function that clears the storelist
         public static void storeListClear()
-        {
+        {   
+
             StoreInfo.LoadStores(); //Ensure the latest stores are loaded
             var stores = StoreInfo.Stores;
-
+            Utilities.insertBreak();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("STORE LIST CLEARED");
+            Console.ResetColor();
             stores.Clear();
             StoreInfo.SaveStores();
         }

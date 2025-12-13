@@ -456,24 +456,6 @@ namespace VehicleInfo
             VanData.LoadFromBinary();
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //The function that allows the staff members to add cars 
         public static void addCar()
         {
@@ -585,38 +567,7 @@ namespace VehicleInfo
             Console.WriteLine("CAR ADDED"); //Providing the user with a message detailing that the car has been added
             Console.ResetColor();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
         //Repeating the same logic as above but for the vans
         public static void addVan()
         {
